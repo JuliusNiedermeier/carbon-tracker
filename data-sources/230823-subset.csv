@@ -1,0 +1,50 @@
+Custom, 2021, Electricity, Guyana, MWh,,634.1500,,,,,,,,,
+Custom, 2021, Expenses, BIP, €,0.2603,,,,,,,,,,
+ADEME, 2014, Purchased Goods / Material use, Chemicals, Nitric acid Salpetersäure 50% (HNO3), France, t,3180.0000,,,,,,,,,,100
+ADEME, 2014, Purchased Goods / Material use, Chemicals, Sodium hypochlorite Natriumhypochlorit 15% (NaClO), France, t,920.0000,,,,,,,,,,100
+ADEME, 2014, Purchased Goods / Material use, Chemicals, Sodium sulphate Natriumsulfat (Na2SO4), France, t,473.0000,,,,,,,,,,100
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Anthracite) + WTT, France, Kilogram, kg,2.8660,2.7081,0.1488,0.0106,,,,,,,20
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Bituminous) + WTT, SCV 17435 - 23865 , Energy - Net CV, GJ (Net CV),105.6500,99.3000,5.5800,0.7950,,,,,,,20
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Bituminous) + WTT, SCV 17435 - 23865 , Energy - Net CV, kWh (Net CV),0.3809,0.3579,0.0201,0.0029,,,,,,,20
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Bituminous) + WTT, SCV 17435 - 23865 , Kilogram, kg,2.1170,1.9860,0.1116,0.0159,,,,,,,20
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Coke) + WTT, SCV > 23865 kJ/kg - France, Energy - Net CV, GJ (Net CV),104.8000,98.3000,5.7300,0.7950,,,,,,,20
+ADEME, 2017, Fuels (incl. WTT), Solid fuels + WTT, Coal (Coke) + WTT, SCV > 23865 kJ/kg - France, Kilogram, kg,2.7200,2.5558,0.1448,0.0207,,,,,,,20
+DBEIS, 2022, WTT- pass vehs & travel- land, WTT- motorbike, Small, miles,0.0367,,,,,,,,,,
+DBEIS, 2022, WTT- pass vehs & travel- land, WTT- rail, International rail, passenger.km,0.0012,,,,,,,,,,
+DBEIS, 2022, WTT- pass vehs & travel- land, WTT- taxis, Regular taxi, passenger.km,0.0363,,,,,,,,,,
+DBEIS, 2022, WTT- UK & overseas elec, WTT- UK electricity (generation), Electricity: UK, kWh,0.0463,,,,,,,,,,
+DBEIS, 2022, WTT- UK & overseas elec, WTT- UK electricity (T&D), Electricity: UK, kWh,0.0042,,,,,,,,,,
+Ember/DBEIS, 2018, Electricity (incl. WTT + T&D), Australia, MWh,,748.0140,,,,,,,,,
+Ember/DBEIS, 2018, Electricity (incl. WTT + T&D), Brazil, MWh,,137.3650,,,,,,,,,
+Ember/DBEIS, 2021, Electricity (incl. WTT + T&D), Ukraine, MWh,,355.4831,,,,,,,,,
+Ember/DBEIS, 2021, Electricity (incl. WTT + T&D), US, MWh,,490.9643,,,,,,,,,
+EuPIA, 2020, Purchased Goods / Material use, Printing ink Druckfarbe, kg,3.2640,,,,,,,,,https://www.eupia.org/fileadmin/FilesAndTradExtx_edm/Eco_Footprint_and_Screening_of_Virtual_reference_01.pdf,30
+Gemis, 2020, Purchased Goods / Material use, Chemicals, Glycol (grinding aid), kg,2.1315,,,,,,,,,Chem-Org\Propylenglycol-DE-2020,
+Gemis, 2020, Purchased Goods / Material use, Chemicals, Urea, kg,0.7235,,,,,,,,,Chem-Org\Harnstoff-DE-2020,
+EMBER Global Electricity Review 2022, 2018, Electricity, Afghanistan , MWh,,136.7520,,,,,,,,,10
+EMBER Global Electricity Review 2022, 2018, Electricity, Africa, MWh,,508.2800,,,,,,,,,10
+EMBER Global Electricity Review 2022, 2021, Electricity, United Kingdom, MWh,,268.2550,,,,,,,,,10
+EMBER Global Electricity Review 2022, 2021, Electricity, United States of America, MWh,,378.6250,,,,,,,,,10
+EMBER Global Electricity Review 2022, 2021, Electricity, Viet Nam, MWh,,491.1920,,,,,,,,,10
+ÖKOBAUDAT, 2018, Purchased Goods / Material use, Metal, Steel without recycling, GRIND BALLS STEEL, Germany, Switzerland, t,2970.0000,,,,,,,,,,
+OpenLCA, 2018, Purchased Goods / Material use, Chemicals, Citric Acid Zitronensäure, Europe, Primary material production, kg,2.8780,,,,,,,,,"Database: Agribalyse v301&#44; impact assessment method: IPCC 2013 GWP100a",
+OpenLCA, 2020, Purchased Goods / Material use, Chemicals, Potassium permanganate Kaliumpermanganat (KMnO4), production mix, technology mix, 100% active substance, Europe, Primary material production, kg,1.2330,,,,,,,,,,Database: EF-Secondary
+OpenLCA, 2020, Purchased Goods / Material use, Chemicals, Sodium sulphate Natriumsulfat (Na2SO4), production mix, technology mix, 100% active substance, Europe, Primary material production, kg,0.6160,,,,,,,,,,Database: EF-Secondary
+OpenLCA, 2020, Purchased Goods / Material use, Construction, Beton - EF-Secondary - Concrete C20/25 (Ready-mix concrete), production mix, at plant, technology mix, C20/25, Germany, Primary material production, t,91.0000,,,,,,,,,"Converted from source to t (EF*1000)&#44; Der Datensatz deckt alle relevanten Prozessschritte/Technologien entlang der Lieferkette des dargestellten Cradle-to-Gate-Inventars mit einer guten Gesamtdatenqualität ab. Das Inventar basiert hauptsächlich auf Industriedaten und wird&#44; wo nötig&#44; durch Sekundärdaten ergänzt.",
+OpenLCA, 2020, Purchased Goods / Material use, Zinc Oxide Zinkoxid ZnO, solid zinc oxide powder production mix, at plant, technology mix, 100% active substance, Europe, Primary material production, kg,0.8337,,,,,,,,,EF-Secondary Data,
+OpenLCA, 2022, Purchased Goods / Material use, Zinc Oxide Zinkoxid ZnO, zinc oxide production, Europe, Primary material production, kg,0.7329,,,,,,,,,"Agribalyse v301&#44; impact assessment method: IPCC 2013 GWP100a",
+OpenLCA: IPCC 2013 GWP 100, 0000, Purchased Goods / Material use, Chemicals, Calcium oxide CaO, kg,1.5300,,,,,,,,,,
+OpenLCA: IPCC 2013 GWP 100, 0000, Purchased Goods / Material use, Other, Hydrate Lime (BB), kg,1.5300,,,,,,,,,,
+Our World in Data, 2021, Purchased Goods / Material use, Other, Based on national GDP, Belgium, Spend based, €,,0.1901,,,,,,,,"https://ourworldindata.org/co2/country/germany?country=DEU~FRA~NLD~BEL#per-capita-how-much-co2-does-the-average-person-emit\nhttps://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=DE-FR-NL-BE&start=2018",
+Our World in Data, 2021, Purchased Goods / Material use, Other, Based on national GDP, Brasil, Spend based, €,,0.3591,,,,,,,,"https://ourworldindata.org/co2/country/germany?country=DEU~FRA~NLD~BEL#per-capita-how-much-co2-does-the-average-person-emit\nhttps://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=CN-BR-US-SG-JP&start=2018\nhttps://de.statista.com/statistik/daten/studie/200194/umfrage/wechselkurs-des-euro-gegenueber-dem-us-dollar-seit-2001/",
+Our World in Data, 2021, Purchased Goods / Material use, Other, Based on national GDP, Netherland, Spend based, €,,0.1650,,,,,,,,"https://ourworldindata.org/co2/country/germany?country=DEU~FRA~NLD~BEL#per-capita-how-much-co2-does-the-average-person-emit\nhttps://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=DE-FR-NL-BE&start=2018",
+Our World in Data, 2021, Purchased Goods / Material use, Other, Based on national GDP, Sinagpore, Spend based, €,,0.0888,,,,,,,,"https://ourworldindata.org/co2/country/germany?country=DEU~FRA~NLD~BEL#per-capita-how-much-co2-does-the-average-person-emit\nhttps://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=CN-BR-US-SG-JP&start=2018\nhttps://de.statista.com/statistik/daten/studie/200194/umfrage/wechselkurs-des-euro-gegenueber-dem-us-dollar-seit-2001/",
+Our World in Data, 2021, Purchased Goods / Material use, Other, Based on national GDP, US, Spend based, €,,0.2501,,,,,,,,"https://ourworldindata.org/co2/country/germany?country=DEU~FRA~NLD~BEL#per-capita-how-much-co2-does-the-average-person-emit\nhttps://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=CN-BR-US-SG-JP&start=2018\nhttps://de.statista.com/statistik/daten/studie/200194/umfrage/wechselkurs-des-euro-gegenueber-dem-us-dollar-seit-2001/",
+Probas, 2000, Purchased Goods / Material use, Construction, Splitt, Germany - Xtra-AbbauSplitt-DE-2000, Primary material production, t,6.7000,6.2700,0.1266,0.2730,0.0000,,0.0000,,0.0013,,
+ProBas, 2004, Purchased Goods / Material use, Chemicals, Epoxidharz, Europe, kg,6.8100,5.9250,0.8708,0.0002,0.0000,0.0000,0.0000,,0.0343,,
+ProBas, 2004, Purchased Goods / Material use, Chemicals, Hydrogen Wasserstoff (H2) - Grey - Wasserstoff, Europe - Prozessdetails: Wasserstoff, Primary material production, t,1702.0000,1219.0000,484.4401,0.3631,0.0000,0.0000,0.0001,,19.8000,CO2 regenerativ: 4&#44;81 kg/t,
+ProBas, 2004, Purchased Goods / Material use, Chemicals, Magnesium sulfate Magnesiumsulfat (MgSO4), Europe - Magnesiumsulfat, Extraction and production, t,295.0000,280.0000,12.6001,2.7825,0.0000,0.0000,0.0000,,0.5870,CO2 regenerativ: 13,6 kg/t,
+ProBas, 2004, Purchased Goods / Material use, Chemicals, Vacuum salt Siedesalz Lösung (NaCl), Europe - Siedesalz, Primary material production, t,63.2000,60.2000,2.5760,0.4055,0.0000,0.0000,0.0000,,0.1130,CO2 regenerativ: 1&#44;71 kg/t,
+Probas, 2004, Purchased Goods / Material use, Construction, Asphalt, Germany, Primary material production, t,197.0000,179.0000,17.9487,0.5512,0.0000,0.0000,0.0000,,0.7600,"CO2 regenerativ: 7&#44;11 kg/t&#44; Source: Asphalt&#44; Zusammensetzung Guss-Asphalt (Gew.-%): Kalkstein-Pulver 26&#44; Sand/Grit 66&#44; Bitumen 6&#44; natürliches Bitumen 2",
+ProBas, 2005, Purchased Goods / Material use, Chemicals, Hydrogen electrolytic Wasserstoff Elektrolyse (H2), hydrogen (electrolytic), Primary material production, kg,0.9500,0.8121,0.1646,0.0000,0.0000,,,,0.0000,,
+ProBas, 2010, Purchased Goods / Material use, Chemicals, Caustic soda Natronlauge 50% NaOH (50% Amalgam, 40% Diaphragma, 10% Membran), Chem-anorgNaOH-mix-DE-2010, Primary material production, kg,0.4600,0.4360,0.0187,0.0063,,,0.0000,,,,
