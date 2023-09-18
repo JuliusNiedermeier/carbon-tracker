@@ -68,7 +68,7 @@ export const getEmissionFactorReccommendations = async (query: string, filters?:
     },
     where: and(...filterStatements, sql`${EmissionFactor.embedding} <-> ${formattedEmbedding} < 0.7`),
     orderBy: sql`${EmissionFactor.embedding} <-> ${formattedEmbedding}`,
-    limit: 20,
+    limit: 50,
   });
 
   const emissionFactorCategoryPaths = await getEmissionFactorCategoryPath(factors.map((factor) => factor.emissionFactorCategory.id));
