@@ -15,20 +15,24 @@ export const updateActvity = async (activityId: number, update: Partial<Activity
   const parsedUpdate = parse(partial(strict(ActivityInsertSchema)), update);
   const validUpdate = { ...parsedUpdate };
 
-  const requestsAmountUpdate = typeof update.amount === "number";
-  const requestsUnitUpdate = typeof update.unitId === "number";
-  const requestsEmissionFactorUpdate = typeof update.emissionFactorId === "number";
+  const requestsAmountUpdate = parsedUpdate.amount !== undefined;
+  const requestsUnitUpdate = parsedUpdate.unitId !== undefined;
+  const requestsEmissionFactorUpdate = parsedUpdate.emissionFactorId !== undefined;
 
   if (requestsAmountUpdate || requestsUnitUpdate || requestsEmissionFactorUpdate) {
     const activity = await db.query.Activity.findFirst({ where: eq(Activity.id, activityId), with: { unit: true, factor: true } });
 
     const amount = requestsAmountUpdate ? parsedUpdate.amount : activity?.amount;
 
-    const emissionFactor = requestsEmissionFactorUpdate ? await getEmissionFactor(parsedUpdate.emissionFactorId!) : await activity?.factor;
+    const emissionFactor = requestsEmissionFactorUpdate
+      ? parsedUpdate.emissionFactorId === null
+        ? null
+        : await getEmissionFactor(parsedUpdate.emissionFactorId!)
+      : activity?.factor;
 
-    const activityUnitId = requestsUnitUpdate ? parsedUpdate.unitId! : activity?.unitId;
+    const activityUnitId = requestsUnitUpdate ? parsedUpdate.unitId : activity?.unitId;
 
-    if (emissionFactor?.unitId !== activityUnitId) validUpdate.co2e = null;
+    if (emissionFactor?.unitId !== activityUnitId || amount === null) validUpdate.co2e = null;
     else if (!isNaN(amount!) && !isNaN(emissionFactor?.co2e!)) validUpdate.co2e = amount! * emissionFactor!.co2e!;
   }
 

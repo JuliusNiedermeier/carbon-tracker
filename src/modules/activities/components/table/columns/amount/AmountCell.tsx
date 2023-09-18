@@ -14,9 +14,11 @@ export const AmountCell: FC<Props> = ({ ctx }) => {
 
   const handleValueChange: FocusEventHandler<HTMLInputElement> = async (e) => {
     const amount = parseFloat(value!);
-    if (ctx.getValue() === amount || isNaN(amount)) return;
+
+    if (value !== "" && (isNaN(amount) || ctx.getValue() === amount)) return;
+
     try {
-      await updateActvity(ctx.row.original.id, { amount });
+      await updateActvity(ctx.row.original.id, { amount: isNaN(amount) ? null : amount });
     } catch (err) {
       console.error(err);
     } finally {
