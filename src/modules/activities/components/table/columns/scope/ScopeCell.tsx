@@ -4,23 +4,17 @@ import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, Sele
 import { TableCell } from "@/common/components/ui/table";
 import { ScopeSelect } from "@/common/database/schema";
 import { FC, useState } from "react";
-import { Color, Badge as TremorBadge } from "@tremor/react";
 import { JoinedActivity } from "../../ActivityTable";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { CellContext } from "@tanstack/react-table";
 import { buildCompoundScopeNumber } from "@/modules/activities/utils/scope-number";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
-import { SelectScrollDownButton, SelectScrollUpButton } from "@radix-ui/react-select";
+import { Badge } from "@/common/components/ui/badge";
 
 interface Props {
   scopes: ScopeSelect[];
   ctx: CellContext<JoinedActivity, number | null>;
 }
-
-const getScopeColor = (scope: number): Color => {
-  const colors: Color[] = ["blue", "red", "green"];
-  return colors[scope] || "gray";
-};
 
 export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
   const [loading, setLoading] = useState(false);
@@ -53,7 +47,7 @@ export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
           <SelectSeparator />
           {scopes.map((scope) => (
             <SelectItem key={scope.id} value={scope.id.toString()}>
-              <TremorBadge color={getScopeColor(scope.scope)}>{buildCompoundScopeNumber(scope.scope, scope.subScope)}</TremorBadge>
+              <Badge className="w-12 text-center">{buildCompoundScopeNumber(scope.scope, scope.subScope)}</Badge>
               <span className="text-sm text-muted-foreground ml-2">{scope.name}</span>
             </SelectItem>
           ))}
