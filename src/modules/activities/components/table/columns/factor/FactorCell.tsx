@@ -11,6 +11,7 @@ import { Skeleton } from "@/common/components/ui/skeleton";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/common/components/ui/hover-card";
 import { FactorInfoCard } from "./FactorInfoCard";
 import { Badge } from "@/common/components/ui/badge";
+import { cn } from "@/common/utils";
 
 interface Props {
   ctx: ActivityCellContext<"factor.co2e">;
@@ -50,7 +51,7 @@ export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emiss
           {loading ? (
             <Skeleton className="h-6 w-full" />
           ) : (
-            <Button variant="ghost" className="w-full block">
+            <Button variant="ghost" className={cn("w-full block", { "pl-2 bg-destructive/10 hover:bg-destructive/25": isUnitMismatch })}>
               <HoverCard openDelay={500}>
                 <HoverCardTrigger asChild>
                   <div className="flex gap-2 font-normal font-mono items-center">
