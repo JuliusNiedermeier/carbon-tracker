@@ -5,21 +5,25 @@ import { UnitSelect } from "@/common/database/schema";
 import { FC, useState } from "react";
 import { ActivityCellContext } from "../../ClientActivityTable";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 interface Props {
   units: UnitSelect[];
   ctx: ActivityCellContext<"unit.abbreviation">;
 }
 
+const EMPTY = "empty";
+
 export const UnitCell: FC<Props> = ({ units, ctx }) => {
   const [loading, setLoading] = useState(false);
 
   // Could abstracted as a util for use in every select cell
-  const handleValueChange = async (unitId: string) => {
-    if (!unitId) return;
+  const handleValueChange = async (value: string) => {
+    const unitId = value === EMPTY ? null : parseInt(value);
+    if (unitId !== null && isNaN(unitId)) return;
     setLoading(true);
     try {
-      await updateActvity(ctx.row.original.id, { unitId: parseInt(unitId) });
+      await updateActvity(ctx.row.original.id, { unitId });
     } catch (err) {
       console.error(err);
     } finally {
@@ -34,6 +38,12 @@ export const UnitCell: FC<Props> = ({ units, ctx }) => {
           <SelectValue placeholder="Not selected" />
         </SelectTrigger>
         <SelectContent position="item-aligned">
+          <SelectItem value={EMPTY}>
+            <div className="flex gap-1 items-center">
+              <Cross2Icon className="w-12" />
+              <span>Clear</span>
+            </div>
+          </SelectItem>
           {units.map((unit) => (
             <SelectItem key={unit.id} value={unit.id.toString()}>
               <Badge className="min-w-12">{unit.abbreviation}</Badge>

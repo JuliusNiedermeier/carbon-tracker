@@ -16,14 +16,18 @@ interface Props {
   ctx: CellContext<JoinedActivity, string | null>;
 }
 
+const EMPTY = "empty";
+
 export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
   const [loading, setLoading] = useState(false);
 
   // Could abstracted as a util for use in every select cell
   const handleValueChange = async (value: string) => {
+    const scopeId = value === EMPTY ? null : parseInt(value);
+    if (scopeId !== null && isNaN(scopeId)) return;
     setLoading(true);
     try {
-      await updateActvity(ctx.row.original.id, { scopeId: parseInt(value) });
+      await updateActvity(ctx.row.original.id, { scopeId });
     } catch (err) {
       console.error(err);
     } finally {
@@ -38,7 +42,7 @@ export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
           <SelectValue placeholder="Not selected" />
         </SelectTrigger>
         <SelectContent position="item-aligned">
-          <SelectItem value="">
+          <SelectItem value={EMPTY}>
             <div className="flex gap-1 items-center">
               <Cross2Icon className="w-12" />
               <span>Clear</span>
