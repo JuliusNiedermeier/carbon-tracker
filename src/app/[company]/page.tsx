@@ -12,7 +12,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/
 import { Input } from "@/common/components/ui/input";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { FakeData } from "@/common/components/FakeData";
 import { BadgeDelta, Card, Grid, ProgressBar } from "@tremor/react";
 import { createSlug } from "@/common/database/schema/utils";
 
@@ -32,11 +31,6 @@ const CompanyPage: FC<{ params: { company: string } }> = async ({ params }) => {
   return (
     <Container className="mt-4 grid gap-16 items-start">
       <CompanySelector selectedCompanyId={company.id} />
-
-      <div className="grid grid-cols-2 gap-4 opacity-25">
-        <FakeData />
-        <FakeData />
-      </div>
 
       <div className="flex items-center justify-between">
         <PageTitle>Locations</PageTitle>

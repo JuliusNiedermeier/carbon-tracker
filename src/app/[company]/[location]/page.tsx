@@ -1,11 +1,8 @@
 import { CompanySelector } from "@/common/components/company-selector/CompanySelector-new";
 import { Container } from "@/common/components/Container";
 import { FC } from "react";
-import { Button } from "@/common/components/ui/button";
-import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import { CaretRightIcon } from "@radix-ui/react-icons";
 import { LocationSelector } from "@/common/components/LocationSelector";
-import { KPIs } from "@/common/components/FakeData";
 import { ActivityTable } from "@/modules/activities/components/table/ActivityTable";
 import { db } from "@/common/database/client";
 import { eq } from "drizzle-orm";
@@ -29,10 +26,6 @@ const CompanyPage: FC<{
           <CompanySelector selectedCompanyId={company.id} />
           <CaretRightIcon className="self-center" />
           <LocationSelector selectedCompanyId={company.id} selectedLocationId={company.locations[0].id} />
-        </div>
-
-        <div className="opacity-25">
-          <KPIs />
         </div>
 
         <ActivityTable locationId={company.locations[0].id} />
