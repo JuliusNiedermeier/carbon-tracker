@@ -20,7 +20,7 @@ export const UnitHeader: FC<Props> = ({ units, selection, onSelectionChange }) =
   };
 
   return (
-    <TableHead className="py-2 px- pt-6">
+    <TableHead className="py-2 px-2 pt-6">
       <Label htmlFor="unit-select" className="pl-3">
         Unit
       </Label>
