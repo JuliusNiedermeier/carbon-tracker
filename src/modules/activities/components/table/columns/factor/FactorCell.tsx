@@ -2,7 +2,7 @@ import { TableCell } from "@/common/components/ui/table";
 import { FC, useState } from "react";
 import { ActivityCellContext } from "../../ClientActivityTable";
 import { Button } from "@/common/components/ui/button";
-import { CaretSortIcon, ExclamationTriangleIcon, LinkBreak1Icon, LinkBreak2Icon } from "@radix-ui/react-icons";
+import { CaretSortIcon, ValueNoneIcon } from "@radix-ui/react-icons";
 import { EmissionFactorSourceSelect, UnitSelect } from "@/common/database/schema";
 import { Dialog, DialogContent, DialogTrigger } from "@/common/components/ui/dialog";
 import { FactorFinder } from "./factor-finder/FactorFinder";
@@ -31,6 +31,8 @@ export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emiss
     typeof ctx.row.original.factor?.unitId === "number" &&
     ctx.row.original.unitId !== ctx.row.original.factor?.unitId;
 
+  const isNotAvailable = ctx.getValue() !== undefined && isNaN(co2e);
+
   // Could abstracted as a util for use in every select cell
   const handleFactorSelected = async (emissionFactorId: number) => {
     setLoading(true);
@@ -51,12 +53,16 @@ export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emiss
           {loading ? (
             <Skeleton className="h-6 w-full" />
           ) : (
-            <Button variant="ghost" className={cn("w-full block", { "pl-2 bg-destructive/10 hover:bg-destructive/25": isUnitMismatch })}>
+            <Button
+              variant="ghost"
+              className={cn("w-full block", { "pl-2 bg-destructive/10 hover:bg-destructive/25 text-destructive": isUnitMismatch, "bg-muted": isNotAvailable })}
+            >
               <HoverCard openDelay={500}>
                 <HoverCardTrigger asChild>
-                  <div className="flex gap-2 font-normal font-mono items-center">
+                  <div className="flex gap-2 font-normal items-center">
+                    {isNotAvailable && <ValueNoneIcon />}
                     {isUnitMismatch && <Badge variant="destructive">{ctx.row.original.factor?.unit.abbreviation}</Badge>}
-                    <span className="flex-1 text-right">{ctx.row.original.factor ? co2e || "Not available" : "Not selected"}</span>
+                    <span className="flex-1 text-right">{ctx.row.original.factor ? (isNotAvailable ? "Not available" : co2e) : "Not selected"}</span>
                     <CaretSortIcon />
                   </div>
                 </HoverCardTrigger>
