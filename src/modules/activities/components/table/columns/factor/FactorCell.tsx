@@ -54,11 +54,7 @@ export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emiss
               <HoverCard openDelay={500}>
                 <HoverCardTrigger asChild>
                   <div className="flex gap-2 font-normal font-mono items-center">
-                    {isUnitMismatch && (
-                      <Badge variant="destructive">
-                        <LinkBreak1Icon className="" />
-                      </Badge>
-                    )}
+                    {isUnitMismatch && <Badge variant="destructive">{ctx.row.original.factor?.unit.abbreviation}</Badge>}
                     <span className="flex-1 text-right">{ctx.row.original.factor ? co2e || "Not available" : "Not selected"}</span>
                     <CaretSortIcon />
                   </div>
