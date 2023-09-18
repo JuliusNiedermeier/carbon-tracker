@@ -5,7 +5,7 @@ import { JoinedActivity } from "../../ActivityTable";
 import { HeaderContext } from "@tanstack/react-table";
 
 interface Props {
-  ctx: HeaderContext<JoinedActivity, number | null>;
+  ctx: HeaderContext<JoinedActivity, string | null>;
 }
 
 export const ScopeHeader: FC<Props> = ({ ctx }) => {

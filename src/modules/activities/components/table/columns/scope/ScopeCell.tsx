@@ -13,7 +13,7 @@ import { Badge } from "@/common/components/ui/badge";
 
 interface Props {
   scopes: ScopeSelect[];
-  ctx: CellContext<JoinedActivity, number | null>;
+  ctx: CellContext<JoinedActivity, string | null>;
 }
 
 export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
