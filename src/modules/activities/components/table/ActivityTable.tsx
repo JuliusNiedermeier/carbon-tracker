@@ -1,7 +1,7 @@
 import { FC, Suspense } from "react";
 import { db } from "@/common/database/client";
-import { Activity, EmissionFactor } from "@/common/database/schema";
-import { desc, eq } from "drizzle-orm";
+import { Activity, EmissionFactor, Scope } from "@/common/database/schema";
+import { asc, desc, eq } from "drizzle-orm";
 import { ClientActivityTable } from "./ClientActivityTable";
 
 interface Props {
@@ -21,7 +21,7 @@ const getActivities = (locationId: number) => {
 export const ActivityTable: FC<Props> = async ({ locationId }) => {
   const activities = await getActivities(locationId);
 
-  const scopes = await db.query.Scope.findMany();
+  const scopes = await db.query.Scope.findMany({ orderBy: [asc(Scope.scope), asc(Scope.subScope)] });
   const units = await db.query.Unit.findMany();
   const emissionFactorSources = await db.query.EmissionFactorSource.findMany();
   const emissionFactorYears = await db.selectDistinctOn([EmissionFactor.year], { year: EmissionFactor.year }).from(EmissionFactor);
