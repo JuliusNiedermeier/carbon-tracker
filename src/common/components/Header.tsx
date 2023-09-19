@@ -4,6 +4,7 @@ import { Logo } from "./Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { RootCompanySelector } from "./RootCompanySelector";
+import { UserButton } from "@clerk/nextjs";
 
 export const Header: FC = () => {
   return (
@@ -24,10 +25,13 @@ export const Header: FC = () => {
             <SelectItem value="2023">2023</SelectItem>
           </SelectContent>
         </Select>
-        <Avatar className="ml-auto">
+        <div className="ml-auto">
+          <UserButton afterSignOutUrl="/" />
+        </div>
+        {/* <Avatar className="ml-auto">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
       </Container>
     </div>
   );
