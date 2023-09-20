@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, Suspense, useMemo, useState } from "react";
+import { FC, Suspense, useEffect, useMemo, useState } from "react";
 
 import {
   CellContext,
@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../../../../common/components/ui/table";
-import { ActivitySelect, EmissionFactorSelect, EmissionFactorSourceSelect, ScopeSelect, UnitSelect } from "@/common/database/schema";
+import { EmissionFactorSourceSelect, ScopeSelect, UnitSelect } from "@/common/database/schema";
 import { SelectHeader } from "./columns/select/SelectHeader";
 import { DescriptionHeader } from "./columns/description/DescriptionHeader";
 import { ScopeHeader } from "./columns/scope/ScopeHeader";
@@ -39,6 +39,8 @@ import { BulkActionPane } from "./bulk-actions/BulkActionPane";
 import { SortOrderSwitcher } from "./SortOrderSwitcher";
 import { buildCompoundScopeNumber } from "../../utils/scope-number";
 import { JoinedActivity } from "./ActivityTable";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
 interface Props {
   locationId: number;
@@ -62,6 +64,19 @@ const ch = createColumnHelper<JoinedActivity>();
 export const ClientActivityTable: FC<Props> = ({ locationId, activities, scopes, units, emissionFactorSources, emissionFactorYears }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const router = useRouter();
+
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    const channel = supabase.channel("activities");
+    channel.on("postgres_changes", { event: "UPDATE", schema: "public", table: "activity" }, router.refresh);
+    channel.subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   const columns = useMemo(
     () => [
