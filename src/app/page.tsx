@@ -51,7 +51,7 @@ const DashboardPage: FC = async () => {
       </div>
       <div className="grid grid-cols-5 mt-8 gap-4">
         {corporateGroups.map((group) => (
-          <Link href={`/${group.members?.find((member) => member.id === group.rootCompanyId)?.slug}`}>
+          <Link key={group.rootCompanyId} href={`/${group.members?.find((member) => member.id === group.rootCompanyId)?.slug}`}>
             <div className="rounded border">
               <div className="bg-muted h-36 grid place-content-center text-lg font-medium">
                 {group.members?.find((member) => member.id === group.rootCompanyId)?.name}
