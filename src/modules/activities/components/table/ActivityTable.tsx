@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import { FC } from "react";
 import { db } from "@/common/database/client";
 import { Activity, EmissionFactor, Scope } from "@/common/database/schema";
 import { asc, desc, eq } from "drizzle-orm";
@@ -27,15 +27,13 @@ export const ActivityTable: FC<Props> = async ({ locationId }) => {
   const emissionFactorYears = await db.selectDistinctOn([EmissionFactor.year], { year: EmissionFactor.year }).from(EmissionFactor);
 
   return (
-    <Suspense fallback="Loading...">
-      <ClientActivityTable
-        locationId={locationId}
-        activities={activities}
-        scopes={scopes}
-        units={units}
-        emissionFactorSources={emissionFactorSources}
-        emissionFactorYears={emissionFactorYears.map(({ year }) => year)}
-      />
-    </Suspense>
+    <ClientActivityTable
+      locationId={locationId}
+      activities={activities}
+      scopes={scopes}
+      units={units}
+      emissionFactorSources={emissionFactorSources}
+      emissionFactorYears={emissionFactorYears.map(({ year }) => year)}
+    />
   );
 };
