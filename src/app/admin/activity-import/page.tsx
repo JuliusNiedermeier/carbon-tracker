@@ -22,7 +22,7 @@ const ActivityImportPage: FC = () => {
       <PageTitle>Import activities</PageTitle>
       <PageSubtitle>Activities from existing projects can be imported here.</PageSubtitle>
       <form action={handleSubmit} className="grid gap-4 my-8">
-        <Input name="csv" type="file" />
+        <Input name="file" type="file" accept=".xlsx" />
         <Button type="submit">{loading ? <Loader2 className="animate-spin" /> : "Import"}</Button>
       </form>
     </Container>
