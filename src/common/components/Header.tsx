@@ -1,30 +1,20 @@
 import { FC } from "react";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { RootCompanySelector } from "./RootCompanySelector";
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export const Header: FC = () => {
   return (
     <div className="border-b bg-background/95 backdrop-blur-md">
       <Container className="py-2 flex items-center justify-between gap-8">
-        <div className="flex items-center gap-4">
-          <Logo />
-          <span className="font-medium text-muted-foreground">Rapid Footprints</span>
-        </div>
-        <RootCompanySelector selectedCompanyId={2} />
-        <Select>
-          <SelectTrigger className="w-max gap-4">
-            <SelectValue placeholder="Year" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="2021">2021</SelectItem>
-            <SelectItem value="2022">2022</SelectItem>
-            <SelectItem value="2023">2023</SelectItem>
-          </SelectContent>
-        </Select>
+        <Link href="/">
+          <div className="flex items-center gap-4">
+            <Logo />
+            <span className="font-medium text-muted-foreground">RapidFootprint</span>
+          </div>
+        </Link>
+        {/* <RootCompanySelector selectedCompanyId={2} /> */}
         <div className="ml-auto">
           <UserButton afterSignOutUrl="/" />
         </div>
