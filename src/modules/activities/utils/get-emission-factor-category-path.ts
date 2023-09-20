@@ -27,13 +27,11 @@ FROM category_path
 GROUP BY category_path.leaf_id
 ORDER BY category_path.leaf_id;
 `.mapWith((value) => {
-    console.log("Driver value", value);
     return value as { leaf_id: number; nodes: { id: number; name: string }[] };
   });
 
 export const getEmissionFactorCategoryPath = async (leafEmissionFactorCategoryIds: number[]) => {
   if (!leafEmissionFactorCategoryIds.length) return [];
   const results = await db.execute(createEmissionFactorCategoryPathSQL(leafEmissionFactorCategoryIds));
-  console.log(results);
   return results as unknown as { leaf_id: number; nodes: { id: number; name: string }[] }[];
 };

@@ -21,7 +21,6 @@ export const FactorReccommendations: FC<Props> = ({ description, unitIds, years,
       emissionFactorSourceIds: sourceIds,
       years: years,
     }).then((reccommendations) => {
-      console.log(reccommendations);
       setReccommendations(reccommendations);
       setLoading(false);
     });

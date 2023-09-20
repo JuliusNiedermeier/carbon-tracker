@@ -14,14 +14,10 @@ export const getEmissionFactorInfo = async (emissionFactorId: number, emissionFa
     with: { emissionFactorSource: { columns: { name: true } }, unit: { columns: { abbreviation: true, name: true } } },
   });
 
-  const data = {
+  return {
     categories: categoryPath?.nodes.map(({ name }) => name) || [],
     unit: emissionFactor?.unit,
     source: emissionFactor?.emissionFactorSource.name,
     year: emissionFactor?.year,
   };
-
-  console.log(data);
-
-  return data;
 };
