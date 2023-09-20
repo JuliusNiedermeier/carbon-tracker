@@ -3,6 +3,7 @@ import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { PresenceIndicator } from "./PresenceIndicator";
 
 export const Header: FC = () => {
   return (
@@ -14,14 +15,10 @@ export const Header: FC = () => {
             <span className="font-medium text-muted-foreground">RapidFootprint</span>
           </div>
         </Link>
-        {/* <RootCompanySelector selectedCompanyId={2} /> */}
         <div className="ml-auto">
-          <UserButton afterSignOutUrl="/" />
+          <PresenceIndicator />
         </div>
-        {/* <Avatar className="ml-auto">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar> */}
+        <UserButton afterSignOutUrl="/" />
       </Container>
     </div>
   );
