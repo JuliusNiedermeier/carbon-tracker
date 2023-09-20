@@ -56,7 +56,7 @@ const DashboardPage: FC = async () => {
               <div className="bg-muted h-36 grid place-content-center text-lg font-medium">
                 {group.members?.find((member) => member.id === group.rootCompanyId)?.name}
               </div>
-              <div className="p-4 grid gap-4">
+              <div className="p-4 grid gap-1">
                 <span className="font-medium">{group.members?.find((member) => member.id === group.rootCompanyId)?.name}</span>
                 <PageSubtitle>
                   Includes {group.members?.length} {group.members?.length === 1 ? "company" : "companies"}
