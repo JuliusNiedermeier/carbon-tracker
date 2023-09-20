@@ -7,7 +7,7 @@ import { ActivityTable } from "@/modules/activities/components/table/ActivityTab
 import { db } from "@/common/database/client";
 import { eq } from "drizzle-orm";
 import { Company, CompanyLocation } from "@/common/database/schema";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const CompanyPage: FC<{
   params: { company: string; location: string };
@@ -17,7 +17,8 @@ const CompanyPage: FC<{
     with: { locations: { where: eq(CompanyLocation.slug, params.location), limit: 1 } },
   });
 
-  if (!company || !company.locations[0]) return notFound();
+  if (!company) return redirect("/");
+  if (!company.locations[0]) return redirect(`/${company.slug}`);
 
   return (
     <>

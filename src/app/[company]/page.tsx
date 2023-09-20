@@ -5,7 +5,7 @@ import { db } from "@/common/database/client";
 import { eq } from "drizzle-orm";
 import { Company, CompanyLocation } from "@/common/database/schema";
 import { FC } from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Button } from "@/common/components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/popover";
@@ -18,7 +18,7 @@ import { createSlug } from "@/common/database/schema/utils";
 const CompanyPage: FC<{ params: { company: string } }> = async ({ params }) => {
   const company = await db.query.Company.findFirst({ where: eq(Company.slug, params.company), with: { locations: true } });
 
-  if (!company) return notFound();
+  if (!company) return redirect("/");
 
   const createLocation = async (data: FormData) => {
     "use server";
