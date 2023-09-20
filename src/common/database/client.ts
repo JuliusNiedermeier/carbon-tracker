@@ -1,9 +1,7 @@
-import { neon, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { env } from "@/common/env";
 import * as schema from "./schema";
 
-neonConfig.fetchConnectionCache = true;
-
-const sql = neon(env.NEON_CONNECTION);
-export const db = drizzle(sql, { schema });
+const client = postgres(env.SUPABASE_POOLED_DB_CONNECTION_STRING);
+export const db = drizzle(client, { schema });
