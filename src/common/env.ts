@@ -1,6 +1,8 @@
 import { object, parse, string } from "valibot";
 import "dotenv/config";
 
+// The actual environment variables should be located in a .env.local file at the project root.
+
 const EnvSchema = object({
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string(),
   CLERK_SECRET_KEY: string(),
