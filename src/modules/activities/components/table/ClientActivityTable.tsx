@@ -68,15 +68,21 @@ export const ClientActivityTable: FC<Props> = ({ locationId, activities, scopes,
 
   const supabase = createClientComponentClient();
 
+  const channel = useMemo(() => {
+    if (!supabase) return;
+    return supabase.channel("activities");
+  }, [supabase]);
+
   useEffect(() => {
-    const channel = supabase.channel("activities");
+    if (!supabase || !channel) return;
+
     channel.on("postgres_changes", { event: "UPDATE", schema: "public", table: "activity" }, router.refresh);
     channel.subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [supabase, channel, router]);
 
   const columns = useMemo(
     () => [
