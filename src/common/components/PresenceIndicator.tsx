@@ -6,6 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@clerk/nextjs";
 import { RealtimePresenceState } from "@supabase/supabase-js";
 import { cn } from "../utils";
+import { Users2 } from "lucide-react";
 
 interface PresenceState {
   id: string;
@@ -15,43 +16,55 @@ interface PresenceState {
 
 export const PresenceIndicator: FC = () => {
   const supabase = createClientComponentClient();
-  const user = useUser();
+  const { user } = useUser();
 
-  const [users, setUsers] = useState<RealtimePresenceState<PresenceState>[string]>([]);
+  const [users, setUsers] = useState<RealtimePresenceState<PresenceState>[number]>([]);
 
-  const appRoom = useMemo(() => supabase.channel("app-room", { config: { presence: { key: "my-channel" } } }), []);
+  const channel = useMemo(() => {
+    if (!user || !supabase) return null;
+    return supabase.channel("corporate-group:acme");
+  }, [user, supabase]);
 
   useEffect(() => {
-    appRoom.on("presence", { event: "sync" }, () => {
-      const state = appRoom.presenceState<PresenceState>()["my-channel"];
-      if (!state) return;
-      console.log(state);
-      setUsers(state.filter((presence) => presence.id !== user.user?.id));
+    if (!channel) return;
+    if (!user) channel.unsubscribe();
+
+    channel.on("presence", { event: "sync" }, () => {
+      const presenceState = channel.presenceState<PresenceState>();
+      const users = Object.keys(presenceState)
+        .map((presenceKey) => presenceState[presenceKey])
+        .flat()
+        .filter((presence) => presence.id !== user?.id);
+
+      setUsers(users.sort());
     });
 
-    appRoom.subscribe(async (status) => {
-      if (status === "SUBSCRIBED" && user.user) {
-        const state: PresenceState = { id: user.user.id, fullName: user.user.fullName, profileImage: user.user.imageUrl };
-        appRoom.track(state, { key: "my-channel" });
+    channel.subscribe(async (status) => {
+      if (status === "SUBSCRIBED" && user) {
+        const state: PresenceState = { id: user.id, fullName: user.fullName, profileImage: user.imageUrl };
+        channel.track(state);
       }
     });
 
     return () => {
-      appRoom.unsubscribe();
+      channel.unsubscribe();
     };
-  }, []);
+  }, [channel, user]);
 
-  if (users.length)
+  if (true)
     return (
       <div className="flex p-1 rounded-full bg-muted">
         {users.map((user, index) => (
           <Avatar key={user.presence_ref} className={cn("border-2", { "ml-[-1rem]": index !== 0 })}>
             <AvatarImage src={user.profileImage} />
-            <AvatarFallback>
-              {user.fullName?.slice(0, 2)} {user.profileImage}
-            </AvatarFallback>
+            <AvatarFallback>{user.fullName?.slice(0, 2)}</AvatarFallback>
           </Avatar>
         ))}
+        <Avatar className={cn("border-2", { "ml-[-1rem]": users.length })}>
+          <AvatarFallback>
+            <Users2 size={20} />
+          </AvatarFallback>
+        </Avatar>
       </div>
     );
 };
