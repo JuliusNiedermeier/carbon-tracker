@@ -57,20 +57,14 @@ interface Props {
 }
 
 export type ActivityHeaderContext<DeepKey extends DeepKeys<ActivityTableData>> = HeaderContext<ActivityTableData, DeepValue<ActivityTableData, DeepKey>>;
-
 export type ActivityCellContext<DeepKey extends DeepKeys<ActivityTableData>> = CellContext<ActivityTableData, DeepValue<ActivityTableData, DeepKey>>;
-
 export type ActivityDisplayHeaderContext = HeaderContext<ActivityTableData, unknown>;
-
 export type ActivityDisplayCellContext = CellContext<ActivityTableData, unknown>;
 
 const ch = createColumnHelper<ActivityTableData>();
 
 export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units, emissionFactorSources, emissionFactorYears }) => {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState({});
   const router = useRouter();
-
   const supabase = createClientComponentClient();
 
   const channel = useMemo(() => {
@@ -81,13 +75,16 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
   useEffect(() => {
     if (!supabase || !channel) return;
 
-    channel.on("postgres_changes", { event: "UPDATE", schema: "public", table: "activity" }, router.refresh);
+    channel.on("postgres_changes", { event: "*", schema: "public", table: "activity", filter: `location_id=eq.${locationId}` }, router.refresh);
     channel.subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
   }, [supabase, channel, router]);
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState({});
 
   const columns = useMemo(
     () => [
