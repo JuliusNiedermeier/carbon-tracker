@@ -4,16 +4,16 @@ import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, Sele
 import { TableCell } from "@/common/components/ui/table";
 import { ScopeSelect } from "@/common/database/schema";
 import { FC, useState } from "react";
-import { JoinedActivity } from "../../ActivityTable";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { CellContext } from "@tanstack/react-table";
 import { buildCompoundScopeNumber } from "@/modules/activities/utils/scope-number";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Badge } from "@/common/components/ui/badge";
+import { ActivityTableData } from "../../ActivityTable";
 
 interface Props {
   scopes: ScopeSelect[];
-  ctx: CellContext<JoinedActivity, string | null>;
+  ctx: CellContext<ActivityTableData, string | null>;
 }
 
 const EMPTY = "empty";

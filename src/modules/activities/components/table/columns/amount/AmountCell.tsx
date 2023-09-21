@@ -1,6 +1,6 @@
 import { TableCell } from "@/common/components/ui/table";
 import { FC, FocusEventHandler, useState } from "react";
-import { ActivityCellContext } from "../../ClientActivityTable";
+import { ActivityCellContext } from "../../ActivityTable";
 import { Input } from "@/common/components/ui/input";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 

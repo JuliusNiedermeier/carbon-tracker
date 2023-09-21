@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ActivityHeaderContext } from "../ClientActivityTable";
+import { ActivityHeaderContext } from "../ActivityTable";
 import {
   DropdownMenu,
   DropdownMenuContent,

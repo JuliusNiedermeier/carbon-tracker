@@ -1,7 +1,7 @@
 import { TableHead } from "@/common/components/ui/table";
 import { FC } from "react";
 import { ColumnHeader } from "../../utils/ColumnHeader";
-import { ActivityHeaderContext } from "../../ClientActivityTable";
+import { ActivityHeaderContext } from "../../ActivityTable";
 
 interface Props {
   ctx: ActivityHeaderContext<"co2e">;

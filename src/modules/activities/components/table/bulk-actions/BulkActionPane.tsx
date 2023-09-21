@@ -1,10 +1,10 @@
 import { Table } from "@tanstack/react-table";
 import { FC } from "react";
-import { JoinedActivity } from "../ActivityTable";
 import { DeleteSelection } from "./DeleteSelection";
+import { ActivityTableData } from "../ActivityTable";
 
 interface Props {
-  table: Table<JoinedActivity>;
+  table: Table<ActivityTableData>;
 }
 
 export const BulkActionPane: FC<Props> = ({ table }) => {

@@ -4,10 +4,10 @@ import { Button } from "../../../../common/components/ui/button";
 import { ListOrdered } from "lucide-react";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
-import { JoinedActivity } from "./ActivityTable";
+import { ActivityTableData } from "./ActivityTable";
 
 interface Props {
-  table: Table<JoinedActivity>;
+  table: Table<ActivityTableData>;
 }
 
 export const SortOrderSwitcher: FC<Props> = ({ table }) => {

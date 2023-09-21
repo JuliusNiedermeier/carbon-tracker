@@ -1,6 +1,6 @@
 import { TableCell } from "@/common/components/ui/table";
 import { FC, useState } from "react";
-import { ActivityCellContext } from "../../ClientActivityTable";
+import { ActivityCellContext } from "../../ActivityTable";
 import { Button } from "@/common/components/ui/button";
 import { CaretSortIcon, ValueNoneIcon } from "@radix-ui/react-icons";
 import { EmissionFactorSourceSelect, UnitSelect } from "@/common/database/schema";

@@ -1,13 +1,13 @@
 import { Table } from "@tanstack/react-table";
 import { FC, useState } from "react";
-import { JoinedActivity } from "../ActivityTable";
 import { Button } from "../../../../../common/components/ui/button";
 import { Loader2, Trash } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../../../common/components/ui/dialog";
 import { deleteActivities } from "../../../server-actions/delete-activities";
+import { ActivityTableData } from "../ActivityTable";
 
 interface Props {
-  table: Table<JoinedActivity>;
+  table: Table<ActivityTableData>;
 }
 
 export const DeleteSelection: FC<Props> = ({ table }) => {

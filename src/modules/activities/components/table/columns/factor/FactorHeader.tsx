@@ -1,6 +1,6 @@
 import { TableHead } from "@/common/components/ui/table";
 import { FC } from "react";
-import { ActivityHeaderContext } from "../../ClientActivityTable";
+import { ActivityHeaderContext } from "../../ActivityTable";
 import { ColumnHeader } from "../../utils/ColumnHeader";
 
 interface Props {
