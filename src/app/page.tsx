@@ -10,16 +10,16 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { FC } from "react";
+import { minLength, object, parse, string } from "valibot";
 
 const DashboardPage: FC = async () => {
   const corporateGroups = await db.select().from(CorporateGroupView);
   const corporateGroupRootMembers = corporateGroups.map((group) => group.members?.find((member) => member.id === group.rootCompanyId));
 
-  const createRootCompany = async (data: FormData) => {
+  const createRootCompany = async (formData: FormData) => {
     "use server";
-    const name = data.get("name") as string;
-    if (!name) return;
-    await db.insert(Company).values({ slug: createSlug(name), name });
+    const validData = parse(object({ name: string([minLength(3)]) }), Object.fromEntries(formData.entries()));
+    await db.insert(Company).values({ slug: createSlug(validData.name), name: validData.name });
     revalidatePath("/");
   };
 

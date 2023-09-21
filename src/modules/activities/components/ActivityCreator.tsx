@@ -4,6 +4,7 @@ import { Input } from "../../../common/components/ui/input";
 import { CornerDownLeft, Loader2 } from "lucide-react";
 import { Button } from "../../../common/components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
+import { minLength, object, parse, string } from "valibot";
 
 interface Props {
   locationId: number;
@@ -12,12 +13,11 @@ interface Props {
 export const ActivityCreator: FC<Props> = ({ locationId }) => {
   const [loading, setLoading] = useState(false);
 
-  const handleCreateActivity = async (data: FormData) => {
-    const description = data.get("description") as string;
-    if (!description) return;
+  const handleCreateActivity = async (formData: FormData) => {
+    const validData = parse(object({ description: string([minLength(3)]) }), Object.fromEntries(formData.entries()));
     setLoading(true);
     try {
-      await createActivity(locationId, description);
+      await createActivity(locationId, validData.description);
     } catch (err) {
       console.error(err);
     } finally {

@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { BadgeDelta, Card, Grid, ProgressBar } from "@tremor/react";
 import { createSlug } from "@/common/database/schema/utils";
+import { minLength, parse, string } from "valibot";
 
 const CompanyPage: FC<{ params: { company: string } }> = async ({ params }) => {
   const company = await db.query.Company.findFirst({ where: eq(Company.slug, params.company), with: { locations: true } });
@@ -23,8 +24,8 @@ const CompanyPage: FC<{ params: { company: string } }> = async ({ params }) => {
   const createLocation = async (data: FormData) => {
     "use server";
     const name = data.get("name") as string;
-    if (!name) return;
-    await db.insert(CompanyLocation).values({ companyId: company.id, slug: createSlug(name), name });
+    const validName = parse(string([minLength(3)]), name);
+    await db.insert(CompanyLocation).values({ companyId: company.id, slug: createSlug(validName), name: validName });
     revalidatePath("/[company]");
   };
 
