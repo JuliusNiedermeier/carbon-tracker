@@ -8,5 +8,5 @@ import { revalidatePath } from "next/cache";
 export const deleteActivities = async (activityIds: number[]) => {
   "use server";
   await db.delete(Activity).where(inArray(Activity.id, activityIds));
-  revalidatePath(`/`);
+  revalidatePath(`/[company][location]`);
 };

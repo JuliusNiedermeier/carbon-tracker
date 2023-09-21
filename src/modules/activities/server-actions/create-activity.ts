@@ -8,5 +8,5 @@ export const createActivity = async (locationId: number, description: string) =>
   "use server";
   if (!description) throw new Error("Description cannot be empty");
   await db.insert(Activity).values({ locationId, description });
-  revalidatePath(`/`);
+  revalidatePath(`/[company][location]`);
 };

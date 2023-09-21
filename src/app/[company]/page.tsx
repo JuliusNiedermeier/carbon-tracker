@@ -25,7 +25,7 @@ const CompanyPage: FC<{ params: { company: string } }> = async ({ params }) => {
     const name = data.get("name") as string;
     if (!name) return;
     await db.insert(CompanyLocation).values({ companyId: company.id, slug: createSlug(name), name });
-    revalidatePath("/");
+    revalidatePath("/[company]");
   };
 
   return (

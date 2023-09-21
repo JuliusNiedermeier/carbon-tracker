@@ -16,5 +16,5 @@ export const createCompany = async (data: FormData) => {
     name,
   });
 
-  revalidatePath("/");
+  revalidatePath("/[company]");
 };

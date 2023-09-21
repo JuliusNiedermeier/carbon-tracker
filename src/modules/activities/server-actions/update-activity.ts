@@ -37,5 +37,5 @@ export const updateActvity = async (activityId: number, update: Partial<Activity
   }
 
   await db.update(Activity).set(validUpdate).where(eq(Activity.id, activityId));
-  revalidatePath("/");
+  revalidatePath("/[company][location]");
 };
