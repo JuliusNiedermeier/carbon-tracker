@@ -4,7 +4,7 @@ import { db } from "@/common/database/client";
 import { EmissionFactor, EmissionFactorCategory } from "@/common/database/schema";
 import { ai } from "@/common/openai/client";
 import { and, eq, inArray, sql } from "drizzle-orm";
-import { getEmissionFactorCategoryPath } from "../utils/get-emission-factor-category-path";
+import { getEmissionFactorCategoryPath } from "./get-emission-factor-category-path";
 
 interface FilterOptions {
   unitIds?: number[];

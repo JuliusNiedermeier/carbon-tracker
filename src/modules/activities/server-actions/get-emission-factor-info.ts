@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/common/database/client";
-import { getEmissionFactorCategoryPath } from "../utils/get-emission-factor-category-path";
+import { getEmissionFactorCategoryPath } from "./get-emission-factor-category-path";
 import { EmissionFactor } from "@/common/database/schema";
 import { eq } from "drizzle-orm";
 
