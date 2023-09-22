@@ -55,7 +55,10 @@ export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emiss
           ) : (
             <Button
               variant="ghost"
-              className={cn("w-full block", { "pl-2 bg-destructive/10 hover:bg-destructive/25 text-destructive": isUnitMismatch, "bg-muted": isNotAvailable })}
+              className={cn("w-full block whitespace-nowrap", {
+                "pl-2 bg-destructive/10 hover:bg-destructive/25 text-destructive": isUnitMismatch,
+                "bg-muted": isNotAvailable,
+              })}
             >
               <HoverCard openDelay={500}>
                 <HoverCardTrigger asChild>
