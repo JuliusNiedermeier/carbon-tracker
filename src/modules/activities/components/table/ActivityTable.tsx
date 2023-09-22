@@ -154,6 +154,15 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
       <div className="rounded-md border overflow-x-auto">
         <Suspense fallback="Loading...">
           <Table>
+            <colgroup>
+              <col className="w-min" />
+              <col />
+              <col className="w-52" />
+              <col className="w-36" />
+              <col className="w-52" />
+              <col className="w-52" />
+              <col className="w-36" />
+            </colgroup>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
