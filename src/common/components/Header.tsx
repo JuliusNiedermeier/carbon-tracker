@@ -12,7 +12,7 @@ export const Header: FC = () => {
         <Link href="/">
           <div className="flex items-center gap-4">
             <Logo />
-            <span className="font-medium text-muted-foreground">RapidFootprint</span>
+            <span className="font-medium text-sm">RapidFootprint</span>
           </div>
         </Link>
         <div className="ml-auto">
