@@ -10,6 +10,7 @@ export const Scope = pgTable("scope", {
   id: serial("id").primaryKey(),
   scope: smallint("scope").notNull(),
   subScope: smallint("sub_scope").notNull(),
+  literal: text("literal"),
   name: text("name"),
   stream: scopeStreamEnum("stream"),
   createdAt,

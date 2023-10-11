@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { integer, pgTable, real, serial, text } from "drizzle-orm/pg-core";
+import { bigint, integer, jsonb, pgTable, real, serial, text } from "drizzle-orm/pg-core";
 import { createdAt } from "../utils";
 import { CompanyLocation } from "./company-location";
 import { Scope } from "./scope";
@@ -15,6 +15,8 @@ export const Activity = pgTable("activity", {
   emissionFactorId: integer("emission_factor_id"),
   description: text("description").notNull(),
   amount: real("amount"),
+  year: bigint("year", { mode: "bigint" }),
+  miscellaneous: jsonb("miscellaneous"),
   co2e: real("co2e"),
   createdAt,
 });
