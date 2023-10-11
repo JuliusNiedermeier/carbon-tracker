@@ -15,6 +15,7 @@ export const Activity = pgTable("activity", {
   emissionFactorId: integer("emission_factor_id"),
   description: text("description").notNull(),
   amount: real("amount"),
+  amountFormula: text("amount_formula"),
   year: bigint("year", { mode: "bigint" }),
   miscellaneous: jsonb("miscellaneous"),
   co2e: real("co2e"),
