@@ -40,6 +40,7 @@ import { SortOrderSwitcher } from "./SortOrderSwitcher";
 import { buildCompoundScopeNumber } from "../../utils/scope-number";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import { TableDataUpdater, createTableDataUpdater } from "../../utils/update-table-data";
 
 export type ActivityTableData = ActivitySelect & {
   scope: ScopeSelect | null;
@@ -60,6 +61,8 @@ export type ActivityHeaderContext<DeepKey extends DeepKeys<ActivityTableData>> =
 export type ActivityCellContext<DeepKey extends DeepKeys<ActivityTableData>> = CellContext<ActivityTableData, DeepValue<ActivityTableData, DeepKey>>;
 export type ActivityDisplayHeaderContext = HeaderContext<ActivityTableData, unknown>;
 export type ActivityDisplayCellContext = CellContext<ActivityTableData, unknown>;
+
+export type TableOptionsMeta = { update: TableDataUpdater };
 
 const ch = createColumnHelper<ActivityTableData>();
 
@@ -85,6 +88,10 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+
+  const [optimisticActivities, setOptimisticActivities] = useState(activities);
+
+  useEffect(() => console.log(optimisticActivities), [optimisticActivities]);
 
   const columns = useMemo(
     () => [
@@ -130,7 +137,7 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
   );
 
   const table = useReactTable({
-    data: activities,
+    data: optimisticActivities,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -139,6 +146,7 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
     onRowSelectionChange: setRowSelection,
     enableMultiSort: true,
     enableRowSelection: true,
+    meta: { update: createTableDataUpdater(setOptimisticActivities) },
   });
 
   const showBulkActionPage = table.getIsSomePageRowsSelected() || table.getIsAllPageRowsSelected();

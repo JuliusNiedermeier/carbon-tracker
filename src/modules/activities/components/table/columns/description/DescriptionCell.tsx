@@ -1,6 +1,6 @@
 import { TableCell } from "@/common/components/ui/table";
-import { FC, FocusEventHandler, useState } from "react";
-import { ActivityCellContext } from "../../ActivityTable";
+import { ChangeEventHandler, FC, FocusEventHandler, useState } from "react";
+import { ActivityCellContext, TableOptionsMeta } from "../../ActivityTable";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Input } from "@/common/components/ui/input";
 
@@ -23,14 +23,19 @@ export const DescriptionCell: FC<Props> = ({ ctx }) => {
     }
   };
 
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    (ctx.table.options.meta as TableOptionsMeta).update(ctx.row.index, ctx.column.id, e.currentTarget.value);
+  };
+
   return (
     <TableCell key={ctx.cell.id} className="max-w-[20rem] overflow-hidden text-ellipsis">
       <Input
         className="border-none shadow-none"
         placeholder="No description"
-        onBlur={handleValueChange}
-        onInput={(e) => setValue(e.currentTarget.value)}
-        value={value}
+        // onBlur={handleValueChange}
+        // onInput={(e) => setValue(e.currentTarget.value)}
+        onChange={handleChange}
+        value={ctx.getValue()}
       />
     </TableCell>
   );
