@@ -16,7 +16,7 @@ export const EmissionFactor = pgTable("emission_factor", {
   year: smallint("year").notNull(),
   uncertainty: real("uncertainty"),
   notes: text("notes"),
-  co2e: real("co2e").notNull(),
+  co2e: real("co2e"),
   co2: real("co2"),
   ch4: real("ch4"),
   hfc: real("hfc"),
