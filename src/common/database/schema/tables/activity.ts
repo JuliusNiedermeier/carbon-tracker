@@ -19,8 +19,9 @@ export const Activity = pgTable("activity", {
   year: bigint("year", { mode: "bigint" }),
   miscellaneous: jsonb("miscellaneous"),
   co2e: real("co2e"),
-  double_counting: boolean('biogenic_share'),
-  biogenic_share: boolean('biogenic_share'),
+  doubleCounting: boolean('double_counting'),
+  biogenicShare: boolean('biogenic_share'),
+  responsibility: text('responsibility'),
   createdAt,
 });
 
