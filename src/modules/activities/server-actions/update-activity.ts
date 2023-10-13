@@ -5,6 +5,7 @@ import { Activity, ActivityInsert, ActivityInsertSchema, EmissionFactor } from "
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { parse, partial, strict } from "valibot";
+import { evaluateAmountFormula } from "../utils/evaluate-amount-formula";
 
 export const getEmissionFactor = async (emissionFactorId: number) => {
   const emissionFactor = await db.query.EmissionFactor.findFirst({ where: eq(EmissionFactor.id, emissionFactorId) });
@@ -15,7 +16,10 @@ export const updateActvity = async (activityId: number, update: Partial<Activity
   const parsedUpdate = parse(partial(strict(ActivityInsertSchema)), update);
   const validUpdate = { ...parsedUpdate };
 
-  const requestsAmountUpdate = parsedUpdate.amount !== undefined;
+  const requestsAmountFormulaUpdate = parsedUpdate.amountFormula !== undefined;
+  if (requestsAmountFormulaUpdate) validUpdate.amount = parsedUpdate.amountFormula == null ? null : evaluateAmountFormula(parsedUpdate.amountFormula);
+
+  const requestsAmountUpdate = validUpdate.amount !== undefined;
   const requestsUnitUpdate = parsedUpdate.unitId !== undefined;
   const requestsEmissionFactorUpdate = parsedUpdate.emissionFactorId !== undefined;
 
