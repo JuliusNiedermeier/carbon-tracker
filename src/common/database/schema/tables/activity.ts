@@ -16,12 +16,16 @@ export const Activity = pgTable("activity", {
   description: text("description").notNull(),
   amount: real("amount"),
   amountFormula: text("amount_formula"),
-  year: bigint("year", { mode: "bigint" }),
+  year: integer("year"),
   miscellaneous: jsonb("miscellaneous"),
   co2e: real("co2e"),
   doubleCounting: boolean('double_counting'),
   biogenicShare: boolean('biogenic_share'),
   responsibility: text('responsibility'),
+  costs: integer('costs'),
+  costsUnit: text('costs_unit'),
+  notes: text('notes'),
+  uncertainty: real('uncertainty'),
   createdAt,
 });
 
