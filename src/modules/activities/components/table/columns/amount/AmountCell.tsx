@@ -4,67 +4,107 @@ import { ActivityCellContext } from "../../ActivityTable";
 import { Input } from "@/common/components/ui/input";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { evaluateAmountFormula } from "@/modules/activities/utils/evaluate-amount-formula";
-import { Badge } from "@/common/components/ui/badge";
+import { Popover, PopoverContent } from "@/common/components/ui/popover";
+import { PopoverAnchor } from "@radix-ui/react-popover";
 
 interface Props {
   ctx: ActivityCellContext<"amount">;
 }
 
-const numberFormatShort = new Intl.NumberFormat("de-DE", { maximumSignificantDigits: 2 });
-const numberFormatLong = new Intl.NumberFormat("de-DE", { maximumSignificantDigits: 20 });
+// const isFormula = (input: string) => parseFloat(input).toString() === input;
+
+const validNumberRegex = /^(?!^[\.,])\d*(?:[,.]\d*)?$/;
+const formulaRegex = /^[\d|\+\-\/\*\(\)\s\.\,]+$/;
+
+const numberFormat = new Intl.NumberFormat("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export const AmountCell: FC<Props> = ({ ctx }) => {
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(ctx.getValue()?.toString());
-  const [evaluatedValue, setEvaluatedValue] = useState<number | null>(null);
-  const [hasFocus, setHasFocus] = useState(false);
+  const [numberInputValue, setNumberInputValueUnsafe] = useState(ctx.getValue()?.toString() || "");
+  const [formulaInputValue, setFormulaInputValueUnsafe] = useState("");
+  const [formulaEditorOpen, setFormulaEditorOpen] = useState(false);
+  const [numberInputHasFocus, setNumberInputHasFocus] = useState(false);
 
-  const formatedValue = hasFocus ? numberFormatLong.format(parseFloat(value!)) : numberFormatShort.format(parseFloat(value!));
+  const parsedNumberInputValue = (() => {
+    const value = parseFloat(numberInputValue.replace(",", "."));
+    return isNaN(value) ? null : value;
+  })();
 
-  const handleFocus = () => {
-    setValue(ctx.row.original.amountFormula || "");
-    setHasFocus(true);
+  const formattedNumberInputValue = (() => {
+    if (numberInputHasFocus || parsedNumberInputValue === null) return numberInputValue;
+    return numberFormat.format(parsedNumberInputValue);
+  })();
+
+  const setNumberInputValue = (value: string) => {
+    if (value === "" || validNumberRegex.test(value)) return setNumberInputValueUnsafe(value);
+
+    // If the value is not a valid number, check if it is at least a valid formula
+    // If it is a valid formula input should switch to popover
+    const isValidFormulaInput = formulaRegex.test(value);
+    if (isValidFormulaInput) {
+      setFormulaInputValue(value);
+      setFormulaEditorOpen(true);
+    }
   };
 
-  const handleBlur = () => {
-    saveData(value);
-    setValue(ctx.getValue()?.toString());
-    setHasFocus(false);
+  const setFormulaInputValue = (value: string) => {
+    if (value === "" || formulaRegex.test(value)) return setFormulaInputValueUnsafe(value);
   };
 
-  const saveData = async (formula?: string) => {
+  const handleNumberInputInput: ComponentProps<typeof Input>["onInput"] = (e) => setNumberInputValue(e.currentTarget.value);
+
+  const handleFormulaInputInput: ComponentProps<typeof Input>["onInput"] = (e) => {
+    setFormulaInputValue(e.currentTarget.value);
+    const evaluatedFormula = evaluateAmountFormula(e.currentTarget.value);
+    setNumberInputValue(evaluatedFormula === null ? "" : evaluatedFormula.toString());
+  };
+
+  const handleNumberInputFocus = () => {
+    setNumberInputHasFocus(true);
+  };
+
+  const handleNumberInputBlur = () => {
+    saveData(parsedNumberInputValue ? parsedNumberInputValue.toString() : null);
+    setNumberInputHasFocus(false);
+  };
+
+  const handleFormulaInputFocus: ComponentProps<typeof Input>["onFocus"] = (e) => {
+    // e.preventDefault();
+    requestAnimationFrame(() => e.target.setSelectionRange(e.target.value.length, e.target.value.length));
+  };
+
+  const handleFormulaInputOpenChange: ComponentProps<typeof Popover>["onOpenChange"] = (open) => {
+    if (open) return;
+    setFormulaEditorOpen(false);
+    setFormulaInputValue("");
+  };
+
+  const saveData = async (formula: string | null) => {
     try {
       await updateActvity(ctx.row.original.id, { amountFormula: formula });
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
     }
-  };
-
-  const handleInput: ComponentProps<typeof Input>["onInput"] = (e) => {
-    const newValue = e.currentTarget.value;
-    setValue(newValue);
-    setEvaluatedValue(evaluateAmountFormula(newValue));
   };
 
   return (
     <TableCell key={ctx.cell.id}>
-      <div className="relative">
-        <Input
-          className="border-none text-right shadow-none w-24"
-          placeholder="0.00"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onInput={handleInput}
-          value={formatedValue}
-        />
-        {hasFocus && (
-          <Badge variant="secondary" className="mt-2 w-full justify-end">
-            {evaluatedValue || "-"}
-          </Badge>
-        )}
-      </div>
+      <Popover open={formulaEditorOpen} onOpenChange={handleFormulaInputOpenChange}>
+        <PopoverAnchor>
+          <Input
+            className="border-none text-right shadow-none w-24"
+            placeholder="0.00"
+            onFocus={handleNumberInputFocus}
+            onBlur={handleNumberInputBlur}
+            onInput={handleNumberInputInput}
+            value={formattedNumberInputValue}
+            disabled={formulaEditorOpen}
+          />
+        </PopoverAnchor>
+        <PopoverContent className="p-0 border" side="top" align="end">
+          <Input onInput={handleFormulaInputInput} onFocus={handleFormulaInputFocus} value={formulaInputValue} className="border-transparent text-right" />
+        </PopoverContent>
+      </Popover>
     </TableCell>
   );
 };
