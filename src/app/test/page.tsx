@@ -30,33 +30,33 @@ export default function ActivityTable() {
 
   const columns = useMemo(
     () => [
-      ch.accessor("a", {
-        header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
-      }),
       ch.accessor("b", {
         header: (ctx) => <HeaderCell />,
         cell: (ctx) => <InputCell ctx={ctx} />,
       }),
+      ch.accessor("a", {
+        header: (ctx) => <HeaderCell />,
+        cell: (ctx) => <TextCell />,
+      }),
       ch.accessor("c", {
         header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
+        cell: (ctx) => <TextCell />,
       }),
       ch.accessor("d", {
         header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
+        cell: (ctx) => <TextCell />,
       }),
       ch.accessor("e", {
         header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
+        cell: (ctx) => <TextCell />,
       }),
       ch.accessor("f", {
         header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
+        cell: (ctx) => <TextCell />,
       }),
       ch.accessor("g", {
         header: (ctx) => <HeaderCell />,
-        cell: (ctx) => <DropdownCell />,
+        cell: (ctx) => <TextCell />,
       }),
     ],
     []
@@ -125,13 +125,11 @@ const HeaderCell: FC = () => {
 const DropdownCell: FC = () => {
   return (
     <TableCell>
-      {/* <button>Test</button> */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button>Trigger</Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>Content</DropdownMenuContent>
-      </DropdownMenu>
+      <select>
+        {Array.from(new Array(1)).map((_, i) => (
+          <option key={i}>Option {i + 1}</option>
+        ))}
+      </select>
     </TableCell>
   );
 };
@@ -142,4 +140,8 @@ const InputCell: FC<{ ctx: CellContext<any, any> }> = ({ ctx }) => {
       <Input value={ctx.getValue()} onChange={(e) => ctx.table.options.meta.update(ctx.row.index, ctx.column.id, e.currentTarget.value)} />
     </TableCell>
   );
+};
+
+const TextCell: FC = () => {
+  return <TableCell>Cell</TableCell>;
 };
