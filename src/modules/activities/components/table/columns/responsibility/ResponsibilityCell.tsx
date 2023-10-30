@@ -5,17 +5,24 @@ import { updateActvity } from "@/modules/activities/server-actions/update-activi
 import { Input } from "@/common/components/ui/input";
 
 interface Props {
-  ctx: ActivityCellContext<"description">;
+  ctx: ActivityCellContext<"responsibility">;
 }
 
-export const DescriptionCell: FC<Props> = ({ ctx }) => {
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(ctx.getValue());
+const EMPTY = "empty";
 
+export const ResponsibilityCell: FC<Props> = ({ ctx }) => {
+  const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState(ctx.getValue()?.toString());
+
+  // Could abstracted as a util for use in every select cell
   const handleValueChange: FocusEventHandler<HTMLInputElement> = async (e) => {
-    if (ctx.getValue() === value) return;
+    const responsibility = value;
+
+    if (value !== "" && ctx.getValue() === responsibility) return;
+
     try {
-      await updateActvity(ctx.row.original.id, { description: e.currentTarget.value });
+      // await updateActvity(ctx.row.original.id, { year: isNaN(year) ? null : year });
+      await updateActvity(ctx.row.original.id, { responsibility });
     } catch (err) {
       console.error(err);
     } finally {
@@ -27,7 +34,7 @@ export const DescriptionCell: FC<Props> = ({ ctx }) => {
     <TableCell key={ctx.cell.id} className="max-w-[20rem] overflow-hidden text-ellipsis">
       <Input
         className="border-none shadow-none"
-        placeholder="No description"
+        placeholder="Responsibility"
         onBlur={handleValueChange}
         onInput={(e) => setValue(e.currentTarget.value)}
         value={value}

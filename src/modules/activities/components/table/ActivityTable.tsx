@@ -17,6 +17,7 @@ import {
 
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../../../../common/components/ui/table";
 import { ActivitySelect, EmissionFactorSelect, EmissionFactorSourceSelect, ScopeSelect, UnitSelect } from "@/common/database/schema";
+// Header
 import { SelectHeader } from "./columns/select/SelectHeader";
 import { DescriptionHeader } from "./columns/description/DescriptionHeader";
 import { ScopeHeader } from "./columns/scope/ScopeHeader";
@@ -24,6 +25,9 @@ import { AmountHeader } from "./columns/amount/AmountHeader";
 import { UnitHeader } from "./columns/unit/UnitHeader";
 import { FactorHeader } from "./columns/factor/FactorHeader";
 import { EmissionHeader } from "./columns/emission/EmissionHeader";
+import { YearHeader } from "./columns/year/YearHeader";
+import { ResponsibilityHeader } from "./columns/responsibility/ResponsibilityHeader";
+// Cells
 import { SelectCell } from "./columns/select/SelectCell";
 import { DescriptionCell } from "./columns/description/DescriptionCell";
 import { ScopeCell } from "./columns/scope/ScopeCell";
@@ -31,6 +35,8 @@ import { AmountCell } from "./columns/amount/AmountCell";
 import { UnitCell } from "./columns/unit/UnitCell";
 import { FactorCell } from "./columns/factor/FactorCell";
 import { EmissionCell } from "./columns/emission/EmissionCell";
+import { YearCell } from "./columns/year/YearCell";
+import { ResponsibilityCell } from "./columns/responsibility/ResponsibilityCell";
 
 import { ActivityCreator } from "../ActivityCreator";
 import { PageTitle } from "../../../../common/components/PageTitle";
@@ -64,6 +70,7 @@ export type ActivityDisplayCellContext = CellContext<ActivityTableData, unknown>
 const ch = createColumnHelper<ActivityTableData>();
 
 export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units, emissionFactorSources, emissionFactorYears }) => {
+
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -97,6 +104,16 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
         id: "Description",
         header: (ctx) => <DescriptionHeader ctx={ctx} key={ctx.header.id} />,
         cell: (ctx) => <DescriptionCell ctx={ctx} key={ctx.cell.id} />,
+      }),
+      ch.accessor("year", {
+        id: "Year",
+        header: (ctx) => <YearHeader ctx={ctx} key={ctx.header.id} />,
+        cell: (ctx) => <YearCell ctx={ctx} key={ctx.cell.id} />,
+      }),
+      ch.accessor("responsibility", {
+        id: "Responsibility",
+        header: (ctx) => <ResponsibilityHeader ctx={ctx} key={ctx.header.id} />,
+        cell: (ctx) => <ResponsibilityCell ctx={ctx} key={ctx.cell.id} />,
       }),
       ch.accessor(({ scope }) => (scope ? buildCompoundScopeNumber(scope.scope, scope.subScope) : null), {
         id: "Scope",
