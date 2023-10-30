@@ -22,9 +22,9 @@ export const Activity = pgTable("activity", {
   doubleCounting: boolean('double_counting'),
   biogenicShare: boolean('biogenic_share'),
   responsibility: text('responsibility'),
+  notes: text('notes'),
   costs: integer('costs'),
   costsUnit: text('costs_unit'),
-  notes: text('notes'),
   uncertainty: real('uncertainty'),
   createdAt,
 });
