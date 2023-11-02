@@ -27,6 +27,9 @@ import { FactorHeader } from "./columns/factor/FactorHeader";
 import { EmissionHeader } from "./columns/emission/EmissionHeader";
 import { YearHeader } from "./columns/year/YearHeader";
 import { ResponsibilityHeader } from "./columns/responsibility/ResponsibilityHeader";
+import { Header as DoubleCountingHeader } from "./columns/doublecounting/Header";
+import { Header as BiogenicShareHeader } from "./columns/biogenicshare/Header";
+import { Header as NotesHeader } from "./columns/notes/Header";
 // Cells
 import { SelectCell } from "./columns/select/SelectCell";
 import { DescriptionCell } from "./columns/description/DescriptionCell";
@@ -37,13 +40,16 @@ import { FactorCell } from "./columns/factor/FactorCell";
 import { EmissionCell } from "./columns/emission/EmissionCell";
 import { YearCell } from "./columns/year/YearCell";
 import { ResponsibilityCell } from "./columns/responsibility/ResponsibilityCell";
+import { Cell as DoubleCountingCell } from "./columns/doublecounting/Cell";
+import { Cell as BiogenicShareCell } from "./columns/biogenicshare/Cell";
+import { Cell as NotesCell } from "./columns/notes/Cell";
 
-import { ActivityCreator } from "../ActivityCreator";
-import { PageTitle } from "../../../../common/components/PageTitle";
+import { ActivityCreator } from "@/modules/activities/components/ActivityCreator";
+import { PageTitle } from "@/common/components/PageTitle";
 import { cn } from "@/common/utils";
 import { BulkActionPane } from "./bulk-actions/BulkActionPane";
 import { SortOrderSwitcher } from "./SortOrderSwitcher";
-import { buildCompoundScopeNumber } from "../../utils/scope-number";
+import { buildCompoundScopeNumber } from "@/modules/activities/utils/scope-number";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
@@ -110,6 +116,11 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
         header: (ctx) => <YearHeader ctx={ctx} key={ctx.header.id} />,
         cell: (ctx) => <YearCell ctx={ctx} key={ctx.cell.id} />,
       }),
+      ch.accessor("notes", {
+        id: "Notes",
+        header: (ctx) => <NotesHeader ctx={ctx} key={ctx.header.id} />,
+        cell: (ctx) => <NotesCell ctx={ctx} key={ctx.cell.id} />,
+      }),
       ch.accessor("responsibility", {
         id: "Responsibility",
         header: (ctx) => <ResponsibilityHeader ctx={ctx} key={ctx.header.id} />,
@@ -138,9 +149,19 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
         ),
       }),
       ch.accessor("co2e", {
-        id: "Emsision",
+        id: "Emission",
         header: (ctx) => <EmissionHeader ctx={ctx} key={ctx.header.id} />,
         cell: (ctx) => <EmissionCell ctx={ctx} key={ctx.cell.id} />,
+      }),
+      ch.accessor("doubleCounting", {
+        id: "DoubleCounting",
+        header: (ctx) => <DoubleCountingHeader ctx={ctx} key={ctx.header.id} />,
+        cell: (ctx) => <DoubleCountingCell ctx={ctx} key={ctx.cell.id} />,
+      }),
+      ch.accessor("biogenicShare", {
+        id: "BiogenicShare",
+        header: (ctx) => <BiogenicShareHeader ctx={ctx} key={ctx.header.id} />,
+        cell: (ctx) => <BiogenicShareCell ctx={ctx} key={ctx.cell.id} />,
       }),
     ],
     [scopes, units, emissionFactorSources, emissionFactorYears]
