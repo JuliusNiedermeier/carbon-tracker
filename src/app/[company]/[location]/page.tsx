@@ -5,7 +5,7 @@ import { CaretRightIcon } from "@radix-ui/react-icons";
 import { LocationSelector } from "@/common/components/LocationSelector";
 import { db } from "@/common/database/client";
 import { asc, eq } from "drizzle-orm";
-import { Company, CompanyLocation, EmissionFactor, Scope } from "@/common/database/schema";
+import { Activity, Company, CompanyLocation, EmissionFactor, Scope } from "@/common/database/schema";
 import { redirect } from "next/navigation";
 import { ActivityTable } from "@/modules/activities/components/table/ActivityTable";
 
