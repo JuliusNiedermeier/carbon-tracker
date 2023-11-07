@@ -3,6 +3,7 @@ import { FC, FocusEventHandler, useState } from "react";
 import { ActivityCellContext } from "../../ActivityTable";
 import { Input } from "@/common/components/ui/input";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
+import { numberFormat } from "@/common/numberFormats";
 
 interface Props {
   ctx: ActivityCellContext<"amount">;
@@ -10,7 +11,7 @@ interface Props {
 
 export const AmountCell: FC<Props> = ({ ctx }) => {
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(ctx.getValue()?.toString());
+  const [value, setValue] = useState(ctx.getValue()?.toString() || '');
 
   const handleValueChange: FocusEventHandler<HTMLInputElement> = async (e) => {
     const amount = parseFloat(value!);
@@ -33,7 +34,7 @@ export const AmountCell: FC<Props> = ({ ctx }) => {
         placeholder="0.00"
         onBlur={handleValueChange}
         onInput={(e) => setValue(e.currentTarget.value)}
-        value={value}
+        value={numberFormat.format(value as unknown as number)}
       />
     </TableCell>
   );
