@@ -1,6 +1,6 @@
 import { TableCell } from "@/common/components/ui/table";
 import { FC, FocusEventHandler, useState } from "react";
-import { ActivityCellContext } from "../../ActivityTable";
+import { ActivityCellContext } from "@/modules/activities/components/table/ActivityTable";
 import { Input } from "@/common/components/ui/input";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { numberFormat } from "@/common/numberFormats";
