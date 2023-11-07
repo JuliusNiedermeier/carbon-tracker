@@ -1,7 +1,7 @@
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { TableHead } from "@/common/components/ui/table";
 import { FC } from "react";
-import { ActivityDisplayHeaderContext } from "../../ActivityTable";
+import { ActivityDisplayHeaderContext } from "@/modules/activities/components/table/ActivityTable";
 
 interface Props {
   ctx: ActivityDisplayHeaderContext;

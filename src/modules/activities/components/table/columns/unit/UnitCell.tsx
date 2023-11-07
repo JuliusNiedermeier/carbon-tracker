@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { TableCell } from "@/common/components/ui/table";
 import { UnitSelect } from "@/common/database/schema";
 import { FC, useState } from "react";
-import { ActivityCellContext } from "../../ActivityTable";
+import { ActivityCellContext } from "@/modules/activities/components/table/ActivityTable";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Cross2Icon } from "@radix-ui/react-icons";
 

@@ -1,7 +1,7 @@
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { TableCell } from "@/common/components/ui/table";
 import { FC } from "react";
-import { ActivityDisplayCellContext } from "../../ActivityTable";
+import { ActivityDisplayCellContext } from "@/modules/activities/components/table/ActivityTable";
 
 interface Props {
   ctx: ActivityDisplayCellContext;

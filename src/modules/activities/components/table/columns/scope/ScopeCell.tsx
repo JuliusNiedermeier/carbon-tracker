@@ -9,7 +9,8 @@ import { CellContext } from "@tanstack/react-table";
 import { buildCompoundScopeNumber } from "@/modules/activities/utils/scope-number";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Badge } from "@/common/components/ui/badge";
-import { ActivityTableData } from "../../ActivityTable";
+import { ActivityTableData } from "@/modules/activities/components/table/ActivityTable";
+
 
 interface Props {
   scopes: ScopeSelect[];

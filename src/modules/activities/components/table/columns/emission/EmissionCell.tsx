@@ -1,6 +1,6 @@
 import { TableCell } from "@/common/components/ui/table";
 import { FC } from "react";
-import { ActivityCellContext } from "../../ActivityTable";
+import { ActivityCellContext } from "@/modules/activities/components/table//ActivityTable";
 import { MinusIcon } from "@radix-ui/react-icons";
 import { numberFormat } from "@/common/numberFormats";
 
