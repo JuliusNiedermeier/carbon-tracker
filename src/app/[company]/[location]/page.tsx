@@ -8,6 +8,7 @@ import { asc, eq } from "drizzle-orm";
 import { Company, CompanyLocation, EmissionFactor, Scope } from "@/common/database/schema";
 import { redirect } from "next/navigation";
 import { ActivityTable } from "@/modules/activities/components/table/ActivityTable";
+import { Activity } from "@/common/database/schema/tables/activity";
 
 const CompanyPage: FC<{
   params: { company: string; location: string };
@@ -16,7 +17,13 @@ const CompanyPage: FC<{
     where: eq(Company.slug, params.company),
     with: {
       locations: {
-        with: { activities: { with: { scope: true, unit: true, factor: { with: { unit: true } } } } },
+        with: {
+          activities: {
+            orderBy: asc(Activity.createdAt),
+            with: {
+              scope: true,
+              unit: true,
+              factor: { with: { unit: true } } } } },
         where: eq(CompanyLocation.slug, params.location),
         limit: 1,
       },
@@ -25,9 +32,9 @@ const CompanyPage: FC<{
 
   if (!company) return redirect("/");
   if (!company.locations[0]) return redirect(`/${company.slug}`);
-
-  const scopes = await db.query.Scope.findMany({ orderBy: [asc(Scope.scope), asc(Scope.subScope)] });
-  const units = await db.query.Unit.findMany();
+  const limit = 99;
+  const scopes = await db.query.Scope.findMany({ orderBy: [asc(Scope.scope), asc(Scope.subScope)], limit: limit });
+  const units = await db.query.Unit.findMany({limit: limit });
   const emissionFactorSources = await db.query.EmissionFactorSource.findMany();
   const emissionFactorYears = await db.selectDistinctOn([EmissionFactor.year], { year: EmissionFactor.year }).from(EmissionFactor);
 
