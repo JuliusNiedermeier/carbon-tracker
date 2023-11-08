@@ -91,8 +91,6 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
 
   const [optimisticActivities, setOptimisticActivities] = useState(activities);
 
-  useEffect(() => console.log(optimisticActivities), [optimisticActivities]);
-
   const columns = useMemo(
     () => [
       ch.display({
