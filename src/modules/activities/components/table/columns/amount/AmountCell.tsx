@@ -1,40 +1,43 @@
 import { TableCell } from "@/common/components/ui/table";
-import { FC, FocusEventHandler, useState } from "react";
+import { ComponentProps, FC, FocusEventHandler, useState } from "react";
 import { ActivityCellContext } from "../../ActivityTable";
 import { Input } from "@/common/components/ui/input";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
+import { useMemoComponent } from "@/modules/activities/utils/use-memo-component";
 
 interface Props {
   ctx: ActivityCellContext<"amount">;
 }
 
 export const AmountCell: FC<Props> = ({ ctx }) => {
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(ctx.getValue()?.toString());
+  const Component = useMemoComponent(_AmountCell);
+  return <Component amount={ctx.getValue()} activityId={ctx.row.original.id} cellId={ctx.cell.id} />;
+};
+
+type _Props = {
+  amount: number | null;
+  activityId: number;
+  cellId: string;
+};
+
+export const _AmountCell: FC<_Props> = ({ amount: initialAmount, activityId, cellId }) => {
+  const [amount, setAmount] = useState(initialAmount?.toString());
+
+  const handleInput: ComponentProps<typeof Input>["onInput"] = (e) => {
+    setAmount(e.currentTarget.value);
+  };
 
   const handleValueChange: FocusEventHandler<HTMLInputElement> = async (e) => {
-    const amount = parseFloat(value!);
-
-    if (value !== "" && (isNaN(amount) || ctx.getValue() === amount)) return;
-
-    try {
-      await updateActvity(ctx.row.original.id, { amount: isNaN(amount) ? null : amount });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    if (amount === initialAmount?.toString()) return;
+    const amountNumber = parseFloat(amount!);
+    const isValidNumber = !isNaN(amountNumber);
+    if (amount !== "" && !isValidNumber) return;
+    await updateActvity(activityId, { amount: isValidNumber ? amountNumber : null });
   };
 
   return (
-    <TableCell key={ctx.cell.id}>
-      <Input
-        className="border-none text-right shadow-none w-24"
-        placeholder="0.00"
-        onBlur={handleValueChange}
-        onInput={(e) => setValue(e.currentTarget.value)}
-        value={value}
-      />
+    <TableCell key={cellId}>
+      <Input className="border-none text-right shadow-none w-24" placeholder="0.00" onBlur={handleValueChange} onInput={handleInput} value={amount} />
     </TableCell>
   );
 };

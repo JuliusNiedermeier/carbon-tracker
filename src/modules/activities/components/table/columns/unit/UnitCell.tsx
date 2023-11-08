@@ -6,34 +6,40 @@ import { FC, useState } from "react";
 import { ActivityCellContext } from "../../ActivityTable";
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { useMemoComponent } from "@/modules/activities/utils/use-memo-component";
 
-interface Props {
+type Props = {
   units: UnitSelect[];
   ctx: ActivityCellContext<"unit.abbreviation">;
-}
+};
+
+export const UnitCell: FC<Props> = ({ ctx, units }) => {
+  const Component = useMemoComponent(_UnitCell);
+  return <Component units={units} activityId={ctx.row.original.id} cellId={ctx.cell.id} selectedUnitId={ctx.row.original.unitId} />;
+};
+
+type _Props = {
+  units: UnitSelect[];
+  selectedUnitId: number | null;
+  activityId: number;
+  cellId: string;
+};
 
 const EMPTY = "empty";
 
-export const UnitCell: FC<Props> = ({ units, ctx }) => {
+const _UnitCell: FC<_Props> = ({ units, activityId, cellId, selectedUnitId }) => {
   const [loading, setLoading] = useState(false);
 
   // Could abstracted as a util for use in every select cell
   const handleValueChange = async (value: string) => {
     const unitId = value === EMPTY ? null : parseInt(value);
     if (unitId !== null && isNaN(unitId)) return;
-    setLoading(true);
-    try {
-      await updateActvity(ctx.row.original.id, { unitId });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    updateActvity(activityId, { unitId });
   };
 
   return (
-    <TableCell key={ctx.cell.id}>
-      <Select value={ctx.row.original.unit?.id.toString()} onValueChange={handleValueChange}>
+    <TableCell key={cellId}>
+      <Select value={selectedUnitId?.toString() || EMPTY} onValueChange={handleValueChange}>
         <SelectTrigger className="border-none shadow-none hover:bg-muted gap-2 whitespace-nowrap">
           <SelectValue placeholder="Not selected" />
         </SelectTrigger>

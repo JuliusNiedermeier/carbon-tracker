@@ -10,34 +10,38 @@ import { buildCompoundScopeNumber } from "@/modules/activities/utils/scope-numbe
 import { updateActvity } from "@/modules/activities/server-actions/update-activity";
 import { Badge } from "@/common/components/ui/badge";
 import { ActivityTableData } from "../../ActivityTable";
+import { useMemoComponent } from "@/modules/activities/utils/use-memo-component";
 
-interface Props {
+type Props = {
   scopes: ScopeSelect[];
   ctx: CellContext<ActivityTableData, string | null>;
-}
+};
+
+export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
+  const Component = useMemoComponent(_ScopeCell);
+  return <Component scopes={scopes} activityId={ctx.row.original.id} selectedScopeId={ctx.row.original.scopeId || null} cellId={ctx.cell.id} />;
+};
+
+type _Props = {
+  scopes: ScopeSelect[];
+  selectedScopeId: number | null;
+  activityId: number;
+  cellId: string;
+};
 
 const EMPTY = "empty";
 
-export const ScopeCell: FC<Props> = ({ scopes, ctx }) => {
-  const [loading, setLoading] = useState(false);
-
+const _ScopeCell: FC<_Props> = ({ scopes, activityId, cellId, selectedScopeId }) => {
   // Could abstracted as a util for use in every select cell
   const handleValueChange = async (value: string) => {
     const scopeId = value === EMPTY ? null : parseInt(value);
     if (scopeId !== null && isNaN(scopeId)) return;
-    setLoading(true);
-    try {
-      await updateActvity(ctx.row.original.id, { scopeId });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    updateActvity(activityId, { scopeId });
   };
 
   return (
-    <TableCell key={ctx.cell.id}>
-      <Select value={ctx.row.original.scope?.id.toString()} onValueChange={handleValueChange}>
+    <TableCell key={cellId}>
+      <Select value={selectedScopeId?.toString() || EMPTY} onValueChange={handleValueChange}>
         <SelectTrigger className="border-none shadow-none hover:bg-muted gap-2 whitespace-nowrap">
           <SelectValue placeholder="Not selected" />
         </SelectTrigger>
