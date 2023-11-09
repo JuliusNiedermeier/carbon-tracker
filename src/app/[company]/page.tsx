@@ -5,7 +5,7 @@ import { db } from "@/common/database/client";
 import { eq } from "drizzle-orm";
 import { Company, CompanyLocation } from "@/common/database/schema";
 import { FC } from "react";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { Button } from "@/common/components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/popover";

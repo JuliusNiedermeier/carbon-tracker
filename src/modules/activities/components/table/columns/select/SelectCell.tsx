@@ -1,16 +1,29 @@
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { TableCell } from "@/common/components/ui/table";
-import { FC } from "react";
+import { ComponentProps, FC, useMemo } from "react";
 import { ActivityDisplayCellContext } from "@/modules/activities/components/table/ActivityTable";
+import { useMemoComponent } from "@/modules/activities/utils/use-memo-component";
 
-interface Props {
+type Props = {
   ctx: ActivityDisplayCellContext;
-}
+};
 
 export const SelectCell: FC<Props> = ({ ctx }) => {
+  const handleOnCheckedChange = useMemo(() => ctx.row.getToggleSelectedHandler(), [ctx.row.getToggleSelectedHandler]);
+
+  const Component = useMemoComponent(_SelectCell);
+  return <Component checked={ctx.row.getIsSelected()} onCheckedChange={handleOnCheckedChange} />;
+};
+
+type _Props = {
+  checked: boolean;
+  onCheckedChange: ComponentProps<typeof Checkbox>["onCheckedChange"];
+};
+
+const _SelectCell: FC<_Props> = ({ checked, onCheckedChange }) => {
   return (
     <TableCell key="select-cell">
-      <Checkbox checked={ctx.row.getIsSelected()} onCheckedChange={ctx.row.getToggleSelectedHandler()} />
+      <Checkbox checked={checked} onCheckedChange={onCheckedChange} />
     </TableCell>
   );
 };
