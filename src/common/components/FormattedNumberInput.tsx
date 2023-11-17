@@ -33,13 +33,13 @@ export const FormattedNumberInput = forwardRef<HTMLInputElement, Props>(
 
     useEffect(() => {
       setRawInputValue(stringifiedExternalValue);
-    }, [externalValue]);
+    }, [stringifiedExternalValue]);
 
     useEffect(() => {
       if (!rawInputValueIsValidNumber) return;
       setLastValidInput(rawInputValueAsNumber);
       if (onInputAccepted) onInputAccepted(rawInputValueAsNumber);
-    }, [rawInputValue]);
+    }, [rawInputValueIsValidNumber, rawInputValueAsNumber, rawInputValue, onInputAccepted]);
 
     const handleFocus: OriginalInputProps["onFocus"] = (e) => {
       setHasFocus(true);
@@ -76,3 +76,5 @@ export const FormattedNumberInput = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+FormattedNumberInput.displayName = "FormattedNumberInput";

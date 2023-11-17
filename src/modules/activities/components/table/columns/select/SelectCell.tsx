@@ -9,7 +9,9 @@ type Props = {
 };
 
 export const SelectCell: FC<Props> = ({ ctx }) => {
-  const handleOnCheckedChange = useMemo(() => ctx.row.getToggleSelectedHandler(), [ctx.row.getToggleSelectedHandler]);
+  // This will still rerender every time a new context is passed
+  // Must be fixed
+  const handleOnCheckedChange = useMemo(() => ctx.row.getToggleSelectedHandler(), [ctx.row]);
 
   const Component = useMemoComponent(_SelectCell);
   return <Component checked={ctx.row.getIsSelected()} onCheckedChange={handleOnCheckedChange} />;
