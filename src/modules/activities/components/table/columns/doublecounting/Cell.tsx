@@ -9,24 +9,20 @@ interface Props {
 }
 
 export const Cell: FC<Props> = ({ ctx }) => {
-const getIsSelected = ctx.getValue() || false;
+  const isSelected = ctx.getValue() || false;
 
-const handleValueChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = async (value) => {
-
-  try {
-    await updateActvity(ctx.row.original.id, { doubleCounting: value == "indeterminate" ? false : value });
-  } catch (err) {
-    console.error(err);
-  } finally {
-  }
-};
+  const handleValueChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = async (value) => {
+    try {
+      await updateActvity(ctx.row.original.id, { doubleCounting: value == "indeterminate" ? false : value });
+    } catch (err) {
+      console.error(err);
+    } finally {
+    }
+  };
 
   return (
     <TableCell key={ctx.cell.id}>
-      <Checkbox
-      checked={getIsSelected}
-      onCheckedChange={handleValueChange}
-      />
+      <Checkbox checked={isSelected} onCheckedChange={handleValueChange} />
     </TableCell>
   );
 };

@@ -9,9 +9,9 @@ interface Props {
 }
 
 export const Cell: FC<Props> = ({ ctx }) => {
-  const getIsSelected = ctx.getValue() || false;
-  const handleValueChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = async (value) => {
+  const isSelected = ctx.getValue() || false;
 
+  const handleValueChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = async (value) => {
     try {
       await updateActvity(ctx.row.original.id, { biogenicShare: value == "indeterminate" ? false : value });
     } catch (err) {
@@ -22,10 +22,7 @@ export const Cell: FC<Props> = ({ ctx }) => {
 
   return (
     <TableCell key={ctx.cell.id}>
-      <Checkbox
-      onCheckedChange={handleValueChange}
-      checked={getIsSelected}
-      />
+      <Checkbox onCheckedChange={handleValueChange} checked={isSelected} />
     </TableCell>
   );
 };
