@@ -28,8 +28,6 @@ type _Props = {
 const EMPTY = "empty";
 
 const _UnitCell: FC<_Props> = ({ units, activityId, cellId, selectedUnitId }) => {
-  const [loading, setLoading] = useState(false);
-
   // Could abstracted as a util for use in every select cell
   const handleValueChange = async (value: string) => {
     const unitId = value === EMPTY ? null : parseInt(value);
