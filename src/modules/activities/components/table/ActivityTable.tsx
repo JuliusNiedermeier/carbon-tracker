@@ -79,30 +79,27 @@ export type TableOptionsMeta = { update: TableDataUpdater };
 const ch = createColumnHelper<ActivityTableData>();
 
 export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units, emissionFactorSources, emissionFactorYears }) => {
+  // const router = useRouter();
+  // const supabase = createClientComponentClient();
 
-  const router = useRouter();
-  const supabase = createClientComponentClient();
+  // const channel = useMemo(() => {
+  //   if (!supabase) return;
+  //   return supabase.channel("activities");
+  // }, [supabase]);
 
-  const channel = useMemo(() => {
-    if (!supabase) return;
-    return supabase.channel("activities");
-  }, [supabase]);
+  // useEffect(() => {
+  //   if (!supabase || !channel) return;
 
-  useEffect(() => {
-    if (!supabase || !channel) return;
+  //   channel.on("postgres_changes", { event: "*", schema: "public", table: "activity", filter: `location_id=eq.${locationId}` }, router.refresh);
+  //   channel.subscribe();
 
-    channel.on("postgres_changes", { event: "*", schema: "public", table: "activity", filter: `location_id=eq.${locationId}` }, router.refresh);
-    channel.subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [supabase, channel, router]);
+  //   return () => {
+  //     supabase.removeChannel(channel);
+  //   };
+  // }, [supabase, channel, router]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
-
-  const [optimisticActivities, setOptimisticActivities] = useState(activities);
 
   const columns = useMemo(
     () => [
@@ -173,7 +170,7 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
   );
 
   const table = useReactTable({
-    data: optimisticActivities,
+    data: activities,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -182,7 +179,7 @@ export const ActivityTable: FC<Props> = ({ locationId, activities, scopes, units
     onRowSelectionChange: setRowSelection,
     enableMultiSort: true,
     enableRowSelection: true,
-    meta: { update: createTableDataUpdater(setOptimisticActivities) },
+    meta: { update: () => alert("Optimistic updates are not implemented yet") },
   });
 
   const showBulkActionPage = table.getIsSomePageRowsSelected() || table.getIsAllPageRowsSelected();
