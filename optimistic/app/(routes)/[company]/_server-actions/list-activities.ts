@@ -1,0 +1,36 @@
+"use server";
+
+import { db } from "@/app/_services/postgres";
+import { eq, inArray } from "drizzle-orm";
+import { Company, CorporateGroupView } from "@/app/_database/schema";
+
+export const listActivities = async (rootCompanySlug: string) => {
+  const rootCompany = (await db.query.Company.findFirst({ where: eq(Company.slug, rootCompanySlug), columns: { id: true } })) ?? null;
+
+  if (rootCompany === null) return [];
+  const [corporateGroup] = await db.select().from(CorporateGroupView).where(eq(CorporateGroupView.rootCompanyId, rootCompany.id));
+
+  const companyIDs = corporateGroup.members?.map((member) => member.id);
+  if (!companyIDs) return [];
+
+  const companies = await db.query.Company.findMany({
+    where: inArray(Company.id, companyIDs),
+    columns: { id: true, name: true },
+    with: {
+      locations: {
+        columns: { id: true, name: true },
+        with: { activities: { with: { scope: true, unit: true, factor: { columns: { embedding: false }, with: { unit: true } } } } },
+      },
+    },
+  });
+
+  return companies
+    .map((company) =>
+      company.locations
+        .map((location) =>
+          location.activities.map((activity) => ({ ...activity, locationName: location.name, companyId: company.id, companyName: company.name }))
+        )
+        .flat()
+    )
+    .flat();
+};
