@@ -1,19 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Activity } from "./use-activities";
 import { updateActivity } from "../_server-actions/update-activity";
+import { useRef } from "react";
 
 export const useUpdateActivity = (rootCompanySlug: string) => {
   const qc = useQueryClient();
+  const updateTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const { mutate } = useMutation({
     mutationKey: ["update-activity", rootCompanySlug],
     // Perform the network request
     mutationFn: async (variables: { activityID: Activity["id"]; column: keyof Activity; value: Activity[keyof Activity] }) => {
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-      await updateActivity(variables.activityID, variables.column, variables.value);
-      // const response = await fetch(`/api/activities/${variables.activityID}/${variables.column}?value=${variables.value}`, { method: "PUT" });
-      // if (!response.ok) throw new Error("Failed to fetch");
-      // return response.text();
+      // Clear any existing timeout
+      if (updateTimeout.current) clearTimeout(updateTimeout.current);
+
+      updateTimeout.current = setTimeout(() => {
+        // TODO: Remove any type
+        updateActivity(variables.activityID, variables.column as any, variables.value);
+      }, 1000);
     },
     // Optimistically update local activities
     onMutate: async (variables) => {
