@@ -25,6 +25,7 @@
     "drizzle-orm": "^0.29.3",
     "drizzle-valibot": "^0.1.1",
     "lucide-react": "^0.309.0",
+    "mathjs": "^12.3.0",
     "nanoid": "^5.0.4",
     "next": "14.0.4",
     "postgres": "^3.4.3",
