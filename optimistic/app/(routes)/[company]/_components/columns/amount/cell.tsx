@@ -1,15 +1,19 @@
-import { ComponentProps, FC, useMemo, useRef, useState } from "react";
+import { ComponentProps, FC, useRef, useState } from "react";
 import { ActivityCellContext } from "@/app/(routes)/[company]/_utils/cell-types";
-import { InputCell } from "../../table-utils/cells/input-cell";
+import { TransitionInput } from "../../../../../_components/transition-input";
 import { evaluate } from "mathjs";
+import { FunctionSquare } from "lucide-react";
+import { BaseCell } from "../../table-utils/cells/base-cell";
 
 export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
   const [hasFocus, setHasFocus] = useState(false);
 
+  const isFormula = props.row.original.amount?.toString() !== props.row.original.amountFormula;
+
   // HACK
   const updateTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  const handleUpdate: ComponentProps<typeof InputCell>["onUpdate"] = (value) => {
+  const handleUpdate: ComponentProps<typeof TransitionInput>["onInput"] = (value) => {
     try {
       const result = evaluate(value) as number;
       if (typeof result !== "number") return;
@@ -25,9 +29,24 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
     // props.table.options.meta?.updateCell(props.row.original.id, "amount", value);
   };
 
-  // const result = useMemo(() => {});
-
   const displayedValue = hasFocus ? props.row.original.amountFormula : props.getValue()?.toString();
 
-  return <InputCell value={displayedValue || ""} onUpdate={handleUpdate} onFocus={() => setHasFocus(true)} onBlur={() => setHasFocus(false)} />;
+  return (
+    <BaseCell padding={false} className="items-stretch group">
+      {isFormula && (
+        <div className="absolute left-0 top-0 bottom-0 m-2 bg-inherit opacity-25 group-focus-within:opacity-100 rounded aspect-square grid place-content-center pointer-events-none">
+          <FunctionSquare size="16" />
+        </div>
+      )}
+      <TransitionInput
+        className="text-right h-full px-3 outline-none flex-1 bg-transparent"
+        value={displayedValue || ""}
+        onInput={handleUpdate}
+        onFocus={() => setHasFocus(true)}
+        onBlur={() => setHasFocus(false)}
+        spellCheck={false}
+      />
+      {isFormula && hasFocus && <div className="px-3 grid place-content-center bg-gray-100 text-sm">{props.row.original.amount}</div>}
+    </BaseCell>
+  );
 };
