@@ -30,6 +30,10 @@
   @apply cell py-4 font-medium text-left;
 }
 
+* {
+  min-width: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
