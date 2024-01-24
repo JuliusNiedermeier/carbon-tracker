@@ -1,7 +1,8 @@
-import { ComponentProps, FC, useEffect, useMemo } from "react";
+import { ComponentProps, FC, useMemo } from "react";
 import { ActivityCellContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { SelectCell } from "../../table-utils/cells/select-cell";
 import { useUnits } from "../../../_hooks/use-units";
+import { Cell } from "../../cell";
 
 export const UnitCell: FC<ActivityCellContext<"unit.abbreviation">> = (props) => {
   const units = useUnits();
@@ -11,5 +12,9 @@ export const UnitCell: FC<ActivityCellContext<"unit.abbreviation">> = (props) =>
     [units]
   );
 
-  return <SelectCell options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={() => {}} />;
+  return (
+    <Cell padding={false} width={props.column.getSize()}>
+      <SelectCell options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={() => {}} />
+    </Cell>
+  );
 };
