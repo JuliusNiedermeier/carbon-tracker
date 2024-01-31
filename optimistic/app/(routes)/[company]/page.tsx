@@ -55,6 +55,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     enableColumnResizing: true,
+    columnResizeMode: "onChange",
     meta: { updateCell },
   });
 
