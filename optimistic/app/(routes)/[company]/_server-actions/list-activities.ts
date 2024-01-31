@@ -1,8 +1,8 @@
 "use server";
 
 import { db } from "@/app/_services/postgres";
-import { eq, inArray } from "drizzle-orm";
-import { Company, CorporateGroupView } from "@/app/_database/schema";
+import { desc, eq, inArray } from "drizzle-orm";
+import { Activity, Company, CorporateGroupView } from "@/app/_database/schema";
 
 export const listActivities = async (rootCompanySlug: string) => {
   const rootCompany = (await db.query.Company.findFirst({ where: eq(Company.slug, rootCompanySlug), columns: { id: true } })) ?? null;
@@ -19,7 +19,9 @@ export const listActivities = async (rootCompanySlug: string) => {
     with: {
       locations: {
         columns: { id: true, name: true },
-        with: { activities: { with: { scope: true, unit: true, factor: { columns: { embedding: false }, with: { unit: true } } } } },
+        with: {
+          activities: { with: { scope: true, unit: true, factor: { columns: { embedding: false }, with: { unit: true } } }, orderBy: desc(Activity.createdAt) },
+        },
       },
     },
   });
