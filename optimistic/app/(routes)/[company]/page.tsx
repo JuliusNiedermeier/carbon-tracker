@@ -26,7 +26,7 @@ import { Table } from "./_components/table";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
-    updateCell: (activityID: Activity["id"], columnID: keyof Activity, value: string) => void;
+    updateCell: <Key extends keyof Activity>(activityID: Activity["id"], columnID: Key, value: Activity[Key]) => void;
   }
 }
 
