@@ -52,6 +52,7 @@ export const columns = [
     header: DescriptionHeader,
     cell: DescriptionCell,
     aggregatedCell: AggregatedCell,
+    size: 300,
   }),
   ch.accessor("scope.name", {
     id: "scope",
@@ -88,12 +89,12 @@ export const columns = [
     id: "doubleCounting",
     header: DoubleCountingHeader,
     cell: DoubleCountingCell,
-    size: 150
+    size: 150,
   }),
   ch.accessor("biogenicShare", {
     id: "biogenicShare",
     header: BiogenicShareHeader,
     cell: BiogenicShareCell,
-    size: 130
+    size: 130,
   }),
 ] as const satisfies ColumnDef<Activity, never>[];
