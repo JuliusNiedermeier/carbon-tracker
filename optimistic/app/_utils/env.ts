@@ -5,6 +5,7 @@ import "dotenv/config";
 
 const EnvSchema = object({
   SUPABASE_POOLED_DB_CONNECTION_STRING: string(),
+  OPENAI_SECRET_KEY: string(),
 });
 
 export const env = parse(EnvSchema, process.env);
