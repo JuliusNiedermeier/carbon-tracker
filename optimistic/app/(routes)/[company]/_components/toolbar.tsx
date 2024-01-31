@@ -6,6 +6,7 @@ import { Badge } from "@/app/_components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { Eye, EyeOff } from "lucide-react";
 import { Activity } from "../_hooks/use-activities";
+import { BulkDeleteButton } from "./bulk-delete-button";
 
 export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
   const sorting = table.getState().sorting;
@@ -34,6 +35,7 @@ export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
+      {(table.getIsSomeRowsSelected() || table.getIsAllPageRowsSelected()) && <BulkDeleteButton table={table} />}
     </div>
   );
 };
