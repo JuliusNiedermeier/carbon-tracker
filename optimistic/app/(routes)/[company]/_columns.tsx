@@ -88,10 +88,12 @@ export const columns = [
     id: "doubleCounting",
     header: DoubleCountingHeader,
     cell: DoubleCountingCell,
+    size: 150
   }),
   ch.accessor("biogenicShare", {
     id: "biogenicShare",
     header: BiogenicShareHeader,
     cell: BiogenicShareCell,
+    size: 130
   }),
 ] as const satisfies ColumnDef<Activity, never>[];
