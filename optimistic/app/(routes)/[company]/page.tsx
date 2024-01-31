@@ -83,8 +83,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 <Row
                   key={row.id}
                   height={rowHeight}
-                  // className={cn({ "row--preserved": index === virtualizer.preservedIndex })}
-                  // style={{ height: rowHeight }}
+                  className={cn({ "row--preserved": index === virtualizer.preservedIndex })}
                   {...virtualizer.createItemProps(row.index.toString())}
                 >
                   {row.getVisibleCells().map((cell) => (
