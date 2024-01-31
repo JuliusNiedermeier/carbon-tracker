@@ -3,7 +3,7 @@ import { ActivityCellContext } from "@/app/(routes)/[company]/_utils/cell-types"
 import { TransitionInput } from "../../../../../_components/transition-input";
 import { evaluate } from "mathjs";
 import { FunctionSquare } from "lucide-react";
-import { BaseCell } from "../../table-utils/cells/base-cell";
+import { Cell } from "../../cell";
 
 export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
   const [hasFocus, setHasFocus] = useState(false);
@@ -32,7 +32,7 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
   const displayedValue = hasFocus ? props.row.original.amountFormula : props.getValue()?.toString();
 
   return (
-    <BaseCell padding={false} className="items-stretch group">
+    <Cell padding={false} className="items-stretch group" width={props.column.getSize()}>
       {isFormula && (
         <div className="absolute left-0 top-0 bottom-0 m-2 bg-inherit opacity-25 group-focus-within:opacity-100 rounded aspect-square grid place-content-center pointer-events-none">
           <FunctionSquare size="16" />
@@ -47,6 +47,6 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
         spellCheck={false}
       />
       {isFormula && hasFocus && <div className="px-3 grid place-content-center bg-gray-100 text-sm">{props.row.original.amount}</div>}
-    </BaseCell>
+    </Cell>
   );
 };

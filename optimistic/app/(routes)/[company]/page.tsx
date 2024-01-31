@@ -21,6 +21,8 @@ import { ScopesProvider } from "./_components/providers/scopes-provider";
 import { UnitsProvider } from "./_components/providers/units-provider";
 import { updateActivity } from "./_server-actions/update-activity";
 import { useUpdateActivity } from "./_hooks/use-update-activity";
+import { Row } from "./_components/row";
+import { Table } from "./_components/table";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -43,10 +45,17 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   const table = useReactTable({
     data: activities.data || [],
     columns,
+    defaultColumn: {
+      size: 200,
+      minSize: 80,
+      maxSize: 500,
+    },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    enableColumnResizing: true,
+    columnResizeMode: "onChange",
     meta: { updateCell },
   });
 
@@ -61,20 +70,21 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
             <Toolbar table={table} />
           </div>
           <div className="card">
-            <div className="scroll-container" ref={scrollElement}>
+            <Table ref={scrollElement}>
               {table.getHeaderGroups().map((headerGroup) => (
-                <div key={headerGroup.id} className="header-row">
+                <Row key={headerGroup.id} height={rowHeight} className="sticky top-0 bg-gray-100 z-20 shadow-sm">
                   {headerGroup.headers.map((header) => (
                     <Fragment key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</Fragment>
                   ))}
-                </div>
+                </Row>
               ))}
               <div className="block" style={{ height: `${virtualizer.padding.start}px` }} />
               {virtualizer.items.map((row, index) => (
-                <div
+                <Row
                   key={row.id}
-                  className={cn("row", { "row--preserved": index === virtualizer.preservedIndex })}
-                  style={{ height: rowHeight }}
+                  height={rowHeight}
+                  // className={cn({ "row--preserved": index === virtualizer.preservedIndex })}
+                  // style={{ height: rowHeight }}
                   {...virtualizer.createItemProps(row.index.toString())}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -86,11 +96,11 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                         : flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Fragment>
                   ))}
-                </div>
+                </Row>
               ))}
-              <div className="sticky bottom-0 h-12 bg-gray-100 border-gray-200 border-t-8"></div>
+              {/* <div className="sticky bottom-0 h-12 bg-gray-100 border-gray-200 border-t-8"></div> */}
               <div className="block" style={{ height: `${virtualizer.padding.end}px` }} />
-            </div>
+            </Table>
           </div>
         </div>
       </ScopesProvider>

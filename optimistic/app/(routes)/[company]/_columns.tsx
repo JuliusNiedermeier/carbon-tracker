@@ -31,6 +31,9 @@ export const columns = [
     id: "select",
     header: SelectHeader,
     cell: SelectCell,
+    size: 40,
+    minSize: 40,
+    enableResizing: false,
   }),
   ch.accessor("companyName", {
     id: "company",
