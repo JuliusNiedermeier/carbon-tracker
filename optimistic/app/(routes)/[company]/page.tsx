@@ -15,7 +15,7 @@ import { cn } from "@/app/_utils/cn";
 import { columns } from "./_columns";
 import { Activity, useActivities } from "./_hooks/use-activities";
 import { useVirtualizer } from "@/app/_utils/use-virtualizer";
-import { Toolbar } from "./_components/toolbar";
+import { Toolbar } from "./_components/toolbar/toolbar";
 import { GroupToggleCell } from "./_components/table-utils/cells/group-toggle-cell";
 import { ScopesProvider } from "./_components/providers/scopes-provider";
 import { UnitsProvider } from "./_components/providers/units-provider";

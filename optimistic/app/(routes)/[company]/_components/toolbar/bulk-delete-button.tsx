@@ -3,8 +3,8 @@ import { FC, useState } from "react";
 import { Loader2, Trash } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/app/_components/ui/dialog";
 import { Button } from "@/app/_components/ui/button";
-import { Activity } from "../_hooks/use-activities";
-import { deleteActivities } from "../_server-actions/delete-activities";
+import { Activity } from "../../_hooks/use-activities";
+import { deleteActivities } from "../../_server-actions/delete-activities";
 
 interface Props {
   table: Table<Activity>;

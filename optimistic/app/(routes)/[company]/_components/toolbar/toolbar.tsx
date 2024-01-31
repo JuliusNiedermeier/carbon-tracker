@@ -5,7 +5,7 @@ import { Table } from "@tanstack/react-table";
 import { Badge } from "@/app/_components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { Eye, EyeOff } from "lucide-react";
-import { Activity } from "../_hooks/use-activities";
+import { Activity } from "../../_hooks/use-activities";
 import { BulkDeleteButton } from "./bulk-delete-button";
 
 export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
