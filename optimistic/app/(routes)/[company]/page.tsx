@@ -83,6 +83,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 <Row
                   key={row.id}
                   height={rowHeight}
+                  selected={row.getIsSelected()}
                   className={cn({ "row--preserved": index === virtualizer.preservedIndex })}
                   {...virtualizer.createItemProps(row.index.toString())}
                 >
