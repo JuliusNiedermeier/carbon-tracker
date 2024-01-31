@@ -72,6 +72,7 @@ export const columns = [
     header: UnitHeader,
     cell: UnitCell,
     aggregatedCell: AggregatedCell,
+    size: 180
   }),
   ch.accessor("factor.co2e", {
     id: "factor",
@@ -84,6 +85,7 @@ export const columns = [
     header: Co2eHeader,
     cell: Co2eCell,
     aggregatedCell: AggregatedCell,
+    size: 140,
   }),
   ch.accessor("doubleCounting", {
     id: "doubleCounting",
