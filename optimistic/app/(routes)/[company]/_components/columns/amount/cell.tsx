@@ -24,7 +24,7 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
 
       // HACK: Delay second update call by 100ms to prevent it from being canceled.
       if (updateTimeout.current) clearTimeout(updateTimeout.current);
-      updateTimeout.current = setTimeout(() => props.table.options.meta?.updateCell(props.row.original.id, "amount", result.toString()), 1500);
+      updateTimeout.current = setTimeout(() => props.table.options.meta?.updateCell(props.row.original.id, "amount", result), 1500);
     } catch {}
     // props.table.options.meta?.updateCell(props.row.original.id, "amount", value);
   };

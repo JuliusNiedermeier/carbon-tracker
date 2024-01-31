@@ -12,9 +12,13 @@ export const ScopeCell: FC<ActivityCellContext<"scope.name">> = (props) => {
     [scopes]
   );
 
+  const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
+    props.table.options.meta?.updateCell(props.row.original.id, "scopeId", value ? Number(value) : null);
+  };
+
   return (
     <Cell padding={false} width={props.column.getSize()}>
-      <SelectCell options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={() => {}} />
+      <SelectCell options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={handleValueChange} />
     </Cell>
   );
 };
