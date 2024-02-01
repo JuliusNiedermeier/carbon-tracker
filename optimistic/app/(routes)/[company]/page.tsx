@@ -22,7 +22,7 @@ import { UnitsProvider } from "./_components/providers/units-provider";
 import { updateActivity } from "./_server-actions/update-activity";
 import { useUpdateActivity } from "./_hooks/use-update-activity";
 import { Row } from "./_components/row";
-import { Table } from "./_components/table";
+import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -69,8 +69,8 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
           <div className="py-2">
             <Toolbar table={table} />
           </div>
-          <div className="card">
-            <Table ref={scrollElement}>
+          <ScrollArea direction="both" className="w-full h-full bg-gray-50 rounded-md border border-gray-300">
+            <ScrollAreaViewport ref={scrollElement} className="relative">
               {table.getHeaderGroups().map((headerGroup) => (
                 <Row key={headerGroup.id} height={rowHeight} className="sticky top-0 bg-gray-100 z-20 shadow-sm">
                   {headerGroup.headers.map((header) => (
@@ -100,8 +100,8 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
               ))}
               {/* <div className="sticky bottom-0 h-12 bg-gray-100 border-gray-200 border-t-8"></div> */}
               <div className="block" style={{ height: `${virtualizer.padding.end}px` }} />
-            </Table>
-          </div>
+            </ScrollAreaViewport>
+          </ScrollArea>
         </div>
       </ScopesProvider>
     </UnitsProvider>
