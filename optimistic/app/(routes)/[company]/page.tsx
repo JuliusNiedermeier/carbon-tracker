@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useRef } from "react";
 import { cn } from "@/app/_utils/cn";
 import { columns } from "./_columns";
 import { Activity, useActivities } from "./_hooks/use-activities";
@@ -19,7 +19,6 @@ import { Toolbar } from "./_components/toolbar/toolbar";
 import { GroupToggleCell } from "./_components/table-utils/cells/group-toggle-cell";
 import { ScopesProvider } from "./_components/providers/scopes-provider";
 import { UnitsProvider } from "./_components/providers/units-provider";
-import { updateActivity } from "./_server-actions/update-activity";
 import { useUpdateActivity } from "./_hooks/use-update-activity";
 import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
