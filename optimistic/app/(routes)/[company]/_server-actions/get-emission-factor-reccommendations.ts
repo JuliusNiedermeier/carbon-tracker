@@ -3,10 +3,10 @@
 import { EmissionFactor, EmissionFactorCategory } from "@/app/_database/schema";
 import { ai } from "@/app/_services/openai";
 import { and, inArray, sql } from "drizzle-orm";
-import { getEmissionFactorCategoryPath } from "./get-emission-factor-category-path";
+import { getEmissionFactorCategoryPaths } from "./get-emission-factor-category-path";
 import { db } from "@/app/_services/postgres";
 
-interface FilterOptions {
+export interface FilterOptions {
   unitIds?: number[];
   years?: number[];
   emissionFactorSourceIds?: number[];
@@ -70,10 +70,10 @@ export const getEmissionFactorReccommendations = async (query: string, filters?:
     limit: 50,
   });
 
-  const emissionFactorCategoryPaths = await getEmissionFactorCategoryPath(factors.map((factor) => factor.emissionFactorCategory.id));
+  const emissionFactorCategoryPaths = await getEmissionFactorCategoryPaths(factors.map((factor) => factor.emissionFactorCategory.id));
 
   return factors.map((factor) => ({
     ...factor,
-    categoryPath: emissionFactorCategoryPaths ? emissionFactorCategoryPaths.find((row) => row.leaf_id === factor.emissionFactorCategory.id) : {},
+    categoryPath: emissionFactorCategoryPaths.find((row) => row.leaf_id === factor.emissionFactorCategory.id),
   }));
 };

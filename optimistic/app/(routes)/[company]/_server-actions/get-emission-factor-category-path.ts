@@ -30,7 +30,7 @@ ORDER BY category_path.leaf_id;
     return value as { leaf_id: number; nodes: { id: number; name: string }[] };
   });
 
-export const getEmissionFactorCategoryPath = async (leafEmissionFactorCategoryIds: number[]) => {
+export const getEmissionFactorCategoryPaths = async (leafEmissionFactorCategoryIds: number[]) => {
   if (!leafEmissionFactorCategoryIds.length) return [];
   const results = await db.execute(createEmissionFactorCategoryPathSQL(leafEmissionFactorCategoryIds));
   return results as unknown as { leaf_id: number; nodes: { id: number; name: string }[] }[];

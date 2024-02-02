@@ -1,7 +1,7 @@
 import { Badge } from "@/app/_components/ui/badge";
 import { Skeleton } from "@/app/_components/ui/skeleton";
-import { getEmissionFactorInfo } from "@/app/(routes)/[company]/_server-actions/get-emission-factor-info";
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren } from "react";
+import { useEmissionFactorInfo } from "../../../_hooks/use-emission-factor-info";
 
 interface Props {
   emissionFactorId: number;
@@ -24,21 +24,12 @@ const PropertyValue: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCategoryId, unit, co2e, unitMatches }) => {
-  const [loading, setLoading] = useState(false);
-  const [factorInfo, setFactorInfo] = useState<Awaited<ReturnType<typeof getEmissionFactorInfo>> | null>(null);
-
-  useEffect(() => {
-    setLoading(true);
-    getEmissionFactorInfo(emissionFactorId, emissionFactorCategoryId).then((info) => {
-      setFactorInfo(info);
-      setLoading(false);
-    });
-  }, [emissionFactorId, emissionFactorCategoryId]);
+  const { data: factorInfo, isLoading } = useEmissionFactorInfo(emissionFactorId);
 
   return (
     <div className="min-w-[20rem]">
       <div className="flex flex-wrap gap-2 p-4 ">
-        {loading ? (
+        {isLoading ? (
           <>
             <Skeleton className="w-24 h-4" />
             <Skeleton className="w-12 h-4" />
@@ -63,11 +54,11 @@ export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCate
         </PropertyLine>
         <PropertyLine>
           <PropertyLabel>Published by</PropertyLabel>
-          {loading ? <Skeleton className="h-4 w-14" /> : <PropertyValue>{factorInfo?.source}</PropertyValue>}
+          {isLoading ? <Skeleton className="h-4 w-14" /> : <PropertyValue>{factorInfo?.source}</PropertyValue>}
         </PropertyLine>
         <PropertyLine>
           <PropertyLabel>Published in</PropertyLabel>
-          {loading ? <Skeleton className="h-4 w-20" /> : <PropertyValue>{factorInfo?.year}</PropertyValue>}
+          {isLoading ? <Skeleton className="h-4 w-20" /> : <PropertyValue>{factorInfo?.year}</PropertyValue>}
         </PropertyLine>
       </div>
       <div className="bg-muted p-4">
