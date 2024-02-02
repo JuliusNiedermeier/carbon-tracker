@@ -1,19 +1,10 @@
 "use client";
 
-import {
-  RowData,
-  TableMeta,
-  flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  getGroupedRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { Fragment, useRef } from "react";
+import { flexRender, getCoreRowModel, getExpandedRowModel, getGroupedRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import { ComponentProps, Fragment, useRef } from "react";
 import { cn } from "@/app/_utils/cn";
 import { columns } from "./_columns";
-import { Activity, useActivities } from "./_hooks/use-activities";
+import { useActivities } from "./_hooks/use-activities";
 import { useVirtualizer } from "@/app/_utils/use-virtualizer";
 import { Toolbar } from "./_components/toolbar/toolbar";
 import { GroupToggleCell } from "./_components/table-utils/cells/group-toggle-cell";
@@ -23,11 +14,15 @@ import { useUpdateActivity } from "./_hooks/use-update-activity";
 import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 import { ActivityGridContext, ActivityGridProvider } from "./_components/providers/activity-grid-provider";
+import { Button } from "@/app/_components/ui/button";
+import { ChevronUp, Lock } from "lucide-react";
+import { Cell } from "./_components/cell";
 
 const rowHeight = 40;
 
 const ActivitiesPage = ({ params }: { params: { company: string } }) => {
-  const scrollElement = useRef<HTMLDivElement>(null);
+  const gridScrollElement = useRef<HTMLDivElement>(null);
+  const footerScrollElement = useRef<HTMLDivElement>(null);
 
   const activities = useActivities(params.company);
   const updateActivity = useUpdateActivity(params.company);
@@ -53,7 +48,11 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   });
 
   const virtualizerKey = "row";
-  const virtualizer = useVirtualizer({ key: virtualizerKey, items: table.getRowModel().rows, scrollElement, estimateItemSize: rowHeight });
+  const virtualizer = useVirtualizer({ key: virtualizerKey, items: table.getRowModel().rows, scrollElement: gridScrollElement, estimateItemSize: rowHeight });
+
+  const createScrollHandler = (slaveElement: HTMLElement | null): ComponentProps<"div">["onScroll"] => {
+    return (e) => slaveElement?.scrollTo({ left: e.currentTarget.scrollLeft, behavior: "instant" });
+  };
 
   return (
     <ActivityGridProvider value={{ updateCell }}>
@@ -64,7 +63,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
               <Toolbar table={table} />
             </div>
             <ScrollArea direction="both" className="w-full h-full bg-gray-50 rounded-md border border-gray-300">
-              <ScrollAreaViewport ref={scrollElement} className="relative">
+              <ScrollAreaViewport onScroll={createScrollHandler(footerScrollElement.current)} ref={gridScrollElement} className="relative">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Row key={headerGroup.id} height={rowHeight} className="sticky top-0 bg-gray-100 z-20 shadow-sm">
                     {headerGroup.headers.map((header) => (
@@ -96,6 +95,25 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 <div className="block" style={{ height: `${virtualizer.padding.end}px` }} />
               </ScrollAreaViewport>
             </ScrollArea>
+            <div className="flex w-full gap-2">
+              <ScrollArea className="flex-1 bg-white border rounded-md" direction="horizontal" showBar={false}>
+                <ScrollAreaViewport onScroll={createScrollHandler(gridScrollElement.current)} ref={footerScrollElement} className="h-full">
+                  <div className="flex w-min" style={{ height: rowHeight }}>
+                    {table.getFooterGroups()[0].headers.map((footer) => (
+                      <Cell key={footer.id} width={footer.getSize()}></Cell>
+                    ))}
+                  </div>
+                </ScrollAreaViewport>
+              </ScrollArea>
+              <div className="flex gap-1 items-center h-full bg-white rounded-md border p-1">
+                <Button size="icon" variant="ghost" className="h-full">
+                  <Lock size="16" />
+                </Button>
+                <Button className="h-full rounded-sm bg-emerald-600 text-emerald-200 gap-2 hover:bg-emerald-700">
+                  Add activity <ChevronUp size="16" />
+                </Button>
+              </div>
+            </div>
           </div>
         </ScopesProvider>
       </UnitsProvider>
