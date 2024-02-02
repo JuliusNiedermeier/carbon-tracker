@@ -7,8 +7,8 @@ export const ReccommendationSkeleton: FC = () => {
 
   return (
     <div className="flex flex-col items-start gap-8">
-      {skeletonWidths.current.map((width) => (
-        <Skeleton className="h-6" style={{ width: `${width * 50}%` }} />
+      {skeletonWidths.current.map((width, index) => (
+        <Skeleton key={index} className="h-6" style={{ width: `${width * 50}%` }} />
       ))}
     </div>
   );
