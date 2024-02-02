@@ -72,7 +72,7 @@ export const columns = [
     header: UnitHeader,
     cell: UnitCell,
     aggregatedCell: AggregatedCell,
-    size: 180
+    size: 180,
   }),
   ch.accessor("factor.co2e", {
     id: "factor",
