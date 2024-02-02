@@ -9,16 +9,21 @@ export const useUpdateActivity = (rootCompanySlug: string) => {
 
   const { mutate } = useMutation({
     mutationKey: ["update-activity", rootCompanySlug],
+
     // Perform the network request
     mutationFn: async (variables: { activityID: Activity["id"]; column: keyof Activity; value: Activity[keyof Activity] }) => {
       // Clear any existing timeout
       if (updateTimeout.current) clearTimeout(updateTimeout.current);
 
-      updateTimeout.current = setTimeout(() => {
-        // TODO: Remove any type
-        updateActivity(variables.activityID, variables.column as any, variables.value);
-      }, 1000);
+      return new Promise<Awaited<ReturnType<typeof updateActivity>>>((resolve) => {
+        updateTimeout.current = setTimeout(async () => {
+          // TODO: Remove any type
+          const updatedActivity = await updateActivity(variables.activityID, variables.column as any, variables.value);
+          resolve(updatedActivity);
+        }, 1000);
+      });
     },
+
     // Optimistically update local activities
     onMutate: async (variables) => {
       await qc.cancelQueries({ queryKey: ["list-activities", rootCompanySlug] });
@@ -32,10 +37,18 @@ export const useUpdateActivity = (rootCompanySlug: string) => {
 
       return { previousActivities };
     },
+
+    // Merge the updated activity into the activity set
+    onSuccess: (updatedActivity, variables, context) => {
+      if (!context.previousActivities || !updatedActivity) return;
+      const mergedActivitySet = context.previousActivities.map((activity) => (activity.id === updatedActivity.id ? updatedActivity : activity));
+      qc.setQueryData<Activity[]>(["list-activities", rootCompanySlug], mergedActivitySet);
+    },
+
     // Rollback the optimistic update
     onError: (error, newItem, context) => {
       if (!context) return;
-      qc.setQueryData(["list-activities", rootCompanySlug], context.previousActivities);
+      qc.setQueryData<Activity[]>(["list-activities", rootCompanySlug], context.previousActivities);
     },
   });
 
