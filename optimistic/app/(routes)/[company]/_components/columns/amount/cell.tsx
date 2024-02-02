@@ -4,8 +4,11 @@ import { TransitionInput } from "../../../../../_components/transition-input";
 import { evaluate } from "mathjs";
 import { FunctionSquare } from "lucide-react";
 import { Cell } from "../../cell";
+import { useActivityGrid } from "../../providers/activity-grid-provider";
 
 export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
+  const { updateCell } = useActivityGrid();
+
   const [hasFocus, setHasFocus] = useState(false);
 
   const isFormula = props.row.original.amount?.toString() !== props.row.original.amountFormula;
@@ -20,13 +23,13 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
       // The debounce logic must differentiate between update calls to different columns.
       // Currently the amountFormula update is canceled immediately by the amount update.
       // Possible the best way is to have seperate functions for updating each column.
-      props.table.options.meta?.updateCell(props.row.original.id, "amountFormula", value);
+      updateCell(props.row.original.id, "amountFormula", value);
 
       // HACK: Delay second update call by 100ms to prevent it from being canceled.
       if (updateTimeout.current) clearTimeout(updateTimeout.current);
-      updateTimeout.current = setTimeout(() => props.table.options.meta?.updateCell(props.row.original.id, "amount", result), 1500);
+      updateTimeout.current = setTimeout(() => updateCell(props.row.original.id, "amount", result), 1500);
     } catch {}
-    // props.table.options.meta?.updateCell(props.row.original.id, "amount", value);
+    // updateCell(props.row.original.id, "amount", value);
   };
 
   const displayedValue = hasFocus ? props.row.original.amountFormula : props.getValue()?.toString();

@@ -4,8 +4,10 @@ import { SelectCell } from "../../table-utils/cells/select-cell";
 import { useScopes } from "../../../_hooks/use-scopes";
 import { Cell } from "../../cell";
 import { Badge } from "@/app/_components/ui/badge";
+import { useActivityGrid } from "../../providers/activity-grid-provider";
 
 export const ScopeCell: FC<ActivityCellContext<"scope.name">> = (props) => {
+  const { updateCell } = useActivityGrid();
   const scopes = useScopes();
 
   const options = useMemo<ComponentProps<typeof SelectCell>["options"]>(
@@ -25,7 +27,7 @@ export const ScopeCell: FC<ActivityCellContext<"scope.name">> = (props) => {
   );
 
   const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
-    props.table.options.meta?.updateCell(props.row.original.id, "scopeId", value ? Number(value) : null);
+    updateCell(props.row.original.id, "scopeId", value ? Number(value) : null);
   };
 
   return (

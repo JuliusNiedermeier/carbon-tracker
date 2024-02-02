@@ -24,12 +24,6 @@ import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 import { ActivityGridContext, ActivityGridProvider } from "./_components/providers/activity-grid-provider";
 
-declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
-    updateCell: <Key extends keyof Activity>(activityID: Activity["id"], columnID: Key, value: Activity[Key]) => void;
-  }
-}
-
 const rowHeight = 40;
 
 const ActivitiesPage = ({ params }: { params: { company: string } }) => {
@@ -56,7 +50,6 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
     getExpandedRowModel: getExpandedRowModel(),
     enableColumnResizing: true,
     columnResizeMode: "onChange",
-    meta: { updateCell },
   });
 
   const virtualizerKey = "row";

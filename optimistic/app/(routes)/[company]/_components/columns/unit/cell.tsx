@@ -4,8 +4,10 @@ import { SelectCell } from "../../table-utils/cells/select-cell";
 import { useUnits } from "../../../_hooks/use-units";
 import { Cell } from "../../cell";
 import { Badge } from "@/app/_components/ui/badge";
+import { useActivityGrid } from "../../providers/activity-grid-provider";
 
 export const UnitCell: FC<ActivityCellContext<"unit.abbreviation">> = (props) => {
+  const { updateCell } = useActivityGrid();
   const units = useUnits();
 
   const options = useMemo<ComponentProps<typeof SelectCell>["options"]>(
@@ -23,7 +25,7 @@ export const UnitCell: FC<ActivityCellContext<"unit.abbreviation">> = (props) =>
   );
 
   const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
-    props.table.options.meta?.updateCell(props.row.original.id, "unitId", value ? Number(value) : null);
+    updateCell(props.row.original.id, "unitId", value ? Number(value) : null);
   };
 
   return (
