@@ -35,6 +35,7 @@
     "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
+    "reactflow": "^11.10.3",
     "slugify": "^1.6.6",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
