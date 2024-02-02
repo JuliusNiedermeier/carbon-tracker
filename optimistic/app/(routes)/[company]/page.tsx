@@ -14,9 +14,8 @@ import { useUpdateActivity } from "./_hooks/use-update-activity";
 import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 import { ActivityGridContext, ActivityGridProvider } from "./_components/providers/activity-grid-provider";
-import { Button } from "@/app/_components/ui/button";
-import { ChevronUp, Lock } from "lucide-react";
-import { Cell } from "./_components/cell";
+import { ActivityCreatorProvider } from "./_components/providers/activity-creator-provider";
+import { ActivityCreatorToolbar } from "./_components/activity-creator/toolbar";
 
 const rowHeight = 40;
 
@@ -95,25 +94,18 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 <div className="block" style={{ height: `${virtualizer.padding.end}px` }} />
               </ScrollAreaViewport>
             </ScrollArea>
-            <div className="flex w-full gap-2">
-              <ScrollArea className="flex-1 bg-white border rounded-md" direction="horizontal" showBar={false}>
-                <ScrollAreaViewport onScroll={createScrollHandler(gridScrollElement.current)} ref={footerScrollElement} className="h-full">
-                  <div className="flex w-min" style={{ height: rowHeight }}>
-                    {table.getFooterGroups()[0].headers.map((footer) => (
-                      <Cell key={footer.id} width={footer.getSize()}></Cell>
-                    ))}
-                  </div>
-                </ScrollAreaViewport>
-              </ScrollArea>
-              <div className="flex gap-1 items-center h-full bg-white rounded-md border p-1" style={{ height: rowHeight }}>
-                <Button size="icon" variant="ghost" className="h-full">
-                  <Lock size="16" />
-                </Button>
-                <Button className="h-full rounded-sm bg-emerald-600 text-emerald-200 gap-2 hover:bg-emerald-700">
-                  Add activity <ChevronUp size="16" />
-                </Button>
+            <ActivityCreatorProvider>
+              <div className="flex w-full gap-2">
+                <ScrollArea className="flex-1 bg-white border rounded-md" direction="horizontal" showBar={false}>
+                  <ScrollAreaViewport onScroll={createScrollHandler(gridScrollElement.current)} ref={footerScrollElement} className="h-full">
+                    <div className="flex w-min" style={{ height: rowHeight }}>
+                      {table.getFooterGroups()[0].headers.map((footer) => flexRender(footer.column.columnDef.footer, footer.getContext()))}
+                    </div>
+                  </ScrollAreaViewport>
+                </ScrollArea>
+                <ActivityCreatorToolbar height={rowHeight} />
               </div>
-            </div>
+            </ActivityCreatorProvider>
           </div>
         </ScopesProvider>
       </UnitsProvider>

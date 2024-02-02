@@ -23,6 +23,9 @@ import { BiogenicShareHeader } from "./_components/columns/biogenic-share/header
 import { BiogenicShareCell } from "./_components/columns/biogenic-share/cell";
 import { SelectCell } from "./_components/columns/select/cell";
 import { SelectHeader } from "./_components/columns/select/header";
+import { ScopeFooter } from "./_components/columns/scope/footer";
+import { BlankCell } from "./_components/table-utils/cells/blank-cell";
+import { DescriptionFooter } from "./_components/columns/description/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -31,6 +34,7 @@ export const columns = [
     id: "select",
     header: SelectHeader,
     cell: SelectCell,
+    footer: BlankCell,
     size: 40,
     minSize: 40,
     enableResizing: false,
@@ -39,18 +43,21 @@ export const columns = [
     id: "company",
     header: CompanyHeader,
     cell: CompanyCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("locationName", {
     id: "location",
     header: LocationHeader,
     cell: LocationCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("description", {
     id: "description",
     header: DescriptionHeader,
     cell: DescriptionCell,
+    footer: DescriptionFooter,
     aggregatedCell: AggregatedCell,
     size: 300,
   }),
@@ -59,11 +66,13 @@ export const columns = [
     header: ScopeHeader,
     cell: ScopeCell,
     aggregatedCell: AggregatedCell,
+    footer: ScopeFooter,
   }),
   ch.accessor("amount", {
     id: "amount",
     header: AmountHeader,
     cell: AmountCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
     aggregationFn: "sum",
   }),
@@ -71,6 +80,7 @@ export const columns = [
     id: "unit",
     header: UnitHeader,
     cell: UnitCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
     size: 180,
   }),
@@ -78,12 +88,14 @@ export const columns = [
     id: "factor",
     header: FactorHeader,
     cell: FactorCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("co2e", {
     id: "co2e",
     header: Co2eHeader,
     cell: Co2eCell,
+    footer: BlankCell,
     aggregatedCell: AggregatedCell,
     size: 140,
   }),
@@ -91,12 +103,14 @@ export const columns = [
     id: "doubleCounting",
     header: DoubleCountingHeader,
     cell: DoubleCountingCell,
+    footer: BlankCell,
     size: 150,
   }),
   ch.accessor("biogenicShare", {
     id: "biogenicShare",
     header: BiogenicShareHeader,
     cell: BiogenicShareCell,
+    footer: BlankCell,
     size: 130,
   }),
 ] as const satisfies ColumnDef<Activity, never>[];
