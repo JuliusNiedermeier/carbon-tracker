@@ -1,3 +1,5 @@
+// Maybe useDeferredValue is a better fit for this use case.
+
 import { ComponentProps, FC, startTransition, useCallback, useEffect, useState } from "react";
 
 type Props = Omit<ComponentProps<"input">, "value" | "onInput"> & {
