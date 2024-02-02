@@ -1,12 +1,6 @@
 import { Cell } from "@/app/(routes)/[company]/_components/cell";
 import { FC, useState } from "react";
-import { Button } from "@/app/_components/ui/button";
-import { CaretSortIcon, ValueNoneIcon } from "@radix-ui/react-icons";
-import { EmissionFactorSourceSelect, UnitSelect } from "@/app/_database/schema";
 import { Dialog, DialogContent } from "@/app/_components/ui/dialog";
-// import { FactorFinder } from "./factor-finder/FactorFinder";
-// import { updateActvity } from "@/modules/activities/server-actions/update-activity";
-import { Skeleton } from "@/app/_components/ui/skeleton";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/app/_components/ui/hover-card";
 import { FactorInfoCard } from "./info-card";
 import { Badge } from "@/app/_components/ui/badge";
@@ -14,18 +8,10 @@ import { cn } from "@/app/_utils/cn";
 import { ActivityCellContext } from "../../../_utils/cell-types";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { AlertTriangle } from "lucide-react";
+import { FactorFinder } from "../../factor-finder/factor-finder";
 
-// interface Props {
-//   ctx: ActivityCellContext<"factor.co2e">;
-//   units: UnitSelect[];
-//   emissionFactorSources: EmissionFactorSourceSelect[];
-//   emissionFactorYears: number[];
-// }
-
-// export const FactorCell: FC<Props> = ({ ctx, units, emissionFactorSources, emissionFactorYears }) => {
 export const FactorCell: FC<ActivityCellContext<"factor.co2e">> = (props) => {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const co2e = parseFloat(props.getValue()?.toFixed(3) || "");
 
@@ -35,19 +21,6 @@ export const FactorCell: FC<ActivityCellContext<"factor.co2e">> = (props) => {
     props.row.original.unitId !== props.row.original.factor?.unitId;
 
   const isNotAvailable = props.getValue() !== undefined && isNaN(co2e);
-
-  // Could abstracted as a util for use in every select cell
-  const handleFactorSelected = async (emissionFactorId: number) => {
-    setLoading(true);
-    setOpen(false);
-    try {
-      // await updateActvity(ctx.row.original.id, { emissionFactorId });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <Cell width={props.column.getSize()} padding={false}>
@@ -74,27 +47,13 @@ export const FactorCell: FC<ActivityCellContext<"factor.co2e">> = (props) => {
             )}
           </HoverCard>
         </DialogTrigger>
-        <DialogContent className="max-w-[80vw] h-[90vh] flex flex-col gap-0 p-0">
-          Factor finder
-          {/* <FactorFinder
-            units={units}
-            emissionFactorSources={emissionFactorSources}
-            emissionFactorYears={emissionFactorYears}
-            defaultDescription={ctx.row.original.description}
-            defaultUnitIds={ctx.row.original.unit?.id ? [ctx.row.original.unit?.id] : []}
-            selectedFactor={
-              ctx.row.original.factor
-                ? {
-                    categories: ["Test"],
-                    unit: ctx.row.original.factor.unit.abbreviation,
-                    year: ctx.row.original.factor.year,
-                    source: "DBEIS",
-                    co2e: ctx.row.original.factor.co2e,
-                  }
-                : undefined
-            }
-            onFactorSelected={(factor) => handleFactorSelected(factor.id)}
-          /> */}
+        <DialogContent className="max-w-[90vw] h-[90vh] flex flex-col gap-0 p-0 border-none overflow-hidden" showCloseButton={false}>
+          <FactorFinder
+            activityID={props.row.original.id}
+            selectedFactorID={props.row.original.emissionFactorId}
+            initialSearchTerm={props.row.original.description}
+            initialUnitID={props.row.original.unitId}
+          />
         </DialogContent>
       </Dialog>
     </Cell>

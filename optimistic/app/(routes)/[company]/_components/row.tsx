@@ -2,7 +2,7 @@ import { cn } from "@/app/_utils/cn";
 import { ComponentProps, FC, PropsWithChildren } from "react";
 
 type Props = ComponentProps<"div"> & {
-  height: number;
+  height?: number;
   selected?: boolean;
 };
 
