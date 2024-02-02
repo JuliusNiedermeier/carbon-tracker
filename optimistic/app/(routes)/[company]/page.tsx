@@ -105,7 +105,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                   </div>
                 </ScrollAreaViewport>
               </ScrollArea>
-              <div className="flex gap-1 items-center h-full bg-white rounded-md border p-1">
+              <div className="flex gap-1 items-center h-full bg-white rounded-md border p-1" style={{ height: rowHeight }}>
                 <Button size="icon" variant="ghost" className="h-full">
                   <Lock size="16" />
                 </Button>
