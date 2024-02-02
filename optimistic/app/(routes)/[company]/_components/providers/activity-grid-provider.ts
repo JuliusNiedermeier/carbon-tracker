@@ -3,6 +3,7 @@ import { Activity } from "../../_hooks/use-activities";
 
 export type ActivityGridContext = {
   updateCell: <Key extends keyof Activity>(activityID: Activity["id"], columnID: Key, value: Activity[Key]) => void;
+  rootCompanySlug: string;
 };
 
 const ActivityGridContext = createContext<ActivityGridContext | null>(null);

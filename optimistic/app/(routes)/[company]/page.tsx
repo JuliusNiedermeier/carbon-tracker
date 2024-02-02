@@ -16,10 +16,13 @@ import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area
 import { ActivityGridContext, ActivityGridProvider } from "./_components/providers/activity-grid-provider";
 import { ActivityCreatorProvider } from "./_components/providers/activity-creator-provider";
 import { ActivityCreatorToolbar } from "./_components/activity-creator/toolbar";
+import { useParams } from "next/navigation";
 
 const rowHeight = 40;
 
 const ActivitiesPage = ({ params }: { params: { company: string } }) => {
+  const { company: rootCompanySlug } = useParams<{ company: string }>();
+
   const gridScrollElement = useRef<HTMLDivElement>(null);
   const footerScrollElement = useRef<HTMLDivElement>(null);
 
@@ -54,7 +57,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   };
 
   return (
-    <ActivityGridProvider value={{ updateCell }}>
+    <ActivityGridProvider value={{ updateCell, rootCompanySlug }}>
       <UnitsProvider>
         <ScopesProvider>
           <div className="p-2 bg-gray-200 h-screen flex flex-col gap-2">

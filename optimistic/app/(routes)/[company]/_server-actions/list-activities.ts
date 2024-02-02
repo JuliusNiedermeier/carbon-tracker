@@ -5,10 +5,7 @@ import { desc, eq, inArray } from "drizzle-orm";
 import { Activity, Company, CorporateGroupView } from "@/app/_database/schema";
 
 export const listActivities = async (rootCompanySlug: string) => {
-  const rootCompany = (await db.query.Company.findFirst({ where: eq(Company.slug, rootCompanySlug), columns: { id: true } })) ?? null;
-
-  if (rootCompany === null) return [];
-  const [corporateGroup] = await db.select().from(CorporateGroupView).where(eq(CorporateGroupView.rootCompanyId, rootCompany.id));
+  const [corporateGroup] = await db.select().from(CorporateGroupView).where(eq(CorporateGroupView.rootCompanySlug, rootCompanySlug));
 
   const companyIDs = corporateGroup.members?.map((member) => member.id);
   if (!companyIDs) return [];
