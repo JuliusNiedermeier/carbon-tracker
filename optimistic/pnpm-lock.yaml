@@ -53,6 +53,9 @@ dependencies:
   convex:
     specifier: ^1.7.1
     version: 1.7.1(react-dom@18.2.0)(react@18.2.0)
+  d3-hierarchy:
+    specifier: ^3.1.2
+    version: 3.1.2
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
@@ -106,6 +109,9 @@ dependencies:
     version: 0.25.0
 
 devDependencies:
+  '@types/d3-hierarchy':
+    specifier: ^3.1.6
+    version: 3.1.6
   '@types/node':
     specifier: ^20
     version: 20.10.7
@@ -1540,7 +1546,6 @@ packages:
 
   /@types/d3-hierarchy@3.1.6:
     resolution: {integrity: sha512-qlmD/8aMk5xGorUvTUWHCiumvgaUXYldYjNVOWtYoTYY/L+WwIEAmJxUmTgr9LoGNG0PPAOmqMDJVDPc7DOpPw==}
-    dev: false
 
   /@types/d3-interpolate@3.0.4:
     resolution: {integrity: sha512-mgLPETlrpVV1YRJIglr4Ez47g7Yxjl1lj7YKsiMCb27VJH9W8NVM6Bb9d8kkpG/uAQS5AmbA48q2IAolKKo1MA==}
@@ -2177,6 +2182,11 @@ packages:
 
   /d3-ease@3.0.1:
     resolution: {integrity: sha512-wR/XK3D3XcLIZwpbvQwQ5fK+8Ykds1ip7A2Txe0yxncXSdq1L9skcG7blcedkOX+ZcgxGAmLX1FrRGbADwzi0w==}
+    engines: {node: '>=12'}
+    dev: false
+
+  /d3-hierarchy@3.1.2:
+    resolution: {integrity: sha512-FX/9frcub54beBdugHjDCdikxThEqjnR93Qt7PvQTOHxyiNCAlvMrHhclk3cD5VeAaq9fxmfRp+CnWw9rEMBuA==}
     engines: {node: '>=12'}
     dev: false
 
