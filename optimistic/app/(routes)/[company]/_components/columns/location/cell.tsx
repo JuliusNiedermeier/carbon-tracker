@@ -16,7 +16,11 @@ export const LocationCell: FC<ActivityCellContext<"locationName">> = (props) => 
       </Cell>
 
       <DialogContent className="max-w-[90vw] h-[90vh] flex flex-col gap-0 p-0 border-none overflow-hidden" showCloseButton={false}>
-        <LocationSelector activityID={props.row.original.id} />
+        <LocationSelector
+          activityID={props.row.original.id}
+          currentCompanyID={props.row.original.companyId}
+          currentLocationID={props.row.original.locationId}
+        />
       </DialogContent>
     </Dialog>
   );
