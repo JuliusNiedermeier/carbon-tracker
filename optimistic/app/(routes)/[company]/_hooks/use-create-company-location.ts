@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCompany } from "../_server-actions/create-company";
 import { createCompanyLocation } from "../_server-actions/create-company-location";
 
 export const useCreateCompanyLocation = () => {
