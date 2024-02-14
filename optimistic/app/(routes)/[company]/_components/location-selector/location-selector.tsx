@@ -10,7 +10,7 @@ import { stratify, tree } from "d3-hierarchy";
 import { CorporateGroupViewMember } from "@/app/_database/schema";
 import { useCompany } from "../../_hooks/use-company";
 import { Button } from "@/app/_components/ui/button";
-import { Building2, CornerDownLeft, MapPin, Trash2 } from "lucide-react";
+import { Building2, CornerDownLeft, MapPin } from "lucide-react";
 import { useDeleteCompany } from "../../_hooks/use-delete-company";
 import { useCreateCompanyLocation } from "../../_hooks/use-create-company-location";
 import { useDeleteCompanyLocation } from "../../_hooks/use-delete-company-location";
@@ -26,7 +26,7 @@ const createCompanyHierarchy = stratify<CorporateGroupViewMember>()
   .id((member) => member.id.toString())
   .parentId((member) => member.parentCompanyId?.toString());
 
-const createCompanyTree = tree<CorporateGroupViewMember>().nodeSize([300, 200]);
+const createCompanyTree = tree<CorporateGroupViewMember>().nodeSize([280, 250]);
 
 const nodeTypes: NodeTypes = { "company-node": CompanyNode };
 
