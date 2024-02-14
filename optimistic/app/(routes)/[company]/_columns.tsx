@@ -35,6 +35,7 @@ export const columns = [
     header: SelectHeader,
     cell: SelectCell,
     footer: BlankCell,
+    aggregatedCell: AggregatedCell,
     size: 40,
     minSize: 40,
     enableResizing: false,
@@ -104,6 +105,7 @@ export const columns = [
     header: DoubleCountingHeader,
     cell: DoubleCountingCell,
     footer: BlankCell,
+    aggregatedCell: AggregatedCell,
     size: 150,
   }),
   ch.accessor("biogenicShare", {
@@ -111,6 +113,7 @@ export const columns = [
     header: BiogenicShareHeader,
     cell: BiogenicShareCell,
     footer: BlankCell,
+    aggregatedCell: AggregatedCell,
     size: 130,
   }),
 ] as const satisfies ColumnDef<Activity, never>[];
