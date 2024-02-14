@@ -10,7 +10,7 @@ export const Co2eCell: FC<ActivityCellContext<"co2e">> = (props) => {
   const hasFactor = typeof co2eFactor === "number";
   const hasAmount = typeof amount === "number";
 
-  const emission = hasFactor && hasAmount ? numberFormat.format(amount * co2eFactor) : "-";
+  const emission = hasFactor && hasAmount && numberFormat.format(amount * co2eFactor);
 
   return (
     <Cell width={props.column.getSize()} className="justify-end">
