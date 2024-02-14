@@ -26,6 +26,8 @@ import { SelectHeader } from "./_components/columns/select/header";
 import { ScopeFooter } from "./_components/columns/scope/footer";
 import { BlankCell } from "./_components/table-utils/cells/blank-cell";
 import { DescriptionFooter } from "./_components/columns/description/footer";
+import { YearHeader } from "./_components/columns/year/header";
+import { YearCell } from "./_components/columns/year/cell";
 
 const ch = createColumnHelper<Activity>();
 
@@ -115,5 +117,13 @@ export const columns = [
     footer: BlankCell,
     aggregatedCell: AggregatedCell,
     size: 130,
+  }),
+  ch.accessor("year", {
+    id: "year",
+    header: YearHeader,
+    cell: YearCell,
+    footer: BlankCell,
+    aggregatedCell: AggregatedCell,
+    size: 80,
   }),
 ] as const satisfies ColumnDef<Activity, never>[];
