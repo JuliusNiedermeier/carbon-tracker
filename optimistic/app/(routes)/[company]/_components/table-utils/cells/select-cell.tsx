@@ -1,11 +1,13 @@
 import { Select, SelectContent, SelectItem } from "@/app/_components/ui/select";
 import { SelectTrigger } from "@radix-ui/react-select";
 import { ComponentProps, FC, ReactNode, useState } from "react";
+import { Cell } from "../../cell";
 
 type Props = {
   value: string;
   onValueChange?: (value: string | null) => any;
   options: { value: string; component: ReactNode }[];
+  width: number;
 };
 
 export const SelectCell: FC<Props> = (props) => {
@@ -18,7 +20,9 @@ export const SelectCell: FC<Props> = (props) => {
 
   return (
     <Select open={open} onOpenChange={setOpen} value={props.value} onValueChange={props.onValueChange}>
-      <SelectTrigger className="cell text-left">{props.options.find((option) => option.value === props.value)?.component}</SelectTrigger>
+      <Cell padding={false} width={props.width}>
+        <SelectTrigger className="px-3 h-full w-full outline-none">{props.options.find((option) => option.value === props.value)?.component}</SelectTrigger>
+      </Cell>
       {open && (
         <SelectContent onClear={handleClear}>
           {props.options.map((option) => (

@@ -2,7 +2,6 @@ import { ComponentProps, FC, useMemo } from "react";
 import { ActivityCellContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { SelectCell } from "../../table-utils/cells/select-cell";
 import { useScopes } from "../../../_hooks/use-scopes";
-import { Cell } from "../../cell";
 import { Badge } from "@/app/_components/ui/badge";
 import { useActivityGrid } from "../../providers/activity-grid-provider";
 
@@ -30,9 +29,5 @@ export const ScopeCell: FC<ActivityCellContext<"scope.name">> = (props) => {
     updateCell(props.row.original.id, "scopeId", value ? Number(value) : null);
   };
 
-  return (
-    <Cell padding={false} width={props.column.getSize()}>
-      <SelectCell options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={handleValueChange} />
-    </Cell>
-  );
+  return <SelectCell width={props.column.getSize()} options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={handleValueChange} />;
 };
