@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Cell } from "../../cell";
 import { Category } from "./category";
 import { useFactorFinder } from "../../factor-finder";
-import { Check, CheckCircle2 } from "lucide-react";
+import { Check } from "lucide-react";
 
 export const CategoryCell: FC<EmissionFactorFinderCellContext<"categoryPath">> = (props) => {
   const { selectedFactorID } = useFactorFinder();
