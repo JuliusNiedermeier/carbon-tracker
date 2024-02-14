@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 export const getEmissionFactorInfo = async (emissionFactorId: number) => {
   const emissionFactor = await db.query.EmissionFactor.findFirst({
     where: eq(EmissionFactor.id, emissionFactorId),
-    columns: { year: true, emissionFactorCategoryId: true },
+    columns: { year: true, emissionFactorCategoryId: true, co2e: true },
     with: { emissionFactorSource: { columns: { name: true } }, unit: { columns: { abbreviation: true, name: true } } },
   });
 
@@ -21,5 +21,6 @@ export const getEmissionFactorInfo = async (emissionFactorId: number) => {
     unit: emissionFactor?.unit,
     source: emissionFactor?.emissionFactorSource.name,
     year: emissionFactor?.year,
+    co2e: emissionFactor?.co2e
   };
 };
