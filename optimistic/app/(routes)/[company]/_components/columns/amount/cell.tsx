@@ -5,6 +5,7 @@ import { evaluate } from "mathjs";
 import { FunctionSquare } from "lucide-react";
 import { Cell } from "../../cell";
 import { useActivityGrid } from "../../providers/activity-grid-provider";
+import { numberFormat } from "@/app/_utils/number-formats";
 
 export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
   const { updateCell } = useActivityGrid();
@@ -32,7 +33,7 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
     // updateCell(props.row.original.id, "amount", value);
   };
 
-  const displayedValue = hasFocus ? props.row.original.amountFormula : props.getValue()?.toString();
+  const displayedValue = hasFocus ? props.row.original.amountFormula : props.getValue() ? numberFormat.format(props.getValue()!) : null;
 
   return (
     <Cell padding={false} className="items-stretch group" width={props.column.getSize()}>
