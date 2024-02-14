@@ -30,9 +30,5 @@ export const ScopeFooter: FC<ActivityHeaderContext<"scope.name">> = (props) => {
     setCandidate((previous) => ({ ...previous, scopeId: Number(value) }));
   };
 
-  return (
-    <Cell padding={false} width={props.column.getSize()}>
-      <SelectCell options={options} value={candidate.scopeId?.toString() || ""} onValueChange={handleValueChange} />
-    </Cell>
-  );
+  return <SelectCell width={props.column.getSize()} options={options} value={candidate.scopeId?.toString() || ""} onValueChange={handleValueChange} />;
 };
