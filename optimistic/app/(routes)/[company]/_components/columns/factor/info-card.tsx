@@ -2,12 +2,13 @@ import { Badge } from "@/app/_components/ui/badge";
 import { Skeleton } from "@/app/_components/ui/skeleton";
 import { FC, PropsWithChildren } from "react";
 import { useEmissionFactorInfo } from "../../../_hooks/use-emission-factor-info";
+import { numberFormat } from "@/app/_utils/number-formats";
 
 interface Props {
   emissionFactorId: number;
   emissionFactorCategoryId: number;
   unit: { abbreviation: string; name?: string | null };
-  co2e?: number;
+  co2e: number | null;
   unitMatches: boolean;
 }
 
@@ -65,7 +66,7 @@ export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCate
         <div className="flex items-center justify-between">
           <span>Factor</span>
           <Badge variant={typeof co2e === "number" ? "default" : "outline"} className="font-mono font-normal">
-            {co2e || "Not available"}
+            {co2e !== null ? numberFormat.format(co2e) : "Missing"}
           </Badge>
         </div>
       </div>
