@@ -33,6 +33,7 @@ import { YearFooter } from "./_components/columns/year/footer";
 import { DoubleCountingFooter } from "./_components/columns/double-counting/footer";
 import { BiogenicShareFooter } from "./_components/columns/biogenic-share/footer";
 import { FactorFooter } from "./_components/columns/factor/footer";
+import { AmountFooter } from "./_components/columns/amount/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -80,7 +81,7 @@ export const columns = [
     id: "amount",
     header: AmountHeader,
     cell: AmountCell,
-    footer: BlankCell,
+    footer: AmountFooter,
     aggregatedCell: AggregatedCell,
     aggregationFn: "sum",
   }),
