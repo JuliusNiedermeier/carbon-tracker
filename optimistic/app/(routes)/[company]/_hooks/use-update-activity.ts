@@ -27,6 +27,8 @@ export const useUpdateActivity = (rootCompanySlug: string) => {
     // Optimistically update local activities
     onMutate: async (variables) => {
       await qc.cancelQueries({ queryKey: ["list-activities", rootCompanySlug] });
+
+      // Map over activities to create copy of activities. Somehow this is required to make this work.
       const previousActivities = qc.getQueryData<Activity[]>(["list-activities", rootCompanySlug])?.map((activity) => ({ ...activity }));
 
       qc.setQueryData<Activity[]>(["list-activities", rootCompanySlug], (oldActivities) => {
