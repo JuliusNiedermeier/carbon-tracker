@@ -9,7 +9,7 @@ export const getEmissionFactorInfo = async (emissionFactorId: number) => {
   const emissionFactor = await db.query.EmissionFactor.findFirst({
     where: eq(EmissionFactor.id, emissionFactorId),
     columns: { year: true, emissionFactorCategoryId: true, co2e: true },
-    with: { emissionFactorSource: { columns: { name: true } }, unit: { columns: { abbreviation: true, name: true } } },
+    with: { emissionFactorSource: true, unit: true },
   });
 
   if (!emissionFactor) return null;
@@ -19,8 +19,8 @@ export const getEmissionFactorInfo = async (emissionFactorId: number) => {
   return {
     categories: categoryPath?.nodes.map(({ name }) => name) || [],
     unit: emissionFactor?.unit,
-    source: emissionFactor?.emissionFactorSource.name,
+    source: emissionFactor?.emissionFactorSource,
     year: emissionFactor?.year,
-    co2e: emissionFactor?.co2e
+    co2e: emissionFactor?.co2e,
   };
 };

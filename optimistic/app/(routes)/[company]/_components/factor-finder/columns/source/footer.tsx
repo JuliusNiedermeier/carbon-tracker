@@ -8,7 +8,7 @@ export const SourceFooter: FC<EmissionFactorFinderDisplayHeaderContext> = (props
 
   return (
     <Cell width={props.column.getSize()} className="flex-col justify-center items-start gap-1 font-medium">
-      {selectedFactorInfo?.source}
+      {selectedFactorInfo?.source.name}
     </Cell>
   );
 };
