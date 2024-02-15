@@ -32,6 +32,7 @@ import { UnitFooter } from "./_components/columns/unit/footer";
 import { YearFooter } from "./_components/columns/year/footer";
 import { DoubleCountingFooter } from "./_components/columns/double-counting/footer";
 import { BiogenicShareFooter } from "./_components/columns/biogenic-share/footer";
+import { FactorFooter } from "./_components/columns/factor/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -95,7 +96,7 @@ export const columns = [
     id: "factor",
     header: FactorHeader,
     cell: FactorCell,
-    footer: BlankCell,
+    footer: FactorFooter,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("co2e", {
