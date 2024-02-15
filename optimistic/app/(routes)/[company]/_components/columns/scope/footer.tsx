@@ -2,7 +2,6 @@ import { ComponentProps, FC, useMemo } from "react";
 import { ActivityHeaderContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { SelectCell } from "../../table-utils/cells/select-cell";
 import { useScopes } from "../../../_hooks/use-scopes";
-import { Cell } from "../../cell";
 import { Badge } from "@/app/_components/ui/badge";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
 
