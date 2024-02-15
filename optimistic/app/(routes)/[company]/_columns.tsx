@@ -29,6 +29,9 @@ import { DescriptionFooter } from "./_components/columns/description/footer";
 import { YearHeader } from "./_components/columns/year/header";
 import { YearCell } from "./_components/columns/year/cell";
 import { UnitFooter } from "./_components/columns/unit/footer";
+import { YearFooter } from "./_components/columns/year/footer";
+import { DoubleCountingFooter } from "./_components/columns/double-counting/footer";
+import { BiogenicShareFooter } from "./_components/columns/biogenic-share/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -107,7 +110,7 @@ export const columns = [
     id: "doubleCounting",
     header: DoubleCountingHeader,
     cell: DoubleCountingCell,
-    footer: BlankCell,
+    footer: DoubleCountingFooter,
     aggregatedCell: AggregatedCell,
     size: 150,
   }),
@@ -115,7 +118,7 @@ export const columns = [
     id: "biogenicShare",
     header: BiogenicShareHeader,
     cell: BiogenicShareCell,
-    footer: BlankCell,
+    footer: BiogenicShareFooter,
     aggregatedCell: AggregatedCell,
     size: 130,
   }),
@@ -123,7 +126,7 @@ export const columns = [
     id: "year",
     header: YearHeader,
     cell: YearCell,
-    footer: BlankCell,
+    footer: YearFooter,
     aggregatedCell: AggregatedCell,
     size: 80,
   }),
