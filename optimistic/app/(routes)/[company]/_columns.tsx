@@ -28,6 +28,7 @@ import { BlankCell } from "./_components/table-utils/cells/blank-cell";
 import { DescriptionFooter } from "./_components/columns/description/footer";
 import { YearHeader } from "./_components/columns/year/header";
 import { YearCell } from "./_components/columns/year/cell";
+import { UnitFooter } from "./_components/columns/unit/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -83,7 +84,7 @@ export const columns = [
     id: "unit",
     header: UnitHeader,
     cell: UnitCell,
-    footer: BlankCell,
+    footer: UnitFooter,
     aggregatedCell: AggregatedCell,
     size: 180,
   }),
