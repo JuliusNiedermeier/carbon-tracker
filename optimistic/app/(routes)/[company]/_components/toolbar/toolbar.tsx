@@ -2,9 +2,8 @@
 
 import { ComponentProps, FC, useEffect } from "react";
 import { Column, Table } from "@tanstack/react-table";
-import { Badge } from "@/app/_components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
-import { ChevronDown, ChevronsUpDown, Columns2, Eye, EyeOff } from "lucide-react";
+import { ChevronsUpDown, Columns2, Eye, EyeOff } from "lucide-react";
 import { Activity } from "../../_hooks/use-activities";
 import { BulkDeleteButton } from "./bulk-delete-button";
 import { Button } from "@/app/_components/ui/button";
@@ -13,8 +12,6 @@ export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
   const columnVisibility = table.getState().columnVisibility;
 
   const hiddenColumns = Object.keys(columnVisibility).filter((columnKey) => !columnVisibility[columnKey]);
-
-  useEffect(() => console.log(columnVisibility), [columnVisibility]);
 
   const createColumnDropdownItemClickHandler = (column: Column<Activity>): ComponentProps<typeof DropdownMenuItem>["onSelect"] => {
     const handler = column.getToggleVisibilityHandler();
