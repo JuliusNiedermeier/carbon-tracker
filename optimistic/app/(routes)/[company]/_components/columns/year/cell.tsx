@@ -7,7 +7,7 @@ const firstYear = 2015;
 const currentYear = new Date().getFullYear();
 const years = Array.from(new Array(currentYear - firstYear + 1), (v, i) => i + firstYear);
 
-const options = years.map((year) => ({ value: year.toString(), component: <span className="block w-full text-left">{year}</span> }));
+export const options = years.map((year) => ({ value: year.toString(), component: <span className="block w-full text-left">{year}</span> }));
 
 export const YearCell: FC<ActivityCellContext<"year">> = (props) => {
   const { updateCell } = useActivityGrid();
