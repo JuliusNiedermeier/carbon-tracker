@@ -2,14 +2,10 @@ import { Badge } from "@/app/_components/ui/badge";
 import { Skeleton } from "@/app/_components/ui/skeleton";
 import { FC, PropsWithChildren } from "react";
 import { useEmissionFactorInfo } from "../../../_hooks/use-emission-factor-info";
-import { numberFormat } from "@/app/_utils/number-formats";
+import { EmissionFactorValue } from "./emission-factor-value";
 
 interface Props {
   emissionFactorId: number;
-  emissionFactorCategoryId: number;
-  unit: { abbreviation: string; name?: string | null };
-  co2e: number | null;
-  unitMatches: boolean;
 }
 
 const PropertyLine: FC<PropsWithChildren> = ({ children }) => {
@@ -24,7 +20,7 @@ const PropertyValue: FC<PropsWithChildren> = ({ children }) => {
   return <span className="whitespace-nowrap font-medium text-sm">{children}</span>;
 };
 
-export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCategoryId, unit, co2e, unitMatches }) => {
+export const FactorInfoCard: FC<Props> = ({ emissionFactorId }) => {
   const { data: factorInfo, isLoading } = useEmissionFactorInfo(emissionFactorId);
 
   return (
@@ -48,14 +44,11 @@ export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCate
       <div className="border-t border-b px-4 py-4 grid gap-2">
         <PropertyLine>
           <PropertyLabel>Unit</PropertyLabel>
-          <PropertyValue>
-            <span className="whitespace-nowrap font-normal text-sm text-muted-foreground mr-4">-</span>
-            <Badge variant={unitMatches ? "default" : "destructive"}>{unit.abbreviation}</Badge>
-          </PropertyValue>
+          <PropertyValue>{factorInfo?.unit.abbreviation}</PropertyValue>
         </PropertyLine>
         <PropertyLine>
           <PropertyLabel>Published by</PropertyLabel>
-          {isLoading ? <Skeleton className="h-4 w-14" /> : <PropertyValue>{factorInfo?.source}</PropertyValue>}
+          {isLoading ? <Skeleton className="h-4 w-14" /> : <PropertyValue>{factorInfo?.source.name}</PropertyValue>}
         </PropertyLine>
         <PropertyLine>
           <PropertyLabel>Published in</PropertyLabel>
@@ -65,9 +58,7 @@ export const FactorInfoCard: FC<Props> = ({ emissionFactorId, emissionFactorCate
       <div className="bg-muted p-4">
         <div className="flex items-center justify-between">
           <span>Factor</span>
-          <Badge variant={typeof co2e === "number" ? "default" : "outline"} className="font-mono font-normal">
-            {co2e !== null ? numberFormat.format(co2e) : "Missing"}
-          </Badge>
+          <EmissionFactorValue value={factorInfo?.co2e ?? null} />
         </div>
       </div>
     </div>
