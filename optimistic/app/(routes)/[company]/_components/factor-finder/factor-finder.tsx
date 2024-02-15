@@ -6,12 +6,10 @@ import { useDebounce } from "use-debounce";
 import { Row } from "../row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 import { EmissionFactorInfo, useEmissionFactorInfo } from "../../_hooks/use-emission-factor-info";
-import { useActivityGrid } from "@/app/(routes)/[company]/_components/providers/activity-grid-provider";
 import { cn } from "@/app/_utils/cn";
 import { SearchX } from "lucide-react";
 
 type FactorFinderContext = {
-  activityID: number;
   searchTerm: string;
   setSearchTerm: Dispatch<SetStateAction<string>>;
   unitID: number | null;
@@ -21,6 +19,7 @@ type FactorFinderContext = {
   sourceID: number | null;
   setSourceID: Dispatch<SetStateAction<number | null>>;
   selectedFactorID: number | null;
+  setSelectedFactorID: FactorFinderProps["onSelect"];
   selectedFactorInfo?: EmissionFactorInfo;
 };
 
@@ -33,7 +32,7 @@ export const useFactorFinder = () => {
 };
 
 type FactorFinderProps = {
-  activityID: number;
+  onSelect: (factorID: number | null) => any;
   selectedFactorID: number | null;
   initialSearchTerm: string;
   initialUnitID?: number | null;
@@ -42,8 +41,6 @@ type FactorFinderProps = {
 };
 
 export const FactorFinder: FC<FactorFinderProps> = (props) => {
-  const { updateCell } = useActivityGrid();
-
   const [searchTerm, setSearchTerm] = useState(props.initialSearchTerm);
   const [unitID, setUnitID] = useState(props.initialUnitID || null);
   const [year, setYear] = useState(props.initialYear || null);
@@ -61,9 +58,10 @@ export const FactorFinder: FC<FactorFinderProps> = (props) => {
 
   const { data: selectedFactor, isLoading: isSelectedFactorLoading } = useEmissionFactorInfo(props.selectedFactorID);
 
-  const createFactorRowClickHandler = (factorID: number): ComponentProps<typeof Row>["onClick"] => {
-    return () => updateCell(props.activityID, "emissionFactorId", factorID);
-  };
+  const createFactorRowClickHandler =
+    (factorID: number): ComponentProps<typeof Row>["onClick"] =>
+    () =>
+      props.onSelect?.(factorID);
 
   const table = useReactTable({
     data: reccommendedFactors || [],
@@ -77,7 +75,6 @@ export const FactorFinder: FC<FactorFinderProps> = (props) => {
   return (
     <FactorFinderContext.Provider
       value={{
-        activityID: props.activityID,
         selectedFactorID: props.selectedFactorID,
         searchTerm,
         setSearchTerm,
@@ -88,6 +85,7 @@ export const FactorFinder: FC<FactorFinderProps> = (props) => {
         sourceID,
         setSourceID,
         selectedFactorInfo: selectedFactor,
+        setSelectedFactorID: props.onSelect,
       }}
     >
       <div className="grid h-full" style={{ gridTemplateRows: "min-content 1fr min-content" }}>
