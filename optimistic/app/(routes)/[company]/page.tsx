@@ -8,10 +8,9 @@ import { useActivities } from "./_hooks/use-activities";
 import { useVirtualizer } from "@/app/_utils/use-virtualizer";
 import { Toolbar } from "./_components/toolbar/toolbar";
 import { GroupToggleCell } from "./_components/table-utils/cells/group-toggle-cell";
-import { useUpdateActivity } from "./_hooks/use-update-activity";
 import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
-import { ActivityGridContext, ActivityGridProvider } from "./_components/providers/activity-grid-provider";
+import { ActivityGridProvider } from "./_components/providers/activity-grid-provider";
 import { ActivityCreatorProvider } from "./_components/providers/activity-creator-provider";
 import { ActivityCreatorToolbar } from "./_components/activity-creator/toolbar";
 import { useParams } from "next/navigation";
@@ -25,11 +24,6 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   const footerScrollElement = useRef<HTMLDivElement>(null);
 
   const activities = useActivities(params.company);
-  const updateActivity = useUpdateActivity(params.company);
-
-  const updateCell: ActivityGridContext["updateCell"] = (activityID, column, value) => {
-    updateActivity({ activityID, column, value });
-  };
 
   const table = useReactTable({
     data: activities.data || [],
@@ -55,7 +49,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   };
 
   return (
-    <ActivityGridProvider value={{ updateCell, rootCompanySlug }}>
+    <ActivityGridProvider rootCompanySlug={rootCompanySlug}>
       <div className="p-2 bg-gray-200 h-screen flex flex-col gap-2">
         <div className="py-2">
           <Toolbar table={table} />
