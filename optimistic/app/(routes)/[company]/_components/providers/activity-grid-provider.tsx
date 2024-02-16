@@ -12,7 +12,7 @@ const ActivityGridContext = createContext<ActivityGridContext | null>(null);
 type Props = { rootCompanySlug: string };
 
 export const ActivityGridProvider: FC<PropsWithChildren<Props>> = ({ rootCompanySlug, children }) => {
-  const updateActivity = useUpdateActivity("");
+  const updateActivity = useUpdateActivity(rootCompanySlug);
 
   const updateCell: ActivityGridContext["updateCell"] = (activityID, column, value) => {
     updateActivity({ activityID, column, value });
