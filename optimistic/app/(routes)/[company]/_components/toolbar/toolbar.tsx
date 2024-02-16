@@ -1,17 +1,24 @@
 "use client";
 
-import { ComponentProps, FC, useEffect } from "react";
+import { ComponentProps, FC, useEffect, useMemo } from "react";
 import { Column, Table } from "@tanstack/react-table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { ChevronsUpDown, Columns2, Eye, EyeOff } from "lucide-react";
 import { Activity } from "../../_hooks/use-activities";
 import { BulkDeleteButton } from "./bulk-delete-button";
 import { Button } from "@/app/_components/ui/button";
+import { columnMetadata } from "../../_columns";
 
 export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
-  const columnVisibility = table.getState().columnVisibility;
+  const columns = useMemo(() => {
+    const columns = table.getAllLeafColumns().filter((column) => column.getCanHide() || column.getCanSort());
+    return columns.map((column) => ({ column, meta: columnMetadata.find((meta) => meta.ID === column.id)! }));
+  }, []);
 
-  const hiddenColumns = Object.keys(columnVisibility).filter((columnKey) => !columnVisibility[columnKey]);
+  const hiddenColumnIDs = useMemo(() => {
+    const columnVisibilityState = table.getState().columnVisibility;
+    return Object.keys(columnVisibilityState).filter((columnKey) => !columnVisibilityState[columnKey]);
+  }, [table.getState]);
 
   const createColumnDropdownItemClickHandler = (column: Column<Activity>): ComponentProps<typeof DropdownMenuItem>["onSelect"] => {
     const handler = column.getToggleVisibilityHandler();
@@ -31,14 +38,14 @@ export const Toolbar: FC<{ table: Table<Activity> }> = ({ table }) => {
           <Button variant="outline" size="sm" className="gap-2 shadow-none">
             <Columns2 size="16" />
             Columns
-            {hiddenColumns.length > 0 && <span className="text-muted-foreground">{hiddenColumns.length} hidden</span>}
+            {hiddenColumnIDs.length > 0 && <span className="text-muted-foreground">{hiddenColumnIDs.length} hidden</span>}
             <ChevronsUpDown size="16" className="text-muted-foreground" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {table.getAllLeafColumns().map((column) => (
+          {columns.map(({ column, meta }) => (
             <DropdownMenuItem key={column.id} className="gap-8" onSelect={createColumnDropdownItemClickHandler(column)}>
-              <span className="flex-1">{column.id}</span>
+              <span className="flex-1">{meta.name}</span>
               {column.getIsVisible() ? <Eye size="16" /> : <EyeOff size="16" className="opacity-50" />}
             </DropdownMenuItem>
           ))}
