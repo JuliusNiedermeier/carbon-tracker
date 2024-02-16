@@ -34,6 +34,7 @@ import { DoubleCountingFooter } from "./_components/columns/double-counting/foot
 import { BiogenicShareFooter } from "./_components/columns/biogenic-share/footer";
 import { FactorFooter } from "./_components/columns/factor/footer";
 import { AmountFooter } from "./_components/columns/amount/footer";
+import { LocationFooter } from "./_components/columns/location/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -59,7 +60,7 @@ export const columns = [
     id: "location",
     header: LocationHeader,
     cell: LocationCell,
-    footer: BlankCell,
+    footer: LocationFooter,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("description", {

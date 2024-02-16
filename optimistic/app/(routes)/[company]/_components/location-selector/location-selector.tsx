@@ -17,9 +17,9 @@ import { useDeleteCompanyLocation } from "../../_hooks/use-delete-company-locati
 import { cn } from "@/app/_utils/cn";
 
 type Props = {
-  currentCompanyID: number;
-  currentLocationID: number;
-  activityID: number;
+  currentCompanyID: number | null;
+  currentLocationID: number | null;
+  onSelect: (locationID: number) => any;
 };
 
 const createCompanyHierarchy = stratify<CorporateGroupViewMember>()
@@ -31,14 +31,16 @@ const createCompanyTree = tree<CorporateGroupViewMember>().nodeSize([280, 250]);
 const nodeTypes: NodeTypes = { "company-node": CompanyNode };
 
 export const LocationSelector: FC<Props> = (props) => {
-  const { rootCompanySlug, updateCell } = useActivityGrid();
-
-  const [selectedCompanyID, setSelectedCompanyID] = useState<number>(props.currentCompanyID);
-  const [newLocationName, setNewLocationName] = useState("");
+  const { rootCompanySlug } = useActivityGrid();
 
   const { data: corporateGroup } = useCorporateGroup(rootCompanySlug);
+  const rootMember = corporateGroup?.members?.find((member) => member.parentCompanyId === null);
+
+  const [selectedCompanyID, setSelectedCompanyID] = useState<number | null>(props.currentCompanyID ?? (rootMember?.id || null));
   const { data: selectedCompany } = useCompany(selectedCompanyID);
   const { data: locations } = useCompanyLocations(selectedCompanyID);
+
+  const [newLocationName, setNewLocationName] = useState("");
 
   const deleteCompany = useDeleteCompany();
   const createCompanyLocation = useCreateCompanyLocation();
@@ -109,7 +111,7 @@ export const LocationSelector: FC<Props> = (props) => {
               key={location.id}
               name={location.name}
               selected={props.currentLocationID === location.id}
-              onSelect={() => updateCell(props.activityID, "locationId", location.id)}
+              onSelect={() => props.onSelect(location.id)}
               onDelete={() => deleteCompanyLocation({ ID: location.id })}
             />
           ))}

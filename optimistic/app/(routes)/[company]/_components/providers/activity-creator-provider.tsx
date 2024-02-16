@@ -19,7 +19,7 @@ export const useActivityCreator = () => {
 };
 
 export const ActivityCreatorProvider: FC<PropsWithChildren> = (props) => {
-  const [candidate, setCandidate] = useState<Partial<ActivityInsert>>({ locationId: 18 });
+  const [candidate, setCandidate] = useState<Partial<ActivityInsert>>({});
 
   const { success: isValidCandidate } = safeParse(ActivityInsertSchema, candidate);
 
