@@ -37,7 +37,7 @@ export const ActivityCreatorToolbar: FC<{ height: number; table: Table<Activity>
             .getAllLeafColumns()
             .filter((column) => !nonLockableColumnIDs.includes(column.id))
             .map((column) => (
-              <DropdownMenuItem className="gap-3" onSelect={createColumnLockSelectHandler(column.id)}>
+              <DropdownMenuItem key={column.id} className="gap-3" onSelect={createColumnLockSelectHandler(column.id)}>
                 <Lock size="14" className={cn({ "opacity-10": !lockedColumns.includes(column.id) })} /> {column.id}
               </DropdownMenuItem>
             ))}
