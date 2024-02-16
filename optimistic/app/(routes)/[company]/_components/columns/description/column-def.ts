@@ -16,7 +16,7 @@ export const descriptionColumnDef = {
   size: 300,
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
-export const companyColumnMeta = {
+export const descriptionColumnMeta = {
   name: "Description",
   description: "Description of the activity that has been conducted",
   dataUpdateKey: "description",
