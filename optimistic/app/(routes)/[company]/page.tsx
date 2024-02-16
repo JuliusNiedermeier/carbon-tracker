@@ -106,7 +106,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                     </div>
                   </ScrollAreaViewport>
                 </ScrollArea>
-                <ActivityCreatorToolbar height={rowHeight} />
+                <ActivityCreatorToolbar height={rowHeight} table={table} />
               </div>
             </ActivityCreatorProvider>
           </div>

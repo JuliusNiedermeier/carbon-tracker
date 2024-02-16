@@ -7,6 +7,8 @@ export type ActivityCreatorContext = {
   candidate: Partial<ActivityInsert>;
   setCandidate: Dispatch<SetStateAction<Partial<ActivityInsert>>>;
   isValidCandidate: boolean;
+  lockedColumns: string[];
+  setLockedColumns: Dispatch<SetStateAction<string[]>>;
   createActivity: ReturnType<typeof useCreateActivity>;
 };
 
@@ -20,6 +22,7 @@ export const useActivityCreator = () => {
 
 export const ActivityCreatorProvider: FC<PropsWithChildren> = (props) => {
   const [candidate, setCandidate] = useState<Partial<ActivityInsert>>({});
+  const [lockedColumns, setLockedColumns] = useState<string[]>([]);
 
   const { success: isValidCandidate } = safeParse(ActivityInsertSchema, candidate);
 
@@ -29,8 +32,22 @@ export const ActivityCreatorProvider: FC<PropsWithChildren> = (props) => {
 
   const createActivity = useCreateActivity();
 
+  const createActivityInternal: ActivityCreatorContext["createActivity"] = (variables) => {
+    createActivity(variables);
+    setCandidate((candidate) => ({}));
+  };
+
   return (
-    <ActivityCreatorContext.Provider value={{ candidate, setCandidate, isValidCandidate: isValidCandidate && isValidDescription, createActivity }}>
+    <ActivityCreatorContext.Provider
+      value={{
+        candidate,
+        setCandidate,
+        isValidCandidate: isValidCandidate && isValidDescription,
+        lockedColumns,
+        setLockedColumns,
+        createActivity: createActivityInternal,
+      }}
+    >
       {props.children}
     </ActivityCreatorContext.Provider>
   );
