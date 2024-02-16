@@ -35,6 +35,7 @@ import { BiogenicShareFooter } from "./_components/columns/biogenic-share/footer
 import { FactorFooter } from "./_components/columns/factor/footer";
 import { AmountFooter } from "./_components/columns/amount/footer";
 import { LocationFooter } from "./_components/columns/location/footer";
+import { CompanyFooter } from "./_components/columns/company/footer";
 
 const ch = createColumnHelper<Activity>();
 
@@ -53,7 +54,7 @@ export const columns = [
     id: "company",
     header: CompanyHeader,
     cell: CompanyCell,
-    footer: BlankCell,
+    footer: CompanyFooter,
     aggregatedCell: AggregatedCell,
   }),
   ch.accessor("locationName", {
