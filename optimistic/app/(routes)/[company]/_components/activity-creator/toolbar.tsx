@@ -7,8 +7,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Table } from "@tanstack/react-table";
 import { Activity } from "../../_hooks/use-activities";
 import { cn } from "@/app/_utils/cn";
+import { columnMetadata } from "../../_columns";
 
-const nonLockableColumnIDs = ["select", "company", "co2e"];
+const lockableColumnMetas = columnMetadata.filter((meta) => meta.lockable);
 
 export const ActivityCreatorToolbar: FC<{ height: number; table: Table<Activity> }> = (props) => {
   const { isValidCandidate, createActivity, candidate, setLockedColumns, lockedColumns } = useActivityCreator();
@@ -33,14 +34,11 @@ export const ActivityCreatorToolbar: FC<{ height: number; table: Table<Activity>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="-translate-x-[5px] -translate-y-1">
-          {props.table
-            .getAllLeafColumns()
-            .filter((column) => !nonLockableColumnIDs.includes(column.id))
-            .map((column) => (
-              <DropdownMenuItem key={column.id} className="gap-3" onSelect={createColumnLockSelectHandler(column.id)}>
-                <Lock size="14" className={cn({ "opacity-10": !lockedColumns.includes(column.id) })} /> {column.id}
-              </DropdownMenuItem>
-            ))}
+          {lockableColumnMetas.map((column) => (
+            <DropdownMenuItem key={column.ID} className="gap-3" onSelect={createColumnLockSelectHandler(column.ID)}>
+              <Lock size="14" className={cn({ "opacity-10": !lockedColumns.includes(column.ID) })} /> {column.name}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
       <Button
