@@ -6,9 +6,11 @@ import { UnitHeader } from "./header";
 import { UnitCell } from "./cell";
 import { UnitFooter } from "./footer";
 
+const ID = "unit";
+
 export const unitColumnDef = {
   accessorFn: ({ unit }) => unit?.abbreviation ?? "", // Should be unit?.abbreviation ?? null
-  id: "unit",
+  id: ID,
   header: UnitHeader,
   cell: UnitCell,
   footer: UnitFooter,
@@ -17,6 +19,7 @@ export const unitColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, string>; // should be string | null
 
 export const unitColumnMeta = {
+  ID,
   name: "Unit",
   description: "The unit in which the activity amount is provided",
   dataUpdateKey: "unitId",

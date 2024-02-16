@@ -6,9 +6,11 @@ import { ScopeHeader } from "./header";
 import { ScopeCell } from "./cell";
 import { ScopeFooter } from "./footer";
 
+const ID = "scope";
+
 export const scopeColumnDef = {
   accessorFn: ({ locationName }) => locationName,
-  id: "scope",
+  id: ID,
   header: ScopeHeader,
   cell: ScopeCell,
   footer: ScopeFooter,
@@ -16,6 +18,7 @@ export const scopeColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
 export const scopeColumnMeta = {
+  ID,
   name: "Scope",
   description: "The GHG Scope an activity belongs to",
   dataUpdateKey: "scopeId",

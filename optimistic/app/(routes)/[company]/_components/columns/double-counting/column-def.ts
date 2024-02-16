@@ -6,9 +6,11 @@ import { DoubleCountingFooter } from "./footer";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { BaseColumnMetaData } from "../../../_columns";
 
+const ID = "double-counting";
+
 export const doubleCountingColumnDef = {
   accessorFn: ({ doubleCounting }) => doubleCounting,
-  id: "double-counting",
+  id: ID,
   header: DoubleCountingHeader,
   cell: DoubleCountingCell,
   footer: DoubleCountingFooter,
@@ -17,6 +19,7 @@ export const doubleCountingColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, boolean | null>;
 
 export const doubleCountingColumnMeta = {
+  ID,
   name: "Double counting",
   description: "",
   dataUpdateKey: "doubleCounting",

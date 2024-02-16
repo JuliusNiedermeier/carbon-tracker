@@ -6,9 +6,11 @@ import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { BaseColumnMetaData } from "../../../_columns";
 import { BlankCell } from "../../table-utils/cells/blank-cell";
 
+const ID = "co2e-emission";
+
 export const co2eEmissionColumnDef = {
   accessorFn: ({ co2e }) => co2e,
-  id: "co2e-emission",
+  id: ID,
   header: Co2eHeader,
   cell: Co2eCell,
   footer: BlankCell,
@@ -17,6 +19,7 @@ export const co2eEmissionColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, number | null>;
 
 export const co2eEmissionColumnMeta = {
+  ID,
   name: "CO2e emission",
   description: "CO2 equivalents emitted by an activity",
   dataUpdateKey: "co2e",

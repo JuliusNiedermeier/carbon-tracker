@@ -6,9 +6,11 @@ import { YearHeader } from "./header";
 import { YearCell } from "./cell";
 import { YearFooter } from "./footer";
 
+const ID = "year";
+
 export const yearColumnDef = {
   accessorFn: ({ year }) => year, // year column in db should not be of type bigint
-  id: "year",
+  id: ID,
   header: YearHeader,
   cell: YearCell,
   footer: YearFooter,
@@ -17,6 +19,7 @@ export const yearColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, bigint | null>;
 
 export const yearColumnMeta = {
+  ID,
   name: "Year",
   description: "The year in which an activity has been conducted",
   dataUpdateKey: "year",

@@ -6,9 +6,11 @@ import { BiogenicShareFooter } from "./footer";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { BaseColumnMetaData } from "../../../_columns";
 
+const ID = "biogenic-share";
+
 export const biogenicShareColumnDef = {
   accessorFn: ({ biogenicShare }) => biogenicShare,
-  id: "biogenic-share",
+  id: ID,
   header: BiogenicShareHeader,
   cell: BiogenicShareCell,
   footer: BiogenicShareFooter,
@@ -17,6 +19,7 @@ export const biogenicShareColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, boolean | null>;
 
 export const biogenicShareColumnMeta = {
+  ID,
   name: "Biogenic share",
   description: "",
   dataUpdateKey: "biogenicShare",

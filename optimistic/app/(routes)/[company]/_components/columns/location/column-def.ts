@@ -6,9 +6,11 @@ import { LocationHeader } from "./header";
 import { LocationCell } from "./cell";
 import { LocationFooter } from "./footer";
 
+const ID = "location";
+
 export const locationColumnDef = {
   accessorFn: ({ locationName }) => locationName,
-  id: "location",
+  id: ID,
   header: LocationHeader,
   cell: LocationCell,
   footer: LocationFooter,
@@ -16,6 +18,7 @@ export const locationColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
 export const locationColumnMeta = {
+  ID,
   name: "Location",
   description: "The location at which an actiivty has been conducted",
   dataUpdateKey: "locationId",

@@ -6,8 +6,10 @@ import { SelectHeader } from "./header";
 import { SelectCell } from "./cell";
 import { BlankCell } from "../../table-utils/cells/blank-cell";
 
+const ID = "row-select";
+
 export const selectColumnDef = {
-  id: "row-select",
+  id: ID,
   header: SelectHeader,
   cell: SelectCell,
   footer: BlankCell,
@@ -19,6 +21,7 @@ export const selectColumnDef = {
 } as const satisfies DisplayColumnDef<Activity>;
 
 export const selectColumnMeta = {
+  ID,
   name: "Row select",
   description: "",
   dataUpdateKey: null,

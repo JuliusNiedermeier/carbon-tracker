@@ -14,6 +14,7 @@ import { yearColumnDef, yearColumnMeta } from "./_components/columns/year/column
 import { Activity } from "./_hooks/use-activities";
 
 export type BaseColumnMetaData = {
+  ID: string;
   name: string;
   description: string;
   dataUpdateKey: keyof Activity | null;

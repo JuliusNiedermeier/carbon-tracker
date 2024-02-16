@@ -6,9 +6,11 @@ import { DescriptionHeader } from "./header";
 import { DescriptionCell } from "./cell";
 import { DescriptionFooter } from "./footer";
 
+const ID = "description";
+
 export const descriptionColumnDef = {
   accessorFn: ({ description }) => description,
-  id: "description",
+  id: ID,
   header: DescriptionHeader,
   cell: DescriptionCell,
   footer: DescriptionFooter,
@@ -17,6 +19,7 @@ export const descriptionColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
 export const descriptionColumnMeta = {
+  ID,
   name: "Description",
   description: "Description of the activity that has been conducted",
   dataUpdateKey: "description",

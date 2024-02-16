@@ -6,9 +6,11 @@ import { AmountFooter } from "./footer";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { BaseColumnMetaData } from "../../../_columns";
 
+const ID = "amount";
+
 export const amountColumnDef = {
   accessorFn: ({ amount }) => amount,
-  id: "amount",
+  id: ID,
   header: AmountHeader,
   cell: AmountCell,
   footer: AmountFooter,
@@ -17,6 +19,7 @@ export const amountColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, number | null>;
 
 export const amountColumnMeta = {
+  ID,
   name: "Amount",
   description: "Amount of the activity",
   dataUpdateKey: "amount",

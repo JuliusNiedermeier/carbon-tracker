@@ -6,9 +6,11 @@ import { FactorCell } from "./cell";
 import { FactorFooter } from "./footer";
 import { FactorHeader } from "./header";
 
+const ID = "factor";
+
 export const factorColumnDef = {
   accessorFn: ({ factor }) => factor?.co2e ?? null,
-  id: "factor",
+  id: ID,
   header: FactorHeader,
   cell: FactorCell,
   footer: FactorFooter,
@@ -16,6 +18,7 @@ export const factorColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, number | null>;
 
 export const factorColumnMeta = {
+  ID,
   name: "Emission factor",
   description: "",
   dataUpdateKey: "emissionFactorId",

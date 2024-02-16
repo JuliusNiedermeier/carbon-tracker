@@ -1,4 +1,4 @@
-import { AccessorFnColumnDef } from "@tanstack/react-table";
+import { AccessorFnColumnDef, IdentifiedColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { BaseColumnMetaData } from "../../../_columns";
@@ -6,9 +6,11 @@ import { BlankCell } from "../../table-utils/cells/blank-cell";
 import { CompanyHeader } from "./header";
 import { CompanyCell } from "./cell";
 
+const ID = "company";
+
 export const companyColumnDef = {
   accessorFn: ({ companyName }) => companyName,
-  id: "company",
+  id: ID,
   header: CompanyHeader,
   cell: CompanyCell,
   footer: BlankCell,
@@ -16,6 +18,7 @@ export const companyColumnDef = {
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
 export const companyColumnMeta = {
+  ID,
   name: "Company",
   description: "The company under which an activity has been conducted",
   dataUpdateKey: null,
