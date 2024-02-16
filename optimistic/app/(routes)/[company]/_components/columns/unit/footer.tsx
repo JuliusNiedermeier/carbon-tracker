@@ -9,19 +9,17 @@ export const UnitFooter: FC<ActivityHeaderContext<"unit.abbreviation">> = (props
   const { candidate, setCandidate } = useActivityCreator();
   const units = useUnits();
 
-  const options = useMemo<ComponentProps<typeof SelectCell>["options"]>(
-    () =>
-      units.map((unit) => ({
-        value: unit.id.toString(),
-        component: (
-          <div className="flex items-center gap-3 overflow-hidden">
-            <Badge>{unit.abbreviation}</Badge>
-            <span className="text-ellipsis overflow-hidden">{unit.name}</span>
-          </div>
-        ),
-      })),
-    [units]
-  );
+  const options = useMemo<ComponentProps<typeof SelectCell>["options"]>(() => {
+    return units.map((unit) => ({
+      value: unit.id.toString(),
+      component: (
+        <div className="flex items-center gap-3 overflow-hidden">
+          <Badge>{unit.abbreviation}</Badge>
+          <span className="text-ellipsis overflow-hidden">{unit.name}</span>
+        </div>
+      ),
+    }));
+  }, [units]);
 
   const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
     setCandidate((previous) => ({ ...previous, unitId: Number(value) }));
