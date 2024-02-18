@@ -8,13 +8,19 @@ import { ScopeFooter } from "./footer";
 
 const ID = "scope";
 
+export const buildCompoundScopeNumber = (scope: number, subScope: number) => (scope + subScope / 100).toFixed(2);
+
 export const scopeColumnDef = {
-  accessorFn: ({ locationName }) => locationName,
+  accessorFn: ({ scope }) => (scope !== null ? buildCompoundScopeNumber(scope.scope, scope.subScope) : ""),
   id: ID,
   header: ScopeHeader,
   cell: ScopeCell,
   footer: ScopeFooter,
   aggregatedCell: AggregatedCell,
+  sortingFn: (rowA, rowB) => {
+    if (rowA.original.scope?.scope !== rowB.original.scope?.scope) return (rowA.original.scope?.scope || 0) - (rowB.original.scope?.scope || 0);
+    else return (rowA.original.scope?.subScope || 0) - (rowB.original.scope?.subScope || 0);
+  },
 } as const satisfies AccessorFnColumnDef<Activity, string>;
 
 export const scopeColumnMeta = {
