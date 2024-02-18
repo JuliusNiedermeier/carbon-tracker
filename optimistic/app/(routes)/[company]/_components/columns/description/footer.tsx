@@ -13,7 +13,7 @@ export const DescriptionFooter: FC<ActivityHeaderContext<"description">> = (prop
 
   return (
     <Cell padding={false} className="items-stretch" width={props.column.getSize()}>
-      <TransitionInput value={candidate.description} onInput={handleUpdate} className="bg-transparent outline-none px-3 w-full" />
+      <TransitionInput value={candidate.description || ""} onInput={handleUpdate} className="bg-transparent outline-none px-3 w-full" />
     </Cell>
   );
 };
