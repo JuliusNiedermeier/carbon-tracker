@@ -1,7 +1,7 @@
 import { SortIndicator } from "../../sort-indicator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { SortDirection } from "@tanstack/react-table";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { ArrowDown, ArrowUp, Check, Component, EyeOff } from "lucide-react";
 import { ActivityDisplayHeaderContext } from "../../../_utils/cell-types";
 import { Cell } from "../../cell";
@@ -14,6 +14,11 @@ export const Header: FC<Props> = (props) => {
     if (sortingState === direction) return props.ctx.column.clearSorting();
     props.ctx.column.toggleSorting(direction === "desc", true);
   };
+
+  useEffect(() => {
+    if (props.ctx.column.getIsResizing()) document.body.style.userSelect = "none";
+    else document.body.style.userSelect = "";
+  }, [props.ctx.column.getIsResizing()]);
 
   return (
     <DropdownMenu>
