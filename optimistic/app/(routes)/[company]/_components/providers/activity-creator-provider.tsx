@@ -2,6 +2,7 @@ import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useCont
 import { ActivityInsert, ActivityInsertSchema } from "@/app/_database/schema";
 import { safeParse } from "valibot";
 import { useCreateActivity } from "../../_hooks/use-create-activity";
+import { columnMetadata } from "../../_columns";
 
 export type ActivityCreatorContext = {
   candidate: Partial<ActivityInsert>;
@@ -34,7 +35,14 @@ export const ActivityCreatorProvider: FC<PropsWithChildren> = (props) => {
 
   const createActivityInternal: ActivityCreatorContext["createActivity"] = (variables) => {
     createActivity(variables);
-    setCandidate((candidate) => ({}));
+    setCandidate((candidate) => {
+      return columnMetadata
+        .filter((meta) => lockedColumns.includes(meta.ID))
+        .reduce((newCandidate, meta) => {
+          if (!meta.dataUpdateKey) return newCandidate;
+          return { ...newCandidate, [meta.dataUpdateKey]: candidate[meta.dataUpdateKey] };
+        }, {} as typeof candidate);
+    });
   };
 
   return (
