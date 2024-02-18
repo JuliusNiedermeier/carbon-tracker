@@ -34,7 +34,7 @@ export const BulkDeleteButton: FC<Props> = ({ table }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="gap-3">
+        <Button variant="destructive" size="sm" className="gap-3">
           <Trash size={16} />
           {buttonLabel}
         </Button>
