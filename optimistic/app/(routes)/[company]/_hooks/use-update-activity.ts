@@ -5,6 +5,10 @@ import { useRef } from "react";
 
 export const useUpdateActivity = (rootCompanySlug: string) => {
   const qc = useQueryClient();
+
+  // The debounce logic must differentiate between update calls to different columns.
+  // Currently any column update is canceled immediately by every other column update.
+  // A timeout map with a key for every coluzmn sounds like a viable solution to this problem.
   const updateTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const { mutate } = useMutation({
