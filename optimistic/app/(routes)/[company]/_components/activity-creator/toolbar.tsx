@@ -12,7 +12,7 @@ import { columnMetadata } from "../../_columns";
 const lockableColumnMetas = columnMetadata.filter((meta) => meta.lockable);
 
 export const ActivityCreatorToolbar: FC<{ height: number; table: Table<Activity> }> = (props) => {
-  const { isValidCandidate, createActivity, candidate, setLockedColumns, lockedColumns } = useActivityCreator();
+  const { isValidCandidate, createActivity, setLockedColumns, lockedColumns } = useActivityCreator();
 
   const createColumnLockSelectHandler = (columnID: string): ComponentProps<typeof DropdownMenuItem>["onSelect"] => {
     return (e) => {
@@ -41,11 +41,7 @@ export const ActivityCreatorToolbar: FC<{ height: number; table: Table<Activity>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <Button
-        className="h-full rounded-sm bg-emerald-600 text-emerald-200 gap-2 hover:bg-emerald-700"
-        disabled={!isValidCandidate}
-        onClick={() => createActivity(candidate as ActivityInsert)}
-      >
+      <Button className="h-full rounded-sm bg-emerald-600 text-emerald-200 gap-2 hover:bg-emerald-700" disabled={!isValidCandidate} onClick={createActivity}>
         Add activity <ChevronUp size="16" />
       </Button>
     </div>

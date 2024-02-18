@@ -14,6 +14,7 @@ import { ActivityGridProvider } from "./_components/providers/activity-grid-prov
 import { ActivityCreatorProvider } from "./_components/providers/activity-creator-provider";
 import { ActivityCreatorToolbar } from "./_components/activity-creator/toolbar";
 import { useParams } from "next/navigation";
+import { ActivityCreatorRow } from "./_components/activity-creator/row";
 
 const rowHeight = 40;
 
@@ -83,7 +84,6 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 ))}
               </Row>
             ))}
-            {/* <div className="sticky bottom-0 h-12 bg-gray-100 border-gray-200 border-t-8"></div> */}
             <div className="block" style={{ height: `${virtualizer.padding.end}px` }} />
           </ScrollAreaViewport>
         </ScrollArea>
@@ -91,9 +91,9 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
           <div className="flex w-full gap-2">
             <ScrollArea className="flex-1 bg-white border rounded-md" direction="horizontal" showBar={false}>
               <ScrollAreaViewport onScroll={createScrollHandler(gridScrollElement.current)} ref={footerScrollElement} className="h-full">
-                <div className="flex w-min" style={{ height: rowHeight }}>
+                <ActivityCreatorRow height={rowHeight}>
                   {table.getFooterGroups()[0].headers.map((footer) => flexRender(footer.column.columnDef.footer, footer.getContext()))}
-                </div>
+                </ActivityCreatorRow>
               </ScrollAreaViewport>
             </ScrollArea>
             <ActivityCreatorToolbar height={rowHeight} table={table} />

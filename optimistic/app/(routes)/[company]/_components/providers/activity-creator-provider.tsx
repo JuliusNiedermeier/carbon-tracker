@@ -10,7 +10,7 @@ export type ActivityCreatorContext = {
   isValidCandidate: boolean;
   lockedColumns: string[];
   setLockedColumns: Dispatch<SetStateAction<string[]>>;
-  createActivity: ReturnType<typeof useCreateActivity>;
+  createActivity: () => void;
 };
 
 const ActivityCreatorContext = createContext<ActivityCreatorContext | null>(null);
@@ -33,8 +33,11 @@ export const ActivityCreatorProvider: FC<PropsWithChildren> = (props) => {
 
   const createActivity = useCreateActivity();
 
-  const createActivityInternal: ActivityCreatorContext["createActivity"] = (variables) => {
-    createActivity(variables);
+  const createActivityInternal: ActivityCreatorContext["createActivity"] = () => {
+    if (!isValidCandidate) return;
+
+    createActivity(candidate as ActivityInsert);
+
     setCandidate((candidate) => {
       return columnMetadata
         .filter((meta) => lockedColumns.includes(meta.ID))
