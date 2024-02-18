@@ -19,14 +19,8 @@ export const AmountBaseCell: FC<Props> = (props) => {
   const isFormula = (props.value?.toString() ?? null) !== props.formula;
   const isInvalid = props.value === null && props.formula !== null;
 
-  const handleUpdate: ComponentProps<typeof TransitionInput>["onInput"] = (value) => {
-    try {
-      const result = evaluate(value) as number;
-      props.onUpdate(result ?? null, value || null);
-    } catch {
-      // Formula is invalid
-      props.onUpdate(null, value);
-    }
+  const handleUpdate: ComponentProps<typeof TransitionInput>["onInput"] = (formula) => {
+    props.onUpdate(evaluateFormula(formula), formula || null);
   };
 
   const displayedValue = hasFocus ? props.formula : props.value ? numberFormat.format(props.value) : null;
