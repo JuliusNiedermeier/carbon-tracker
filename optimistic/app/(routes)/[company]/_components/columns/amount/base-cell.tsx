@@ -19,8 +19,6 @@ export const AmountBaseCell: FC<Props> = (props) => {
   const isFormula = (props.value?.toString() ?? null) !== props.formula;
   const isInvalid = props.value === null && props.formula !== null;
 
-  useEffect(() => console.log(props.value, props.formula), [props.value, props.formula]);
-
   const handleUpdate: ComponentProps<typeof TransitionInput>["onInput"] = (value) => {
     try {
       const result = evaluate(value) as number;
