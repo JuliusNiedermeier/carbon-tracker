@@ -13,6 +13,7 @@ export const LocationCell: FC<ActivityCellContext<"locationName">> = (props) => 
   return (
     <LocationBaseCell
       width={props.column.getSize()}
+      locationName={props.getValue()}
       locationID={props.row.original.locationId}
       companyID={props.row.original.companyId}
       onSelect={handleSelect}

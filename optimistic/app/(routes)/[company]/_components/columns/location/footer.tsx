@@ -16,6 +16,7 @@ export const LocationFooter: FC<ActivityHeaderContext<"locationName">> = (props)
   return (
     <LocationBaseCell
       width={props.column.getSize()}
+      locationName={location?.name || ""}
       locationID={candidate.locationId ?? null}
       companyID={location?.companyId ?? null}
       onSelect={handleSelect}
