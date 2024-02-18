@@ -1,10 +1,10 @@
-import { ComponentProps, FC, useEffect, useState } from "react";
+import { ComponentProps, FC, useState } from "react";
 import { TransitionInput } from "../../../../../_components/transition-input";
-import { evaluate } from "mathjs";
 import { FunctionSquare, X } from "lucide-react";
 import { Cell } from "../../cell";
 import { numberFormat } from "@/app/_utils/number-formats";
 import { cn } from "@/app/_utils/cn";
+import { evaluateFormula } from "../../../_utils/evaluate-formula";
 
 export type Props = {
   width: number;
