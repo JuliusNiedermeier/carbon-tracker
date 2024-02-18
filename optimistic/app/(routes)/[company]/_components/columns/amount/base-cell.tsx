@@ -23,7 +23,7 @@ export const AmountBaseCell: FC<Props> = (props) => {
     props.onUpdate(evaluateFormula(formula), formula || null);
   };
 
-  const displayedValue = hasFocus ? props.formula : props.value ? numberFormat.format(props.value) : null;
+  const displayedInputValue = hasFocus ? props.formula : props.value ? numberFormat.format(props.value) : null;
 
   return (
     <Cell padding={false} className={cn("items-stretch group", { "!bg-destructive/10 !text-destructive": isInvalid })} width={props.width}>
@@ -34,14 +34,16 @@ export const AmountBaseCell: FC<Props> = (props) => {
       )}
       <TransitionInput
         className="text-right h-full px-3 outline-none flex-1 bg-transparent"
-        value={displayedValue || ""}
+        value={displayedInputValue || ""}
         onInput={handleUpdate}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
         spellCheck={false}
       />
       {isFormula && hasFocus && (
-        <div className={cn("pr-3 h-full grid place-content-center", { "text-red-500": isInvalid })}>{isInvalid ? <X size="16" /> : `= ${props.value}`}</div>
+        <div className={cn("pr-3 h-full grid place-content-center", { "text-red-500": isInvalid })}>
+          {isInvalid ? <X size="16" /> : `= ${numberFormat.format(props.value!)}`}
+        </div>
       )}
     </Cell>
   );
