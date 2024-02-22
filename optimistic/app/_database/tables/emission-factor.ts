@@ -1,6 +1,6 @@
 import { integer, pgTable, real, serial, smallint, text } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { vector } from "../custom-types";
+import { pgVector } from "../pg-vector";
 import { createdAt } from "../utils";
 import { Unit } from "./unit";
 import { Activity } from "./activity";
@@ -25,7 +25,7 @@ export const EmissionFactor = pgTable("emission_factor", {
   nf3: real("nf3"),
   sf6: real("sf6"),
   voc: real("voc"),
-  embedding: vector("embedding"),
+  embedding: pgVector("embedding"),
   createdAt,
 });
 
