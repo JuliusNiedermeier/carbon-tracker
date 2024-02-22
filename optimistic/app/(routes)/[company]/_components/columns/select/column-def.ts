@@ -1,11 +1,11 @@
 import { DisplayColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
-import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { ColumnMetaData } from "../../../_columns";
 import { SelectHeader } from "./header";
 import { SelectCell } from "./cell";
 import { BlankCell } from "../../table-utils/cells/blank-cell";
 import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
+import { SelectAggregateCell } from "./aggregate-cell";
 
 const ID = "row-select";
 
@@ -14,7 +14,7 @@ export const selectColumnDef = {
   header: SelectHeader,
   cell: SelectCell,
   footer: BlankCell,
-  aggregatedCell: AggregatedCell,
+  aggregatedCell: SelectAggregateCell,
   size: 40,
   minSize: 40,
   enableResizing: false,
