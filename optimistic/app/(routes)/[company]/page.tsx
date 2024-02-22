@@ -1,10 +1,10 @@
 "use client";
 
-import { flexRender, getCoreRowModel, getExpandedRowModel, getGroupedRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import { CellContext, flexRender, getCoreRowModel, getExpandedRowModel, getGroupedRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { ComponentProps, Fragment, useRef } from "react";
 import { cn } from "@/app/_utils/cn";
 import { columnMetadata, columns } from "./_columns";
-import { useActivities } from "./_hooks/use-activities";
+import { Activity, useActivities } from "./_hooks/use-activities";
 import { useVirtualizer } from "@/app/_utils/use-virtualizer";
 import { Toolbar } from "./_components/toolbar/toolbar";
 import { Row } from "./_components/row";
@@ -75,7 +75,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 {row.getVisibleCells().map((cell) => (
                   <Fragment key={cell.id}>
                     {cell.getIsGrouped()
-                      ? flexRender(columnMetadata.find((meta) => meta.ID === cell.column.id)?.groupToggle, cell.getContext())
+                      ? flexRender<CellContext<Activity, any>>(columnMetadata.find((meta) => meta.ID === cell.column.id)?.groupToggle, cell.getContext())
                       : cell.getIsAggregated()
                       ? flexRender(cell.column.columnDef.aggregatedCell ?? "Missing aggregated cell", cell.getContext())
                       : flexRender(cell.column.columnDef.cell, cell.getContext())}
