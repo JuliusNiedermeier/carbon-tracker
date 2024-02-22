@@ -5,7 +5,7 @@ import { BiogenicShareCell } from "./cell";
 import { BiogenicShareFooter } from "./footer";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { ColumnMetaData } from "../../../_columns";
-import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
+import { BiogenicShareGroupToggle } from "./group-toggle";
 
 const ID = "biogenic-share";
 
@@ -25,5 +25,5 @@ export const biogenicShareColumnMeta = {
   description: "",
   dataUpdateKey: "biogenicShare",
   lockable: true,
-  groupToggle: GroupToggleCell,
+  groupToggle: BiogenicShareGroupToggle,
 } as const satisfies ColumnMetaData<boolean | null>;
