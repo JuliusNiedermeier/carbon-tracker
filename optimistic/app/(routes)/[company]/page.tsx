@@ -3,11 +3,10 @@
 import { flexRender, getCoreRowModel, getExpandedRowModel, getGroupedRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { ComponentProps, Fragment, useRef } from "react";
 import { cn } from "@/app/_utils/cn";
-import { columns } from "./_columns";
+import { columnMetadata, columns } from "./_columns";
 import { useActivities } from "./_hooks/use-activities";
 import { useVirtualizer } from "@/app/_utils/use-virtualizer";
 import { Toolbar } from "./_components/toolbar/toolbar";
-import { GroupToggleCell } from "./_components/table-utils/cells/group-toggle-cell";
 import { Row } from "./_components/row";
 import { ScrollArea, ScrollAreaViewport } from "@/app/_components/ui/scroll-area";
 import { ActivityGridProvider } from "./_components/providers/activity-grid-provider";
@@ -76,7 +75,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
                 {row.getVisibleCells().map((cell) => (
                   <Fragment key={cell.id}>
                     {cell.getIsGrouped()
-                      ? flexRender(GroupToggleCell, cell.getContext())
+                      ? flexRender(columnMetadata.find((meta) => meta.ID === cell.column.id)?.groupToggle, cell.getContext())
                       : cell.getIsAggregated()
                       ? flexRender(cell.column.columnDef.aggregatedCell ?? "Missing aggregated cell", cell.getContext())
                       : flexRender(cell.column.columnDef.cell, cell.getContext())}
