@@ -1,19 +1,19 @@
 import { ComponentProps, FC } from "react";
 import { ActivityHeaderContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
-import { Cell } from "../../cell";
-import { Checkbox } from "@/app/_components/ui/checkbox";
+import { SelectCell } from "../../table-utils/cells/select-cell";
+
+const options = [
+  { value: "true", component: <span className="block text-left">Yes</span> },
+  { value: "false", component: <span className="block text-left">No</span> },
+] as const satisfies ComponentProps<typeof SelectCell>["options"];
 
 export const BiogenicShareFooter: FC<ActivityHeaderContext<"biogenicShare">> = (props) => {
   const { candidate, setCandidate } = useActivityCreator();
 
-  const onCheckedChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = (checked) => {
-    setCandidate((previous) => ({ ...previous, biogenicShare: !!checked }));
+  const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
+    setCandidate((previous) => ({ ...previous, biogenicShare: value === "true" ? true : value === "false" ? false : null }));
   };
 
-  return (
-    <Cell width={props.column.getSize()}>
-      <Checkbox checked={!!candidate.biogenicShare} onCheckedChange={onCheckedChange} />
-    </Cell>
-  );
+  return <SelectCell width={props.column.getSize()} options={options} value={String(candidate.biogenicShare)} onValueChange={handleValueChange} />;
 };
