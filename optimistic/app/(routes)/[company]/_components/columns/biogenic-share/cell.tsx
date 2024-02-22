@@ -4,8 +4,8 @@ import { useActivityGrid } from "../../providers/activity-grid-provider";
 import { SelectCell } from "../../table-utils/cells/select-cell";
 
 const options = [
-  { value: "true", component: <span>Yes</span> },
-  { value: "false", component: <span>No</span> },
+  { value: "true", component: <span className="block text-left">Yes</span> },
+  { value: "false", component: <span className="block text-left">No</span> },
 ] as const satisfies ComponentProps<typeof SelectCell>["options"];
 
 export const BiogenicShareCell: FC<ActivityCellContext<"biogenicShare">> = (props) => {
