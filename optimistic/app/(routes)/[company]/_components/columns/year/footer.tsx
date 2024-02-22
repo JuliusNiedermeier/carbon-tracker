@@ -8,7 +8,7 @@ export const YearFooter: FC<ActivityHeaderContext<"year">> = (props) => {
   const { candidate, setCandidate } = useActivityCreator();
 
   const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
-    setCandidate((previous) => ({ ...previous, year: value ? BigInt(value) : null }));
+    setCandidate((previous) => ({ ...previous, year: value ? Number(value) : null }));
   };
 
   return <SelectCell width={props.column.getSize()} options={options} value={candidate.year?.toString() || ""} onValueChange={handleValueChange} />;

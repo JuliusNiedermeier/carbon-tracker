@@ -9,14 +9,14 @@ import { YearFooter } from "./footer";
 const ID = "year";
 
 export const yearColumnDef = {
-  accessorFn: ({ year }) => year, // year column in db should not be of type bigint
+  accessorFn: ({ year }) => year,
   id: ID,
   header: YearHeader,
   cell: YearCell,
   footer: YearFooter,
   aggregatedCell: AggregatedCell,
   size: 80,
-} as const satisfies AccessorFnColumnDef<Activity, bigint | null>;
+} as const satisfies AccessorFnColumnDef<Activity, number | null>;
 
 export const yearColumnMeta = {
   ID,

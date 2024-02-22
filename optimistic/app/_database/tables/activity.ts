@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { bigint, integer, jsonb, pgTable, real, serial, text, boolean } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, real, serial, text, boolean, smallint } from "drizzle-orm/pg-core";
 import { createdAt } from "../utils";
 import { CompanyLocation } from "./company-location";
 import { Scope } from "./scope";
@@ -16,12 +16,12 @@ export const Activity = pgTable("activity", {
   description: text("description").notNull(),
   amount: real("amount"),
   amountFormula: text("amount_formula"),
-  year: bigint("year", { mode: "bigint" }),
+  year: smallint("year"),
   miscellaneous: jsonb("miscellaneous"),
   co2e: real("co2e"),
-  doubleCounting: boolean('double_counting'),
-  biogenicShare: boolean('biogenic_share'),
-  responsibility: text('responsibility'),
+  doubleCounting: boolean("double_counting"),
+  biogenicShare: boolean("biogenic_share"),
+  responsibility: text("responsibility"),
   createdAt,
 });
 

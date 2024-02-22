@@ -13,7 +13,7 @@ export const YearCell: FC<ActivityCellContext<"year">> = (props) => {
   const { updateCell } = useActivityGrid();
 
   const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
-    updateCell(props.row.original.id, "year", !value ? null : BigInt(value));
+    updateCell(props.row.original.id, "year", !value ? null : Number(value));
   };
 
   return <SelectCell width={props.column.getSize()} options={options} value={props.getValue()?.toString() || ""} onValueChange={handleValueChange} />;
