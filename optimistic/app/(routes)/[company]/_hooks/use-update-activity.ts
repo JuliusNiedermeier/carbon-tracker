@@ -50,6 +50,7 @@ export const useUpdateActivity = (rootCompanySlug: string) => {
     },
 
     // Merge the updated activity into the activity set
+    // Currently this causes a problem when updating multiple columns of the same activity in a short period of time.
     onSuccess: (updatedActivity) => {
       if (!updatedActivity) return;
       qc.setQueryData<Activity[]>(["list-activities", rootCompanySlug], (currentActivities) => {
