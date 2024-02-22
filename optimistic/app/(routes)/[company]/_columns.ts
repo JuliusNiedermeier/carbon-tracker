@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { CellContext, ColumnDef, ColumnDefBase, ColumnDefTemplate, RowData } from "@tanstack/react-table";
 import { amountColumnDef, amountColumnMeta } from "./_components/columns/amount/column-def";
 import { biogenicShareColumnDef, biogenicShareColumnMeta } from "./_components/columns/biogenic-share/column-def";
 import { selectColumnDef, selectColumnMeta } from "./_components/columns/select/column-def";
@@ -13,12 +13,13 @@ import { doubleCountingColumnDef, doubleCountingColumnMeta } from "./_components
 import { yearColumnDef, yearColumnMeta } from "./_components/columns/year/column-def";
 import { Activity } from "./_hooks/use-activities";
 
-export type BaseColumnMetaData = {
+export type ColumnMetaData<TValue> = {
   ID: string;
   name: string;
   description: string;
   dataUpdateKey: keyof Activity | null;
   lockable: boolean;
+  groupToggle: ColumnDefTemplate<CellContext<Activity, TValue>>;
 };
 
 export const columns = [
@@ -49,4 +50,4 @@ export const columnMetadata = [
   co2eEmissionColumnMeta,
   biogenicShareColumnMeta,
   doubleCountingColumnMeta,
-] as const satisfies BaseColumnMetaData[];
+] as const satisfies ColumnMetaData<any>[];

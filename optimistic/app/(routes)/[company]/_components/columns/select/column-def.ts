@@ -1,10 +1,11 @@
 import { DisplayColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
-import { BaseColumnMetaData } from "../../../_columns";
+import { ColumnMetaData } from "../../../_columns";
 import { SelectHeader } from "./header";
 import { SelectCell } from "./cell";
 import { BlankCell } from "../../table-utils/cells/blank-cell";
+import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 
 const ID = "row-select";
 
@@ -26,4 +27,5 @@ export const selectColumnMeta = {
   description: "",
   dataUpdateKey: null,
   lockable: false,
-} as const satisfies BaseColumnMetaData;
+  groupToggle: GroupToggleCell,
+} as const satisfies ColumnMetaData<never>;

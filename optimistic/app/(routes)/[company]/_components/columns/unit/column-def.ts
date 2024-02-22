@@ -1,10 +1,11 @@
 import { AccessorFnColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
-import { BaseColumnMetaData } from "../../../_columns";
+import { ColumnMetaData } from "../../../_columns";
 import { UnitHeader } from "./header";
 import { UnitCell } from "./cell";
 import { UnitFooter } from "./footer";
+import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 
 const ID = "unit";
 
@@ -24,4 +25,5 @@ export const unitColumnMeta = {
   description: "The unit in which the activity amount is provided",
   dataUpdateKey: "unitId",
   lockable: true,
-} as const satisfies BaseColumnMetaData;
+  groupToggle: GroupToggleCell,
+} as const satisfies ColumnMetaData<string>;

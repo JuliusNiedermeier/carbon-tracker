@@ -1,10 +1,11 @@
 import { AccessorFnColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
-import { BaseColumnMetaData } from "../../../_columns";
+import { ColumnMetaData } from "../../../_columns";
 import { ScopeHeader } from "./header";
 import { ScopeCell } from "./cell";
 import { ScopeFooter } from "./footer";
+import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 
 const ID = "scope";
 
@@ -29,4 +30,5 @@ export const scopeColumnMeta = {
   description: "The GHG Scope an activity belongs to",
   dataUpdateKey: "scopeId",
   lockable: true,
-} as const satisfies BaseColumnMetaData;
+  groupToggle: GroupToggleCell,
+} as const satisfies ColumnMetaData<string>;

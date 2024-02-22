@@ -3,8 +3,9 @@ import { Activity } from "../../../_hooks/use-activities";
 import { Co2eHeader } from "./header";
 import { Co2eCell } from "./cell";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
-import { BaseColumnMetaData } from "../../../_columns";
+import { ColumnMetaData } from "../../../_columns";
 import { BlankCell } from "../../table-utils/cells/blank-cell";
+import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 
 const ID = "co2e-emission";
 
@@ -24,4 +25,5 @@ export const co2eEmissionColumnMeta = {
   description: "CO2 equivalents emitted by an activity",
   dataUpdateKey: "co2e",
   lockable: false,
-} as const satisfies BaseColumnMetaData;
+  groupToggle: GroupToggleCell,
+} as const satisfies ColumnMetaData<number | null>;

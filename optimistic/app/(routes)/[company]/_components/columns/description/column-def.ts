@@ -1,10 +1,11 @@
 import { AccessorFnColumnDef } from "@tanstack/react-table";
 import { Activity } from "../../../_hooks/use-activities";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
-import { BaseColumnMetaData } from "../../../_columns";
+import { ColumnMetaData } from "../../../_columns";
 import { DescriptionHeader } from "./header";
 import { DescriptionCell } from "./cell";
 import { DescriptionFooter } from "./footer";
+import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 
 const ID = "description";
 
@@ -24,4 +25,5 @@ export const descriptionColumnMeta = {
   description: "Description of the activity that has been conducted",
   dataUpdateKey: "description",
   lockable: true,
-} as const satisfies BaseColumnMetaData;
+  groupToggle: GroupToggleCell,
+} as const satisfies ColumnMetaData<string>;
