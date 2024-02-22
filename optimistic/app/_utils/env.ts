@@ -1,5 +1,8 @@
 import { object, parse, string } from "valibot";
-import "dotenv/config";
+import { loadEnvConfig } from "@next/env";
+import { cwd } from "process";
+
+loadEnvConfig(cwd());
 
 // The actual environment variables should be located in a .env.local file at the project root.
 
