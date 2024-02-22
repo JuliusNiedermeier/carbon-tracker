@@ -1,19 +1,19 @@
 import { ComponentProps, FC } from "react";
-import { Cell } from "@/app/(routes)/[company]/_components/cell";
 import { ActivityCellContext } from "@/app/(routes)/[company]/_utils/cell-types";
-import { Checkbox } from "@/app/_components/ui/checkbox";
 import { useActivityGrid } from "../../providers/activity-grid-provider";
+import { SelectCell } from "../../table-utils/cells/select-cell";
+
+const options = [
+  { value: "true", component: <span>Yes</span> },
+  { value: "false", component: <span>No</span> },
+] as const satisfies ComponentProps<typeof SelectCell>["options"];
 
 export const BiogenicShareCell: FC<ActivityCellContext<"biogenicShare">> = (props) => {
   const { updateCell } = useActivityGrid();
 
-  const handleCheckedChange: ComponentProps<typeof Checkbox>["onCheckedChange"] = (checked) => {
-    updateCell(props.row.original.id, "biogenicShare", !!checked);
+  const handleValueChange: ComponentProps<typeof SelectCell>["onValueChange"] = (value) => {
+    updateCell(props.row.original.id, "biogenicShare", value === "true" ? true : value === "false" ? false : null);
   };
 
-  return (
-    <Cell width={props.column.getSize()}>
-      <Checkbox checked={!!props.getValue()} onCheckedChange={handleCheckedChange} />
-    </Cell>
-  );
+  return <SelectCell width={props.column.getSize()} options={options} value={String(props.getValue())} onValueChange={handleValueChange} />;
 };
