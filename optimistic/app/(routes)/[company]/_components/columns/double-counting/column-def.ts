@@ -5,7 +5,7 @@ import { DoubleCountingCell } from "./cell";
 import { DoubleCountingFooter } from "./footer";
 import { AggregatedCell } from "../../table-utils/cells/aggregated-cell";
 import { ColumnMetaData } from "../../../_columns";
-import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
+import { DoubleCountingGroupToggle } from "./group-toggle";
 
 const ID = "double-counting";
 
@@ -25,5 +25,5 @@ export const doubleCountingColumnMeta = {
   description: "",
   dataUpdateKey: "doubleCounting",
   lockable: true,
-  groupToggle: GroupToggleCell,
+  groupToggle: DoubleCountingGroupToggle,
 } as const satisfies ColumnMetaData<boolean | null>;
