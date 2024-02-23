@@ -7,6 +7,8 @@ import { LocationSelector } from "../../location-selector/location-selector";
 
 export type Props = {
   width: number;
+  pinned: ComponentProps<typeof Cell>["pinned"];
+  start: ComponentProps<typeof Cell>["start"];
   locationName: string;
   locationID: ComponentProps<typeof LocationSelector>["currentLocationID"];
   companyID: ComponentProps<typeof LocationSelector>["currentCompanyID"];
@@ -18,7 +20,7 @@ export const LocationBaseCell: FC<Props> = (props) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Cell width={props.width} padding={false}>
+      <Cell width={props.width} padding={false} pinned={props.pinned} start={props.start}>
         <DialogTrigger className={cn("w-full h-full block whitespace-nowrap px-3 text-left")}>{props.locationName}</DialogTrigger>
       </Cell>
 

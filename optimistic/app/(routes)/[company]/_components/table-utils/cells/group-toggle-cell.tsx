@@ -11,6 +11,8 @@ export const GroupToggleCell: FC<ActivityCellContext<any>> = (props) => {
       expanded={props.row.getIsExpanded()}
       disabled={!props.row.getCanExpand()}
       onClick={props.row.getToggleExpandedHandler()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
     />
   );
 };

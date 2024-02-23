@@ -15,5 +15,14 @@ export const DoubleCountingCell: FC<ActivityCellContext<"doubleCounting">> = (pr
     updateCell(props.row.original.id, "doubleCounting", value === "true" ? true : value === "false" ? false : null);
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={String(props.getValue())} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={String(props.getValue())}
+      onValueChange={handleValueChange}
+    />
+  );
 };

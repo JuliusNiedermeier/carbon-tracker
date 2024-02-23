@@ -28,5 +28,14 @@ export const UnitCell: FC<ActivityCellContext<"unit.abbreviation">> = (props) =>
     updateCell(props.row.original.id, "unitId", value ? Number(value) : null);
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={props.row.original.unitId?.toString() || ""} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={props.row.original.unitId?.toString() || ""}
+      onValueChange={handleValueChange}
+    />
+  );
 };

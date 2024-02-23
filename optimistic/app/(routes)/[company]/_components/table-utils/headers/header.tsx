@@ -2,7 +2,7 @@ import { SortIndicator } from "../../sort-indicator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/_components/ui/dropdown-menu";
 import { SortDirection } from "@tanstack/react-table";
 import { FC, useEffect } from "react";
-import { ArrowDown, ArrowUp, Check, Component, EyeOff } from "lucide-react";
+import { ArrowDown, ArrowUp, Check, Component, EyeOff, Pin, PinOff } from "lucide-react";
 import { ActivityDisplayHeaderContext } from "../../../_utils/cell-types";
 import { Cell } from "../../cell";
 
@@ -22,7 +22,12 @@ export const Header: FC<Props> = (props) => {
 
   return (
     <DropdownMenu>
-      <Cell className="overflow-visible px-0" width={props.ctx.header.getSize()}>
+      <Cell
+        className="overflow-visible px-0"
+        width={props.ctx.header.getSize()}
+        pinned={props.ctx.column.getIsPinned()}
+        start={props.ctx.column.getStart("left")}
+      >
         <DropdownMenuTrigger asChild>
           <div className="flex items-center px-3 py-4 font-medium w-full">
             <div className="mr-auto overflow-hidden">
@@ -44,17 +49,24 @@ export const Header: FC<Props> = (props) => {
           Sort ascending
           {props.ctx.column.getIsSorted() === "asc" && <Check size="16" className="ml-auto" />}
         </DropdownMenuItem>
+
         <DropdownMenuItem className="gap-4" onClick={() => handleSortingItemClick("desc")}>
           <ArrowDown size="16" />
           Sort descending
           {props.ctx.column.getIsSorted() === "desc" && <Check size="16" className="ml-auto" />}
         </DropdownMenuItem>
+
         <DropdownMenuItem className="gap-4" onClick={props.ctx.column.getToggleGroupingHandler()}>
           <Component size="16" />
           Group
           {props.ctx.column.getIsGrouped() && <Check size="16" className="ml-auto" />}
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+
+        <DropdownMenuItem className="gap-4" onClick={() => props.ctx.column.pin(props.ctx.column.getIsPinned() ? false : "left")}>
+          {props.ctx.column.getIsPinned() === "left" ? <PinOff size="16" /> : <Pin size="16" />}
+          {props.ctx.column.getIsPinned() === "left" ? "Unpin" : "Pin"} column
+        </DropdownMenuItem>
+
         <DropdownMenuItem className="gap-4" onClick={props.ctx.column.getToggleVisibilityHandler()}>
           <EyeOff size="16" />
           Hide column

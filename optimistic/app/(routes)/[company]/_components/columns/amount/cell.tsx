@@ -17,5 +17,14 @@ export const AmountCell: FC<ActivityCellContext<"amount">> = (props) => {
     );
   };
 
-  return <AmountBaseCell width={props.column.getSize()} value={props.getValue()} formula={props.row.original.amountFormula} onUpdate={handleUpdate} />;
+  return (
+    <AmountBaseCell
+      width={props.column.getSize()}
+      value={props.getValue()}
+      formula={props.row.original.amountFormula}
+      onUpdate={handleUpdate}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+    />
+  );
 };

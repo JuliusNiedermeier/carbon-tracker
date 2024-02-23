@@ -15,5 +15,14 @@ export const BiogenicShareCell: FC<ActivityCellContext<"biogenicShare">> = (prop
     updateCell(props.row.original.id, "biogenicShare", value === "true" ? true : value === "false" ? false : null);
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={String(props.getValue())} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      options={options}
+      value={String(props.getValue())}
+      onValueChange={handleValueChange}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+    />
+  );
 };

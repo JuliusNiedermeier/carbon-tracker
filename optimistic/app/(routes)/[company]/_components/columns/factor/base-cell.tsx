@@ -12,6 +12,8 @@ import { useUnits } from "../../../_hooks/use-units";
 
 export type Props = {
   width: number;
+  pinned: ComponentProps<typeof Cell>["pinned"];
+  start: ComponentProps<typeof Cell>["start"];
   co2e?: number | null;
   factorUnitID?: number | null;
   amountUnitID?: number | null;
@@ -30,7 +32,7 @@ export const FactorBaseCell: FC<Props> = (props) => {
   const isUnitMismatch = typeof props.amountUnitID === "number" && typeof props.factorUnitID === "number" && props.amountUnitID !== props.factorUnitID;
 
   return (
-    <Cell width={props.width} padding={false}>
+    <Cell width={props.width} padding={false} pinned={props.pinned} start={props.start}>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className={cn("w-full h-full block whitespace-nowrap px-3", { "bg-destructive/10 text-destructive": isUnitMismatch })}>
           <HoverCard openDelay={500}>

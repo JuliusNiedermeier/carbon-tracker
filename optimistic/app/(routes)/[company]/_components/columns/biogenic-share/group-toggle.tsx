@@ -13,6 +13,8 @@ export const BiogenicShareGroupToggle: FC<ActivityCellContext<"biogenicShare">> 
       expanded={props.row.getIsExpanded()}
       disabled={!props.row.getCanExpand()}
       onClick={props.row.getToggleExpandedHandler()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
     />
   );
 };

@@ -13,6 +13,8 @@ export const LocationCell: FC<ActivityCellContext<"locationName">> = (props) => 
   return (
     <LocationBaseCell
       width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
       locationName={props.getValue()}
       locationID={props.row.original.locationId}
       companyID={props.row.original.companyId}

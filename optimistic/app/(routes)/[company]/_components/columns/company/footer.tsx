@@ -16,5 +16,9 @@ export const CompanyFooter: FC<ActivityHeaderContext<"companyName">> = (props) =
 
   const companyName = corporateGroup?.members?.find((member) => member.id === location?.companyId)?.name;
 
-  return <Cell width={props.column.getSize()}>{companyName}</Cell>;
+  return (
+    <Cell width={props.column.getSize()} pinned={props.column.getIsPinned()} start={props.column.getStart("left")}>
+      {companyName}
+    </Cell>
+  );
 };

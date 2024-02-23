@@ -25,5 +25,14 @@ export const UnitFooter: FC<ActivityHeaderContext<"unit.abbreviation">> = (props
     setCandidate((previous) => ({ ...previous, unitId: Number(value) }));
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={candidate.unitId?.toString() || ""} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={candidate.unitId?.toString() || ""}
+      onValueChange={handleValueChange}
+    />
+  );
 };

@@ -16,5 +16,14 @@ export const YearCell: FC<ActivityCellContext<"year">> = (props) => {
     updateCell(props.row.original.id, "year", !value ? null : Number(value));
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={props.getValue()?.toString() || ""} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={props.getValue()?.toString() || ""}
+      onValueChange={handleValueChange}
+    />
+  );
 };

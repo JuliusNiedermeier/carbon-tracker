@@ -12,7 +12,7 @@ export const DescriptionFooter: FC<ActivityHeaderContext<"description">> = (prop
   };
 
   return (
-    <Cell padding={false} className="items-stretch" width={props.column.getSize()}>
+    <Cell padding={false} pinned={props.column.getIsPinned()} start={props.column.getStart("left")} className="items-stretch" width={props.column.getSize()}>
       <TransitionInput value={candidate.description || ""} onInput={handleUpdate} className="bg-transparent outline-none px-3 w-full" />
     </Cell>
   );

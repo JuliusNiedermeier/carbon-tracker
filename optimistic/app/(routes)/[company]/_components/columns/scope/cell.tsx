@@ -29,5 +29,14 @@ export const ScopeCell: FC<ActivityCellContext<"scope.name">> = (props) => {
     updateCell(props.row.original.id, "scopeId", value ? Number(value) : null);
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={props.row.original.scopeId?.toString() || ""} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={props.row.original.scopeId?.toString() || ""}
+      onValueChange={handleValueChange}
+    />
+  );
 };

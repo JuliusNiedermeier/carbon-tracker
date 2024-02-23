@@ -10,5 +10,14 @@ export const AmountFooter: FC<ActivityHeaderContext<"amount">> = (props) => {
     setCandidate((candidate) => ({ ...candidate, amount: value, amountFormula: formula }));
   };
 
-  return <AmountBaseCell width={props.column.getSize()} value={candidate.amount ?? null} formula={candidate.amountFormula ?? null} onUpdate={handleUpdate} />;
+  return (
+    <AmountBaseCell
+      width={props.column.getSize()}
+      value={candidate.amount ?? null}
+      formula={candidate.amountFormula ?? null}
+      onUpdate={handleUpdate}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+    />
+  );
 };

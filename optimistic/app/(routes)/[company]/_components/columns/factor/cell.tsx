@@ -13,6 +13,8 @@ export const FactorCell: FC<ActivityCellContext<"factor.co2e">> = (props) => {
   return (
     <FactorBaseCell
       width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
       co2e={props.getValue()}
       factorUnitID={props.row.original.factor?.unitId}
       amountUnitID={props.row.original.unitId}

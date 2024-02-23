@@ -5,7 +5,7 @@ import { numberFormat } from "@/app/_utils/number-formats";
 
 export const Co2eCell: FC<ActivityCellContext<"co2e">> = (props) => {
   return (
-    <Cell width={props.column.getSize()} className="justify-end">
+    <Cell width={props.column.getSize()} pinned={props.column.getIsPinned()} start={props.column.getStart("left")} className="justify-end">
       {props.getValue() !== null && numberFormat.format(props.getValue()!)}
     </Cell>
   );

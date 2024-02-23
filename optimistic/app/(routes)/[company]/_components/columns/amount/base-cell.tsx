@@ -10,6 +10,8 @@ export type Props = {
   width: number;
   formula: string | null;
   value: number | null;
+  pinned: ComponentProps<typeof Cell>["pinned"];
+  start: ComponentProps<typeof Cell>["start"];
   onUpdate: (value: number | null, formula: string | null) => any;
 };
 
@@ -26,7 +28,13 @@ export const AmountBaseCell: FC<Props> = (props) => {
   const displayedInputValue = hasFocus ? props.formula : props.value ? numberFormat.format(props.value) : null;
 
   return (
-    <Cell padding={false} className={cn("items-stretch group", { "!bg-destructive/10 !text-destructive": isInvalid })} width={props.width}>
+    <Cell
+      padding={false}
+      className={cn("items-stretch group", { "!bg-destructive/10 !text-destructive": isInvalid })}
+      width={props.width}
+      pinned={props.pinned}
+      start={props.start}
+    >
       {isFormula && (
         <div className="absolute left-0 top-0 bottom-0 m-2 bg-inherit opacity-25 group-focus-within:opacity-100 rounded aspect-square grid place-content-center pointer-events-none">
           <FunctionSquare size="16" />

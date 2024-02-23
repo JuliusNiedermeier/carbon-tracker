@@ -11,5 +11,14 @@ export const YearFooter: FC<ActivityHeaderContext<"year">> = (props) => {
     setCandidate((previous) => ({ ...previous, year: value ? Number(value) : null }));
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={candidate.year?.toString() || ""} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+      options={options}
+      value={candidate.year?.toString() || ""}
+      onValueChange={handleValueChange}
+    />
+  );
 };

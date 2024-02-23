@@ -16,6 +16,8 @@ export const LocationFooter: FC<ActivityHeaderContext<"locationName">> = (props)
   return (
     <LocationBaseCell
       width={props.column.getSize()}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
       locationName={location?.name || ""}
       locationID={candidate.locationId ?? null}
       companyID={location?.companyId ?? null}

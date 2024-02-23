@@ -15,5 +15,14 @@ export const BiogenicShareFooter: FC<ActivityHeaderContext<"biogenicShare">> = (
     setCandidate((previous) => ({ ...previous, biogenicShare: value === "true" ? true : value === "false" ? false : null }));
   };
 
-  return <SelectCell width={props.column.getSize()} options={options} value={String(candidate.biogenicShare)} onValueChange={handleValueChange} />;
+  return (
+    <SelectCell
+      width={props.column.getSize()}
+      options={options}
+      value={String(candidate.biogenicShare)}
+      onValueChange={handleValueChange}
+      pinned={props.column.getIsPinned()}
+      start={props.column.getStart("left")}
+    />
+  );
 };
