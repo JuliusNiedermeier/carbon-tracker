@@ -5,7 +5,7 @@ import { Cell } from "../../cell";
 
 export const SelectHeader: FC<ActivityDisplayHeaderContext> = (props) => {
   return (
-    <Cell width={props.header.getSize()}>
+    <Cell width={props.header.getSize()} pinned={props.column.getIsPinned()}>
       <Checkbox
         checked={props.table.getIsSomeRowsSelected() ? "indeterminate" : props.table.getIsAllRowsSelected()}
         onCheckedChange={(checked) => props.table.toggleAllRowsSelected(!!checked)}

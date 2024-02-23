@@ -28,6 +28,7 @@ const ActivitiesPage = ({ params }: { params: { company: string } }) => {
   const table = useReactTable({
     data: activities.data || [],
     columns,
+    initialState: { columnPinning: { left: ["row-select"] } },
     defaultColumn: {
       size: 200,
       minSize: 80,
