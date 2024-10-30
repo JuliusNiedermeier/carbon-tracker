@@ -3,6 +3,7 @@ import { ActivityHeaderContext } from "../../../_utils/cell-types";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
 import { TransitionInput } from "@/app/_components/transition-input";
 import { Cell } from "../../cell";
+import { FooterCell } from "../../table-utils/cells/footer-cell";
 
 export const DescriptionFooter: FC<ActivityHeaderContext<"description">> = (props) => {
   const { setCandidate, candidate } = useActivityCreator();
@@ -12,8 +13,10 @@ export const DescriptionFooter: FC<ActivityHeaderContext<"description">> = (prop
   };
 
   return (
-    <Cell padding={false} pinned={props.column.getIsPinned()} start={props.column.getStart("left")} className="items-stretch" width={props.column.getSize()}>
-      <TransitionInput value={candidate.description || ""} onInput={handleUpdate} className="bg-transparent outline-none px-3 w-full" />
-    </Cell>
+    <FooterCell columnID={props.column.id} width={props.column.getSize()}>
+      <Cell padding={false} pinned={props.column.getIsPinned()} start={props.column.getStart("left")} className="items-stretch" width={props.column.getSize()}>
+        <TransitionInput value={candidate.description || ""} onInput={handleUpdate} className="bg-transparent outline-none px-3 w-full" />
+      </Cell>
+    </FooterCell>
   );
 };

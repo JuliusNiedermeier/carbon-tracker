@@ -2,6 +2,7 @@ import { ComponentProps, FC } from "react";
 import { ActivityHeaderContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { AmountBaseCell } from "./base-cell";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
+import { FooterCell } from "../../table-utils/cells/footer-cell";
 
 export const AmountFooter: FC<ActivityHeaderContext<"amount">> = (props) => {
   const { candidate, setCandidate } = useActivityCreator();
@@ -11,13 +12,15 @@ export const AmountFooter: FC<ActivityHeaderContext<"amount">> = (props) => {
   };
 
   return (
-    <AmountBaseCell
-      width={props.column.getSize()}
-      value={candidate.amount ?? null}
-      formula={candidate.amountFormula ?? null}
-      onUpdate={handleUpdate}
-      pinned={props.column.getIsPinned()}
-      start={props.column.getStart("left")}
-    />
+    <FooterCell columnID={props.column.id} width={props.column.getSize()} start={props.column.getStart("left")}>
+      <AmountBaseCell
+        width={props.column.getSize()}
+        value={candidate.amount ?? null}
+        formula={candidate.amountFormula ?? null}
+        onUpdate={handleUpdate}
+        pinned={props.column.getIsPinned()}
+        start={props.column.getStart("left")}
+      />
+    </FooterCell>
   );
 };

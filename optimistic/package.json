@@ -33,6 +33,7 @@
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.3",
     "drizzle-valibot": "^0.1.1",
+    "framer-motion": "^11.0.8",
     "lucide-react": "^0.309.0",
     "mathjs": "^12.3.0",
     "nanoid": "^5.0.4",

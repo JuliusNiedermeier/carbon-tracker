@@ -2,6 +2,7 @@ import { ComponentProps, FC } from "react";
 import { ActivityHeaderContext } from "@/app/(routes)/[company]/_utils/cell-types";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
 import { SelectCell } from "../../table-utils/cells/select-cell";
+import { FooterCell } from "../../table-utils/cells/footer-cell";
 
 const options = [
   { value: "true", component: <span className="block text-left">Yes</span> },
@@ -16,13 +17,15 @@ export const BiogenicShareFooter: FC<ActivityHeaderContext<"biogenicShare">> = (
   };
 
   return (
-    <SelectCell
-      width={props.column.getSize()}
-      options={options}
-      value={String(candidate.biogenicShare)}
-      onValueChange={handleValueChange}
-      pinned={props.column.getIsPinned()}
-      start={props.column.getStart("left")}
-    />
+    <FooterCell columnID={props.column.id} width={props.column.getSize()}>
+      <SelectCell
+        width={props.column.getSize()}
+        options={options}
+        value={String(candidate.biogenicShare)}
+        onValueChange={handleValueChange}
+        pinned={props.column.getIsPinned()}
+        start={props.column.getStart("left")}
+      />
+    </FooterCell>
   );
 };

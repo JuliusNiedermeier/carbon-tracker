@@ -4,6 +4,7 @@ import { SelectCell } from "../../table-utils/cells/select-cell";
 import { Badge } from "@/app/_components/ui/badge";
 import { useActivityCreator } from "../../providers/activity-creator-provider";
 import { useUnits } from "../../../_hooks/use-units";
+import { FooterCell } from "../../table-utils/cells/footer-cell";
 
 export const UnitFooter: FC<ActivityHeaderContext<"unit.abbreviation">> = (props) => {
   const { candidate, setCandidate } = useActivityCreator();
@@ -26,13 +27,15 @@ export const UnitFooter: FC<ActivityHeaderContext<"unit.abbreviation">> = (props
   };
 
   return (
-    <SelectCell
-      width={props.column.getSize()}
-      pinned={props.column.getIsPinned()}
-      start={props.column.getStart("left")}
-      options={options}
-      value={candidate.unitId?.toString() || ""}
-      onValueChange={handleValueChange}
-    />
+    <FooterCell columnID={props.column.id} width={props.column.getSize()}>
+      <SelectCell
+        width={props.column.getSize()}
+        pinned={props.column.getIsPinned()}
+        start={props.column.getStart("left")}
+        options={options}
+        value={candidate.unitId?.toString() || ""}
+        onValueChange={handleValueChange}
+      />
+    </FooterCell>
   );
 };

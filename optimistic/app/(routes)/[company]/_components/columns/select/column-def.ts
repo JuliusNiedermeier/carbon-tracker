@@ -3,9 +3,9 @@ import { Activity } from "../../../_hooks/use-activities";
 import { ColumnMetaData } from "../../../_columns";
 import { SelectHeader } from "./header";
 import { SelectCell } from "./cell";
-import { BlankCell } from "../../table-utils/cells/blank-cell";
 import { GroupToggleCell } from "../../table-utils/cells/group-toggle-cell";
 import { SelectAggregateCell } from "./aggregate-cell";
+import { BlankCell } from "../../table-utils/cells/blank-cell";
 
 const ID = "row-select";
 

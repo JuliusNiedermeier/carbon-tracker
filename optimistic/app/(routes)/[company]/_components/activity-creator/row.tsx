@@ -14,7 +14,7 @@ export const ActivityCreatorRow: FC<PropsWithChildren<Props>> = ({ children, hei
   };
 
   return (
-    <div className="flex w-min" style={{ height }} onKeyDown={handleKeyDown}>
+    <div className="flex w-min" style={{ height: "unset" }} onKeyDown={handleKeyDown}>
       {children}
     </div>
   );
